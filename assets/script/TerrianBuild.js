@@ -29,7 +29,8 @@ cc.Class({
         baseLinePostion:cc.Vec2,
         lineNum:0,
         time:0,
-        bgm:cc.AudioSource
+        bgm:cc.AudioSource,
+        deltaTime:0,
         // foo: {
         //     // ATTRIBUTES:
         //     default: null,        // The default value will be used only when the component attaching
@@ -90,20 +91,20 @@ cc.Class({
             }
             else {
                 this.lineDirection = 1 - this.lineDirection;
-                if (this.lineDirection === 0) {
-                    this.lineSumX += this.lineMaxSize - this.lineMinSize;
-                }
-                else {
-                    this.lineSumY += this.lineMaxSize - this.lineMinSize;
-                }
+                // if (this.lineDirection === 0) {
+                //     this.lineSumX += this.lineMaxSize - this.lineMinSize;
+                // }
+                // else {
+                //     this.lineSumY += this.lineMaxSize - this.lineMinSize;
+                // }
             }
         }, this);
     },
 
     start () {
         this.lineDirection = this.baseDirection;
-        this.lineSumX = this.lineMaxSize;
-        this.lineSumY = this.lineMinSize;
+         this.lineSumX = this.lineMaxSize;
+             this.lineSumY = this.lineMinSize;
         this.time = 0;
         if(this.baseDirection === 0) {
             this.terrianSumX = (this.terrianArr[this.terrianIdx].length - 1)* this.halfSize * 2;
@@ -141,9 +142,9 @@ cc.Class({
                     line = cc.instantiate(this.baseLineX);
                 }
                 line.getComponent('SelfDestroy').setPool(this.linePool);
-                line.position = new cc.Vec2(this.baseLinePostion.x + this.lineSumX + this.lineMinSize, this.baseLinePostion.y + this.lineSumY + this.lineMaxSize);
-                this.lineSumX += 2 * this.lineMinSize * this.directionArr[this.lineDirection].x;
-                this.lineSumY += 2 * this.lineMaxSize * this.directionArr[this.lineDirection].y;
+                line.position = new cc.Vec2(this.baseLinePostion.x + this.lineSumX + this.lineMinSize * this.directionArr[this.lineDirection].x * dt / this.deltaTime, this.baseLinePostion.y + this.lineSumY + this.lineMaxSize* this.directionArr[this.lineDirection].y);
+                this.lineSumX += this.lineMinSize * this.directionArr[this.lineDirection].x *  2 * dt /this.deltaTime;
+                this.lineSumY += this.lineMaxSize * this.directionArr[this.lineDirection].y;
             }
             else {
                 if(this.linePool.size() > 0)
@@ -154,9 +155,9 @@ cc.Class({
                     line = cc.instantiate(this.baseLineY);
                 }
                 line.getComponent('SelfDestroy').setPool(this.linePool);
-                line.position = new cc.Vec2(this.baseLinePostion.x + this.lineSumX + this.lineMaxSize, this.baseLinePostion.y + this.lineSumY + this.lineMinSize);
-                this.lineSumX += 2 * this.lineMaxSize * this.directionArr[this.lineDirection].x;
-                this.lineSumY += 2 * this.lineMinSize * this.directionArr[this.lineDirection].y;
+                line.position = new cc.Vec2(this.baseLinePostion.x + this.lineSumX + this.lineMaxSize* this.directionArr[this.lineDirection].x, this.baseLinePostion.y + this.lineSumY + this.lineMinSize* this.directionArr[this.lineDirection].y * dt /this.deltaTime);
+                this.lineSumX += this.lineMaxSize * this.directionArr[this.lineDirection].x;
+                this.lineSumY +=  this.lineMinSize * this.directionArr[this.lineDirection].y * 2 * dt /this.deltaTime;
             }
             if (line != null) {
                 line.parent = this.bg;
@@ -199,7 +200,7 @@ cc.Class({
                 }
                 else {
                     //                  console.log(this.lineSumX + "---" + this.terrianSumX + "----X");
-                    if (this.lineSumX >= this.terrianSumX + this.halfSize - this.lineMaxSize * 2 || this.lineSumX <= this.terrianSumX - this.halfSize) {
+                    if (this.lineSumX >= this.terrianSumX + this.halfSize - this.lineMaxSize || this.lineSumX <= this.terrianSumX - this.halfSize ) {
                         console.log('die');
                         alert("发出GG的声音");
                         this.bOver = true;
