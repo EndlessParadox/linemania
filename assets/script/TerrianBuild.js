@@ -51,10 +51,14 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        this.build = '0000000000|10|20|30|00|30000000|20|30|00|30|20000000|10|00|10|00|10000000|00|10|00|10|00000000|10|0|1|00|10|00|10|0000|10|0|1|00|10|00|10|0000|10|0|1|00|10|000|1|0000|1|0|1|0|10|00|100000000';
+        //this.build = '0000000000|10|20|30|20|30000000|20|10|00|10|20000000|10|00|10|00|10000000|00|10|00|10|00000000|10|0|1|00|10|00|10|0000|10|0|1|00|10|00|10|0000|10|0|1|00|10|000|1|0000|1|0|1|0|10|00|100000000';
+        this.baseDirection = parseInt(this.build.slice(0,1));
         this.terrianArr = this.build.split('|');
         this.terrianIdx = 0;
         let direction = this.baseDirection;
+        //let sumX = -1 * this.directionArr[this.baseDirection].x;
+        //let sumY = -1 * this.directionArr[this.baseDirection].y;
+        //锁定从右边开始
         let sumX = -1;
         let sumY = 0;
         for(let i = 0; i < this.terrianArr.length; i ++)
@@ -119,16 +123,19 @@ cc.Class({
 
     start () {
         this.lineDirection = this.baseDirection;
-         this.lineSumX = this.lineMaxSize;
-             this.lineSumY = this.lineMinSize;
         this.time = 0;
-        if(this.baseDirection === 0) {
-            this.terrianSumX = (this.terrianArr[this.terrianIdx].length - 1)* this.halfSize * 2;
+        if(this.baseDirection === 0 || this.baseDirection === 2) {
+            this.lineSumX = this.lineMaxSize * this.directionArr[this.baseDirection].x;
+            this.lineSumY = this.lineMinSize;
+            console.log(this.directionArr[this.baseDirection].x);
+            this.terrianSumX = (this.terrianArr[this.terrianIdx].length - 1)* this.halfSize * 2 * this.directionArr[this.baseDirection].x;
             this.terrianSumY = 0;
         }
         else {
+            this.lineSumX = this.lineMinSize;
+            this.lineSumY = this.lineMaxSize * this.directionArr[this.baseDirection].y;
             this.terrianSumX = 0;
-            this.terrianSumY = (this.terrianArr[this.terrianIdx].length - 1)* this.halfSize * 2;
+            this.terrianSumY = (this.terrianArr[this.terrianIdx].length - 1)* this.halfSize * 2 * this.directionArr[this.baseDirection].y;
         }
         // this.lineNum = 4;
         // for(let i = 0; i < this.lineNum; i ++)
@@ -180,7 +187,7 @@ cc.Class({
             }
 
             if (this.nowDirecion === 0 || this.nowDirecion === 2) {
-                console.log(this.lineSumX + "---------" + this.terrianSumX);
+                //console.log(this.lineSumX + "!" + this.terrianSumX);
                 if (((this.lineSumX >= this.terrianSumX + this.lineMaxSize) && (this.nowDirecion === 0)) || ((this.lineSumX <= this.terrianSumX - this.lineMaxSize) && (this.nowDirecion === 2))) {
                     this.terrianIdx++;
                     if(this.terrianIdx >= this.terrianArr.length)
@@ -194,16 +201,16 @@ cc.Class({
                     this.terrianSumX += this.halfSize * this.directionArr[parseInt(this.terrianArr[this.terrianIdx - 1].slice(0, 1))].x;
                 }
                 else {
-                    console.log(this.lineSumY + "---" + this.terrianSumY + "----Y");
-                    if (this.lineSumY >= this.terrianSumY + this.halfSize - this.lineMaxSize || this.lineSumY <= this.terrianSumY - this.halfSize) {
-                        console.log('die');
+                    //console.log(this.lineSumY + "---" + this.terrianSumY + "----Y");
+                    if (this.lineSumY >= this.terrianSumY + this.halfSize - this.lineMaxSize || this.lineSumY <= this.terrianSumY - this.halfSize + this.lineMaxSize) {
+                        console.log('die1');
                         alert("发出GG的声音");
                         this.bOver = true;
                     }
                 }
             }
             else {
-                console.log(this.lineSumY + "---------" + this.terrianSumY);
+                //console.log(this.lineSumY + "!" + this.terrianSumY);
                 if (((this.lineSumY >= this.terrianSumY + this.lineMaxSize) && (this.nowDirecion === 1)) || ((this.lineSumY <= this.terrianSumY - this.lineMaxSize) && (this.nowDirecion === 3))) {
                     this.terrianIdx++;
                     if(this.terrianIdx >= this.terrianArr.length)
@@ -217,9 +224,9 @@ cc.Class({
                     this.terrianSumY += this.halfSize * this.directionArr[parseInt(this.terrianArr[this.terrianIdx - 1].slice(0, 1))].y;
                 }
                 else {
-                    console.log(this.lineSumX + "---" + this.terrianSumX + "----X");
-                    if (this.lineSumX >= this.terrianSumX + this.halfSize - this.lineMaxSize || this.lineSumX <= this.terrianSumX - this.halfSize ) {
-                        console.log('die');
+                    //console.log(this.lineSumX + "---" + this.terrianSumX + "----X");
+                    if (this.lineSumX >= this.terrianSumX + this.halfSize - this.lineMaxSize || this.lineSumX <= this.terrianSumX - this.halfSize + this.lineMaxSize ) {
+                        console.log('die2');
                         alert("发出GG的声音");
                         this.bOver = true;
                     }
