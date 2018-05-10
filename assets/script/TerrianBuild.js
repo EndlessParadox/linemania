@@ -31,6 +31,11 @@ cc.Class({
         time:0,
         bgm:cc.AudioSource,
         deltaTime:0,
+        diamondBase:cc.Prefab,
+        scoreLabel:cc.Label,
+        perfectArea:0,
+        diamondArea:0,
+        perfectBase:cc.Prefab,
         // foo: {
         //     // ATTRIBUTES:
         //     default: null,        // The default value will be used only when the component attaching
@@ -61,21 +66,27 @@ cc.Class({
         //锁定从右边开始
         let sumX = -1;
         let sumY = 0;
+
+        this.terrianPerfectArr = new Array();
         for(let i = 0; i < this.terrianArr.length; i ++)
         {
             let note = this.terrianArr[i].substr(0,1);
             switch (note) {
                 case '0' :
                     direction = 0;
+                    this.terrianPerfectArr.push(this.basePostion.y + (2 * sumY + 1) * this.halfSize);
                     break;
                 case '1':
                     direction = 1;
+                    this.terrianPerfectArr.push(this.basePostion.x + (2 * sumX + 1) * this.halfSize);
                     break;
                 case '2':
                     direction = 2;
+                    this.terrianPerfectArr.push(this.basePostion.y + (2 * sumY + 1) * this.halfSize);
                     break;
                 case '3':
                     direction = 3;
+                    this.terrianPerfectArr.push(this.basePostion.x + (2 * sumX + 1) * this.halfSize);
                     break;
             }
             for(let j = 0; j < this.terrianArr[i].length; j ++) {
@@ -84,6 +95,13 @@ cc.Class({
                 sumY += this.directionArr[direction].y;
                 terrian.position = new cc.Vec2(this.basePostion.x + (2 * sumX + 1) * this.halfSize, this.basePostion.y + (2 * sumY + 1) * this.halfSize);
                 terrian.parent = this.bg;
+                if(parseInt(this.terrianArr[i].substr(j,1)) === 5)
+                {
+                    let diamond = cc.instantiate(this.diamondBase);
+                    diamond.position = new cc.Vec2(terrian.position.x + ( 2 * Math.random()  - 1)* this.halfSize * this.diamondArea, terrian.position.y + ( 2 * Math.random()  - 1)* this.halfSize * this.diamondArea);
+                    DiamondMgr.getInstance().addDiamond(diamond);
+                    diamond.parent = this.bg;
+                }
             }
         }
 
@@ -104,11 +122,59 @@ cc.Class({
             }
             else {
                 if(this.terrianIdx < this.terrianArr.length) {
+                    //console.log((this.lineSumX + this.baseLinePostion.x) + "----" + this.terrianPerfectArr[this.terrianIdx]);
                     if (this.lineDirection === parseInt(this.terrianArr[this.terrianIdx].slice(0, 1))) {
                         this.lineDirection = parseInt(this.terrianArr[this.terrianIdx + 1].slice(0, 1));
                     }
                     else {
                         this.lineDirection = parseInt(this.terrianArr[this.terrianIdx].slice(0, 1));
+                    }
+
+                    if(this.lineDirection === 0 || this.lineDirection === 2)
+                    {
+                        if(Math.abs(this.lineSumY + this.baseLinePostion.y -  this.terrianPerfectArr[this.terrianIdx]) <= this.halfSize * this.perfectArea)
+                        {
+                            ScoreMgr.getInstance().addCombo();
+                            ScoreMgr.getInstance().addScore(100 * ScoreMgr.getInstance().getCombo());
+                            let perfectShow = cc.instantiate(this.perfectBase);
+                            if(perfectShow != null)
+                            {
+                                let perfectDes = perfectShow.getComponent('PerfectDestroy');
+                                if(perfectDes != null) {
+                                    perfectDes.setPerfectCombo(ScoreMgr.getInstance().getCombo());
+                                    perfectShow.position = new cc.Vec2(this.lineSumX + this.baseLinePostion.x, this.lineSumY + this.baseLinePostion.y);
+                                    perfectShow.zIndex = 999;
+                                    perfectShow.parent = this.bg;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            ScoreMgr.getInstance().clearCombo();
+                        }
+                    }
+                    else
+                    {
+                        if(Math.abs(this.lineSumX + this.baseLinePostion.x -  this.terrianPerfectArr[this.terrianIdx]) <= this.halfSize * this.perfectArea)
+                        {
+                            ScoreMgr.getInstance().addCombo();
+                            ScoreMgr.getInstance().addScore(100 * ScoreMgr.getInstance().getCombo());
+                            let perfectShow = cc.instantiate(this.perfectBase);
+                            if(perfectShow != null)
+                            {
+                                let perfectDes = perfectShow.getComponent('PerfectDestroy');
+                                if(perfectDes != null) {
+                                    perfectDes.setPerfectCombo(ScoreMgr.getInstance().getCombo());
+                                    perfectShow.position = new cc.Vec2(this.lineSumX + this.baseLinePostion.x, this.lineSumY + this.baseLinePostion.y);
+                                    perfectShow.zIndex = 999;
+                                    perfectShow.parent = this.bg;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            ScoreMgr.getInstance().clearCombo();
+                        }
                     }
                 }
                 // if (this.lineDirection === 0) {
@@ -119,6 +185,10 @@ cc.Class({
                 // }
             }
         }, this);
+
+        let manager = cc.director.getCollisionManager();
+        manager.enabled = true;
+        manager.enabledDebugDraw = true;
     },
 
     start () {
@@ -126,16 +196,29 @@ cc.Class({
         this.time = 0;
         if(this.baseDirection === 0 || this.baseDirection === 2) {
             this.lineSumX = this.lineMaxSize * this.directionArr[this.baseDirection].x;
-            this.lineSumY = this.lineMinSize;
-            console.log(this.directionArr[this.baseDirection].x);
+            this.lineSumY = 0;
             this.terrianSumX = (this.terrianArr[this.terrianIdx].length - 1)* this.halfSize * 2 * this.directionArr[this.baseDirection].x;
             this.terrianSumY = 0;
         }
         else {
-            this.lineSumX = this.lineMinSize;
+            this.lineSumX = 0;
             this.lineSumY = this.lineMaxSize * this.directionArr[this.baseDirection].y;
             this.terrianSumX = 0;
             this.terrianSumY = (this.terrianArr[this.terrianIdx].length - 1)* this.halfSize * 2 * this.directionArr[this.baseDirection].y;
+        }
+
+        let line;
+        if(this.linePool.size() > 0)
+        {
+            line = this.linePool.get();
+        }
+        else {
+            line = cc.instantiate(this.baseLineX);
+        }
+        line.getComponent('SelfDestroy').setPool(this.linePool);
+        line.position = new cc.Vec2(this.baseLinePostion.x + this.lineSumX, this.baseLinePostion.y + this.lineSumY);
+        if (line != null) {
+            line.parent = this.bg;
         }
         // this.lineNum = 4;
         // for(let i = 0; i < this.lineNum; i ++)
@@ -153,6 +236,7 @@ cc.Class({
 
     update (dt) {
         if (!this.bOver) {
+
             // this.lineSumX += this.directionArr[this.lineDirection].x;
             // this.lineSumY += this.directionArr[this.lineDirection].y;
             let line;
@@ -166,6 +250,16 @@ cc.Class({
                 }
                 line.getComponent('SelfDestroy').setPool(this.linePool);
                 line.position = new cc.Vec2(this.baseLinePostion.x + this.lineSumX + this.lineMinSize * this.directionArr[this.lineDirection].x * dt / this.deltaTime, this.baseLinePostion.y + this.lineSumY + this.lineMaxSize* this.directionArr[this.lineDirection].y);
+                DiamondMgr.getInstance().updateDiamond(line.position.x,line.position.y,this.lineMinSize,this.lineMaxSize);
+                //console.log(line.position.y + "-----" + this.terrianPerfectArr[this.terrianIdx]);
+                // if(line.position.y === this.terrianPerfectArr[this.terrianIdx])
+                // {
+                //     console.log("perfect");
+                // }
+                // else
+                // {
+                //     console.log("good");
+                // }
                 this.lineSumX += this.lineMinSize * this.directionArr[this.lineDirection].x *  2 * dt /this.deltaTime;
                 this.lineSumY += this.lineMaxSize * this.directionArr[this.lineDirection].y;
             }
@@ -179,6 +273,17 @@ cc.Class({
                 }
                 line.getComponent('SelfDestroy').setPool(this.linePool);
                 line.position = new cc.Vec2(this.baseLinePostion.x + this.lineSumX + this.lineMaxSize* this.directionArr[this.lineDirection].x, this.baseLinePostion.y + this.lineSumY + this.lineMinSize* this.directionArr[this.lineDirection].y * dt /this.deltaTime);
+                DiamondMgr.getInstance().updateDiamond(line.position.x,line.position.y,this.lineMaxSize,this.lineMinSize);
+                //console.log(line.position.x + " ---- " + (this.terrianSumX + this.baseLinePostion.x + this.lineMinSize));
+                //console.log(line.position.x + "-----" + this.terrianPerfectArr[this.terrianIdx]);
+                // if(line.position.x === this.terrianPerfectArr[this.terrianIdx])
+                // {
+                //     console.log("perfect");
+                // }
+                // else
+                // {
+                //     console.log("good");
+                // }
                 this.lineSumX += this.lineMaxSize * this.directionArr[this.lineDirection].x;
                 this.lineSumY +=  this.lineMinSize * this.directionArr[this.lineDirection].y * 2 * dt /this.deltaTime;
             }
@@ -233,9 +338,11 @@ cc.Class({
                 }
             }
 
-            let newX = this.bg.position.x - this.directionArr[this.nowDirecion].x * this.lineMinSize * 2;
-            let newY = this.bg.position.y - this.directionArr[this.nowDirecion].y * this.lineMinSize * 2;
+            let newX = this.bg.position.x - (this.directionArr[this.nowDirecion].x === 0 ? this.directionArr[this.nowDirecion].y * 0.5 : this.directionArr[this.nowDirecion].x * 0.5) * this.lineMinSize * 2;
+            let newY = this.bg.position.y - (this.directionArr[this.nowDirecion].y === 0 ? this.directionArr[this.nowDirecion].x * 0.5 : this.directionArr[this.nowDirecion].y * 0.5) * this.lineMinSize * 2;
             this.bg.position = new cc.Vec2(newX, newY);
+
+            this.scoreLabel.string = "Score:" + ScoreMgr.getInstance().getScore();
         }
     },
 });
