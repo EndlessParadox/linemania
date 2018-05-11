@@ -36,6 +36,10 @@ cc.Class({
         perfectArea:0,
         diamondArea:0,
         perfectBase:cc.Prefab,
+        offsetX:0,
+        offsetY:0,
+        baseOffset:0,
+        offset:0,
         // foo: {
         //     // ATTRIBUTES:
         //     default: null,        // The default value will be used only when the component attaching
@@ -60,6 +64,7 @@ cc.Class({
         this.baseDirection = parseInt(this.build.slice(0,1));
         this.terrianArr = this.build.split('|');
         this.terrianIdx = 0;
+        this.standardTerrianIdx = 0;
         let direction = this.baseDirection;
         //let sumX = -1 * this.directionArr[this.baseDirection].x;
         //let sumY = -1 * this.directionArr[this.baseDirection].y;
@@ -123,6 +128,58 @@ cc.Class({
             else {
                 if(this.terrianIdx < this.terrianArr.length) {
                     //console.log((this.lineSumX + this.baseLinePostion.x) + "----" + this.terrianPerfectArr[this.terrianIdx]);
+
+                    if(this.lineDirection === 1 || this.lineDirection === 3)
+                    {
+                            if (Math.abs(this.lineSumY + this.baseLinePostion.y - this.terrianPerfectArr[this.terrianIdx]) <= this.halfSize * this.perfectArea) {
+                                ScoreMgr.getInstance().addCombo();
+                                ScoreMgr.getInstance().addScore(100 * ScoreMgr.getInstance().getCombo());
+                                let perfectShow = cc.instantiate(this.perfectBase);
+                                if (perfectShow != null) {
+                                    let perfectDes = perfectShow.getComponent('PerfectDestroy');
+                                    if (perfectDes != null) {
+                                        perfectDes.setPerfectCombo(ScoreMgr.getInstance().getCombo());
+                                        perfectShow.position = new cc.Vec2(this.lineSumX + this.baseLinePostion.x, this.lineSumY + this.baseLinePostion.y);
+                                        perfectShow.zIndex = 999;
+                                        perfectShow.parent = this.bg;
+                                    }
+                                }
+                            }
+                            else {
+                                // console.log(this.lineSumY + " ---" + this.terrianStandardSumY + "____________Y");
+                                //this.offset += (this.lineSumY + this.baseLinePostion.y -  this.terrianPerfectArr[this.terrianIdx]) * this.directionArr[this.lineDirection].y;
+                                this.offsetY = (this.lineSumY - this.terrianSumY) * this.directionArr[this.lineDirection].y;
+                                //console.log(this.lineSumY + this.baseLinePostion.y -  this.terrianPerfectArr[this.terrianIdx]);
+                                // console.log(this.offsetY + "YYYY");
+                                ScoreMgr.getInstance().clearCombo();
+                            }
+                    }
+                    else
+                    {
+                            if (Math.abs(this.lineSumX + this.baseLinePostion.x - this.terrianPerfectArr[this.terrianIdx]) <= this.halfSize * this.perfectArea) {
+                                ScoreMgr.getInstance().addCombo();
+                                ScoreMgr.getInstance().addScore(100 * ScoreMgr.getInstance().getCombo());
+                                let perfectShow = cc.instantiate(this.perfectBase);
+                                if (perfectShow != null) {
+                                    let perfectDes = perfectShow.getComponent('PerfectDestroy');
+                                    if (perfectDes != null) {
+                                        perfectDes.setPerfectCombo(ScoreMgr.getInstance().getCombo());
+                                        perfectShow.position = new cc.Vec2(this.lineSumX + this.baseLinePostion.x, this.lineSumY + this.baseLinePostion.y);
+                                        perfectShow.zIndex = 999;
+                                        perfectShow.parent = this.bg;
+                                    }
+                                }
+                            }
+                            else {
+                                //this.offset += (this.lineSumX + this.baseLinePostion.x -  this.terrianPerfectArr[this.terrianIdx]) * this.directionArr[this.lineDirection].x;
+                                // console.log(this.lineSumX + " ---" + this.terrianStandardSumX + "____________X");
+                                this.offsetX = (this.lineSumX - this.terrianSumX) * this.directionArr[this.lineDirection].x;
+                                //console.log(this.lineSumX + this.baseLinePostion.x -  this.terrianPerfectArr[this.terrianIdx]);
+                                // console.log( this.offsetX + "XXXX");
+                                ScoreMgr.getInstance().clearCombo();
+                            }
+                    }
+
                     if (this.lineDirection === parseInt(this.terrianArr[this.terrianIdx].slice(0, 1))) {
                         this.lineDirection = parseInt(this.terrianArr[this.terrianIdx + 1].slice(0, 1));
                     }
@@ -130,52 +187,6 @@ cc.Class({
                         this.lineDirection = parseInt(this.terrianArr[this.terrianIdx].slice(0, 1));
                     }
 
-                    if(this.lineDirection === 0 || this.lineDirection === 2)
-                    {
-                        if(Math.abs(this.lineSumY + this.baseLinePostion.y -  this.terrianPerfectArr[this.terrianIdx]) <= this.halfSize * this.perfectArea)
-                        {
-                            ScoreMgr.getInstance().addCombo();
-                            ScoreMgr.getInstance().addScore(100 * ScoreMgr.getInstance().getCombo());
-                            let perfectShow = cc.instantiate(this.perfectBase);
-                            if(perfectShow != null)
-                            {
-                                let perfectDes = perfectShow.getComponent('PerfectDestroy');
-                                if(perfectDes != null) {
-                                    perfectDes.setPerfectCombo(ScoreMgr.getInstance().getCombo());
-                                    perfectShow.position = new cc.Vec2(this.lineSumX + this.baseLinePostion.x, this.lineSumY + this.baseLinePostion.y);
-                                    perfectShow.zIndex = 999;
-                                    perfectShow.parent = this.bg;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            ScoreMgr.getInstance().clearCombo();
-                        }
-                    }
-                    else
-                    {
-                        if(Math.abs(this.lineSumX + this.baseLinePostion.x -  this.terrianPerfectArr[this.terrianIdx]) <= this.halfSize * this.perfectArea)
-                        {
-                            ScoreMgr.getInstance().addCombo();
-                            ScoreMgr.getInstance().addScore(100 * ScoreMgr.getInstance().getCombo());
-                            let perfectShow = cc.instantiate(this.perfectBase);
-                            if(perfectShow != null)
-                            {
-                                let perfectDes = perfectShow.getComponent('PerfectDestroy');
-                                if(perfectDes != null) {
-                                    perfectDes.setPerfectCombo(ScoreMgr.getInstance().getCombo());
-                                    perfectShow.position = new cc.Vec2(this.lineSumX + this.baseLinePostion.x, this.lineSumY + this.baseLinePostion.y);
-                                    perfectShow.zIndex = 999;
-                                    perfectShow.parent = this.bg;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            ScoreMgr.getInstance().clearCombo();
-                        }
-                    }
                 }
                 // if (this.lineDirection === 0) {
                 //     this.lineSumX += this.lineMaxSize - this.lineMinSize;
@@ -185,10 +196,6 @@ cc.Class({
                 // }
             }
         }, this);
-
-        let manager = cc.director.getCollisionManager();
-        manager.enabled = true;
-        manager.enabledDebugDraw = true;
     },
 
     start () {
@@ -206,6 +213,12 @@ cc.Class({
             this.terrianSumX = 0;
             this.terrianSumY = (this.terrianArr[this.terrianIdx].length - 1)* this.halfSize * 2 * this.directionArr[this.baseDirection].y;
         }
+
+        //基准线
+        this.standardSumX = this.lineSumX;
+        this.standardSumY = this.lineSumY;
+        this.terrianStandardSumX = this.terrianSumX;
+        this.terrianStandardSumY = this.terrianSumY;
 
         let line;
         if(this.linePool.size() > 0)
@@ -231,12 +244,15 @@ cc.Class({
         // }
         this.nowDirecion = this.baseDirection;
 
+        this.standardDirecion = this.baseDirection;
+
         this.bOver = true;
     },
 
     update (dt) {
         if (!this.bOver) {
 
+            console.log(this.offset);
             // this.lineSumX += this.directionArr[this.lineDirection].x;
             // this.lineSumY += this.directionArr[this.lineDirection].y;
             let line;
@@ -247,6 +263,21 @@ cc.Class({
                 }
                 else {
                     line = cc.instantiate(this.baseLineX);
+                }
+                //console.log(this.offsetX + "---- X");
+                if(this.offsetY !== 0)
+                {
+                    if(Math.abs(this.offsetY) < this.baseOffset )
+                    {
+                        this.lineSumX += this.offsetY * this.directionArr[this.lineDirection].x;
+                        this.offsetY -= this.offsetY;
+                    }
+                    else
+                    {
+                        //this.lineSumX -= this.offset > 0 ? this.baseOffset : this.baseOffset * -1;
+                        this.lineSumX += (this.offsetY > 0 ? this.baseOffset : this.baseOffset * -1) * this.directionArr[this.lineDirection].x;
+                        this.offsetY -= this.offsetY > 0 ? this.baseOffset: this.baseOffset * -1;
+                    }
                 }
                 line.getComponent('SelfDestroy').setPool(this.linePool);
                 line.position = new cc.Vec2(this.baseLinePostion.x + this.lineSumX + this.lineMinSize * this.directionArr[this.lineDirection].x * dt / this.deltaTime, this.baseLinePostion.y + this.lineSumY + this.lineMaxSize* this.directionArr[this.lineDirection].y);
@@ -271,6 +302,21 @@ cc.Class({
                 else {
                     line = cc.instantiate(this.baseLineY);
                 }
+                //console.log(this.offsetY + "---- Y");
+                if(this.offsetX !== 0)
+                {
+                    if(Math.abs(this.offsetX) <= this.baseOffset)
+                    {
+                        this.lineSumY += this.offsetX *  this.directionArr[this.lineDirection].y;
+                        this.offsetX -= this.offsetX;
+                    }
+                    else
+                    {
+                        this.lineSumY += (this.offsetX > 0 ? this.baseOffset : this.baseOffset * -1) * this.directionArr[this.lineDirection].y;
+                        this.offsetX -= this.offsetX > 0 ? this.baseOffset: this.baseOffset * -1 ;
+                    }
+                }
+
                 line.getComponent('SelfDestroy').setPool(this.linePool);
                 line.position = new cc.Vec2(this.baseLinePostion.x + this.lineSumX + this.lineMaxSize* this.directionArr[this.lineDirection].x, this.baseLinePostion.y + this.lineSumY + this.lineMinSize* this.directionArr[this.lineDirection].y * dt /this.deltaTime);
                 DiamondMgr.getInstance().updateDiamond(line.position.x,line.position.y,this.lineMaxSize,this.lineMinSize);
@@ -338,11 +384,71 @@ cc.Class({
                 }
             }
 
-            let newX = this.bg.position.x - (this.directionArr[this.nowDirecion].x === 0 ? this.directionArr[this.nowDirecion].y * 0.5 : this.directionArr[this.nowDirecion].x * 0.5) * this.lineMinSize * 2;
-            let newY = this.bg.position.y - (this.directionArr[this.nowDirecion].y === 0 ? this.directionArr[this.nowDirecion].x * 0.5 : this.directionArr[this.nowDirecion].y * 0.5) * this.lineMinSize * 2;
+
+            //基准线
+            if (this.standardDirecion === 0 || this.standardDirecion === 2) {
+                this.standardSumX += this.lineMinSize * this.directionArr[this.standardDirecion].x *  2 * dt /this.deltaTime;
+                this.standardSumY += this.lineMaxSize * this.directionArr[this.standardDirecion].y;
+            }
+            else {
+                this.standardSumX += this.lineMaxSize * this.directionArr[this.standardDirecion].x;
+                this.standardSumY +=  this.lineMinSize * this.directionArr[this.standardDirecion].y * 2 * dt /this.deltaTime;
+            }
+
+            if (this.standardDirecion === 0 || this.standardDirecion === 2) {
+                //console.log(this.lineSumX + "!" + this.terrianSumX);
+                if (((this.standardSumX >= this.terrianStandardSumX + this.lineMaxSize) && (this.standardDirecion === 0)) || ((this.standardSumX <= this.terrianStandardSumX - this.lineMaxSize) && (this.standardDirecion === 2))) {
+                    this.standardTerrianIdx++;
+                    if(this.standardTerrianIdx >= this.terrianArr.length)
+                    {
+                        // alert("发出胜利的声音");
+                        // this.bOver = true;
+                        return;
+                    }
+                    this.standardDirecion = parseInt(this.terrianArr[this.standardTerrianIdx].slice(0, 1));
+                    this.terrianStandardSumY += ((this.terrianArr[this.standardTerrianIdx].length - 1) * this.halfSize * 2 + this.halfSize) * this.directionArr[this.standardDirecion].y;
+                    this.terrianStandardSumX += this.halfSize * this.directionArr[parseInt(this.terrianArr[this.standardTerrianIdx - 1].slice(0, 1))].x;
+                }
+                else {
+                    //console.log(this.lineSumY + "---" + this.terrianSumY + "----Y");
+                    // if (this.lineSumY >= this.terrianSumY + this.halfSize - this.lineMaxSize || this.lineSumY <= this.terrianSumY - this.halfSize + this.lineMaxSize) {
+                    //     console.log('die1');
+                    //     alert("发出GG的声音");
+                    //     this.bOver = true;
+                    // }
+                }
+            }
+            else {
+                //console.log(this.lineSumY + "!" + this.terrianSumY);
+                if (((this.standardSumY >= this.terrianStandardSumY + this.lineMaxSize) && (this.standardDirecion === 1)) || ((this.standardSumY <= this.terrianStandardSumY - this.lineMaxSize) && (this.standardDirecion === 3))) {
+                    this.standardTerrianIdx++;
+                    if(this.standardTerrianIdx >= this.terrianArr.length)
+                    {
+                        // alert("发出胜利的声音");
+                        // this.bOver = true;
+                        return;
+                    }
+                    this.standardDirecion = parseInt(this.terrianArr[this.standardTerrianIdx].slice(0, 1));
+                    this.terrianStandardSumX += ((this.terrianArr[this.standardTerrianIdx].length - 1) * this.halfSize * 2 + this.halfSize)* this.directionArr[this.standardDirecion].x;
+                    this.terrianStandardSumY += this.halfSize * this.directionArr[parseInt(this.terrianArr[this.standardTerrianIdx - 1].slice(0, 1))].y;
+                }
+                else {
+                    // //console.log(this.lineSumX + "---" + this.terrianSumX + "----X");
+                    // if (this.lineSumX >= this.terrianSumX + this.halfSize - this.lineMaxSize || this.lineSumX <= this.terrianSumX - this.halfSize + this.lineMaxSize ) {
+                    //     console.log('die2');
+                    //     alert("发出GG的声音");
+                    //     this.bOver = true;
+                    // }
+                }
+            }
+
+
+
+            let newX = this.bg.position.x - this.directionArr[this.nowDirecion].x * this.lineMinSize * 2;
+            let newY = this.bg.position.y - this.directionArr[this.nowDirecion].y * this.lineMinSize * 2;
             this.bg.position = new cc.Vec2(newX, newY);
 
-            this.scoreLabel.string = "Score:" + ScoreMgr.getInstance().getScore();
+            this.scoreLabel.string = "Score:" + ScoreMgr.getInstance().getScore() + "---!!" + this.offset;
         }
     },
 });

@@ -200,8 +200,8 @@
       "width": 0,
       "height": 0
     },
-    "_rotationX": 45,
-    "_rotationY": 45,
+    "_rotationX": 0,
+    "_rotationY": 0,
     "_scaleX": 1,
     "_scaleY": 1,
     "_position": {
@@ -408,7 +408,11 @@
     "diamondArea": 0.7,
     "perfectBase": {
       "__uuid__": "07e5c4c7-6fc7-4db4-a35c-2f2e418f0529"
-    }
+    },
+    "offsetX": 0,
+    "offsetY": 0,
+    "baseOffset": 1,
+    "offset": 0
   },
   {
     "__type__": "cc.AudioSource",
