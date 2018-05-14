@@ -10,7 +10,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "XLineBase",
+    "_name": "TerrianCPBase",
     "_objFlags": 0,
     "_parent": null,
     "_children": [
@@ -82,9 +82,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 243,
-      "g": 27,
-      "b": 62,
+      "r": 13,
+      "g": 238,
+      "b": 58,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -95,8 +95,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 20,
-      "height": 20
+      "width": 60,
+      "height": 60
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -146,9 +146,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "e49a5c8e-3c65-47e3-89ce-12014226331f"
+      "__id__": 0
     },
-    "fileId": "4ab0180Q1IJr9LOi7+QGwO",
+    "fileId": "315wn3f85D5I4jBBJbF6/z",
     "sync": false
   },
   {
@@ -157,9 +157,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "e49a5c8e-3c65-47e3-89ce-12014226331f"
+      "__id__": 0
     },
-    "fileId": "80DYNIYbFGX5P+vOyJSycA",
+    "fileId": "30u5v+vuBDYIpqLnVyS0B0",
     "sync": false
   }
 ]
