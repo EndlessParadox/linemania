@@ -12,7 +12,7 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        destroyTime:0,
+        progressBar: cc.ProgressBar,
         // foo: {
         //     // ATTRIBUTES:
         //     default: null,        // The default value will be used only when the component attaching
@@ -35,29 +35,16 @@ cc.Class({
     // onLoad () {},
 
     start () {
-        this.updateFlag = false;
+
     },
 
-    setPool(pool){
-        this.pool = pool;
-        this.waitTime = this.destroyTime;
-    },
-
-    setUpdateFlag(flag)
+    setPg(pg)
     {
-        this.updateFlag = flag;
-    },
-
-    dieAtOnce()
-    {
-        this.updateFlag = false;
-        this.pool.put(this.node);
-    },
-
-    update (dt) {
-        this.waitTime -= dt;
-        if (this.waitTime <= 0) {
-            this.pool.put(this.node);
+        if(this.progressBar != null) {
+            this.progressBar.progress = pg;
         }
     },
+
+    // update (dt) {
+    // },
 });

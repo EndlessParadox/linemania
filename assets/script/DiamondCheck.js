@@ -41,7 +41,7 @@ cc.Class({
 
     onLineUpdate(x,y,lineSizeX,lineSizeY)
     {
-        if(Math.abs(this.node.position.x - x)<= lineSizeX + this.diamondSize && Math.abs(this.node.position.y - y)<= lineSizeY + this.diamondSize)
+        if((Math.abs(this.node.position.x - x) <= (lineSizeX + this.diamondSize)) && (Math.abs(this.node.position.y - y)<= (lineSizeY + this.diamondSize)))
         {
             ScoreMgr.getInstance().addScore(this.score);
             this.node.destroy();
