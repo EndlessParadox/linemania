@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "74f76721-8c7c-417d-be91-2de6d854fb1f",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "跳舞的球": {
+      "ver": "1.0.3",
+      "uuid": "bbe46c94-1435-4cca-b3bd-cfe0ab4cc6da",
+      "rawTextureUuid": "74f76721-8c7c-417d-be91-2de6d854fb1f",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0.5,
+      "offsetY": -164.5,
+      "trimX": 5,
+      "trimY": 337,
+      "width": 213,
+      "height": 213,
+      "rawWidth": 222,
+      "rawHeight": 558,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

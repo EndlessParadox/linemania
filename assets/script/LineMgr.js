@@ -24,6 +24,7 @@
             if(line != null)
             {
                 line.opacity = 0;
+                line.active = false;
                 this.pool.push(line);
             }
         }
@@ -50,6 +51,7 @@
         line = this.pool.shift();
         if(line != null) {
             line.opacity = 255;
+            line.active = true;
         }
         return line;
     };

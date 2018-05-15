@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "fea3b07e-175b-4f63-90e2-fe1ea67afdf8",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "跳舞的猫块": {
+      "ver": "1.0.3",
+      "uuid": "b08b6c92-a136-4692-9b1b-f5060a0658e7",
+      "rawTextureUuid": "fea3b07e-175b-4f63-90e2-fe1ea67afdf8",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0.5,
+      "offsetY": -164.5,
+      "trimX": 19,
+      "trimY": 351,
+      "width": 185,
+      "height": 185,
+      "rawWidth": 222,
+      "rawHeight": 558,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
