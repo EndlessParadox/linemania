@@ -95,8 +95,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 60,
-      "height": 60
+      "width": 120,
+      "height": 120
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -146,7 +146,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "1fc95e44-8823-4aed-a992-1b8b463e6975"
     },
     "fileId": "315wn3f85D5I4jBBJbF6/z",
     "sync": false
@@ -157,7 +157,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "1fc95e44-8823-4aed-a992-1b8b463e6975"
     },
     "fileId": "30u5v+vuBDYIpqLnVyS0B0",
     "sync": false

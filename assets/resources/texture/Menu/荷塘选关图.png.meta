@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "ebd1450d-e90c-4790-be7f-cf49dd2dad0f",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "荷塘选关图": {
+      "ver": "1.0.3",
+      "uuid": "6526f7e6-7d04-495c-b03a-2503b359a142",
+      "rawTextureUuid": "ebd1450d-e90c-4790-be7f-cf49dd2dad0f",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 1,
+      "offsetY": 1,
+      "trimX": 14,
+      "trimY": 9,
+      "width": 561,
+      "height": 320,
+      "rawWidth": 587,
+      "rawHeight": 340,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

@@ -13,7 +13,7 @@
         return this.instance;
     };
 
-    CheckPointMgr.prototype.addCheckPoint = function(x,y,idx,direction,terrainIdx,buildSumX,buildSumY)
+    CheckPointMgr.prototype.addCheckPoint = function(x,y,idx,direction,terrainIdx,buildSumX,buildSumY,buildTerrainIdx,baseSumX,baseSumY,baseBuildSumX,baseBuildSumY,baseIdx)
     {
         let pos = {
             x:x,
@@ -23,6 +23,12 @@
             terrainIdx:terrainIdx,
             buildSumX:buildSumX,
             buildSumY:buildSumY,
+            buildTerrainIdx:buildTerrainIdx,
+            baseSumX:baseSumX,
+            baseSumY:baseSumY,
+            baseBuildSumX:baseBuildSumX,
+            baseBuildSumY:baseBuildSumY,
+            baseIdx:baseIdx,
         };
         this.cpPosArr.push(pos);
     };
@@ -47,6 +53,12 @@
             return this.cpPosArr[this.checkPoint];
         }
         else return null;
+    };
+
+    CheckPointMgr.prototype.clear = function()
+    {
+        this.checkPoint = - 1;
+        this.cpPosArr = new Array();
     };
 
     window.CheckPointMgr = CheckPointMgr;

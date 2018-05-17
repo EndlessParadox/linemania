@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "551442b0-91b9-42c5-8f33-a572018a8bfe",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "沙漠选关图": {
+      "ver": "1.0.3",
+      "uuid": "de1f815d-5033-435f-a859-cf5a3350b870",
+      "rawTextureUuid": "551442b0-91b9-42c5-8f33-a572018a8bfe",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 1,
+      "offsetY": 1,
+      "trimX": 14,
+      "trimY": 9,
+      "width": 561,
+      "height": 320,
+      "rawWidth": 587,
+      "rawHeight": 340,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

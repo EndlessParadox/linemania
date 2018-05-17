@@ -12,10 +12,9 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        target: {
-            default: null,
-            type: cc.Node
-        }
+        sv:cc.ScrollView,
+        sceneArr:[cc.String],
+        spriteArr:[cc.Node],
         // foo: {
         //     // ATTRIBUTES:
         //     default: null,        // The default value will be used only when the component attaching
@@ -36,22 +35,33 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {},
-    onLoad: function () {
-        this.camera = this.getComponent(cc.Camera);
-    },
 
     start () {
+        this.content = this.sv.content;
+        // this.sv.node.on('scroll-began',function(){
+        // }.bind(this));
 
+        this.sv.node.on('scroll-ended',function(){
+            let realOffset = this.sv.getScrollOffset().y/this.sv.getMaxScrollOffset().y;
+            let autoIdx = Math.round(realOffset / (1 / (this.spriteArr.length - 1)));
+            let autoOffset = autoIdx * (1 / (this.spriteArr.length - 1));
+            for(let i = 0; i < this.spriteArr.length; i ++)
+            {
+                if(i !== autoIdx)
+                {
+                    this.spriteArr[i].setScale(0.6);
+                    this.spriteArr[i].opacity = 153;
+                }
+                else {
+                    this.spriteArr[i].setScale(1);
+                    this.spriteArr[i].opacity = 255;
+                    // this.spriteArr[i].Size = new cc.Vec2(800,404);
+                }
+            }
+            this.sv.scrollToPercentVertical(1 - autoOffset,2);
+        }.bind(this));
     },
 
-    lateUpdate: function (dt) {
-        if(this.target != null && this.target.parent != null) {
-            let targetPos = this.target.parent.convertToWorldSpaceAR(this.target.position);
-            this.node.position = this.node.parent.convertToNodeSpaceAR(targetPos);
-
-            //let ratio = targetPos.y / cc.winSize.height;
-            //this.camera.zoomRatio = 1 + (0.5 - ratio) * 0.5;
-        }
+    update (dt) {
     },
-    // update (dt) {},
 });

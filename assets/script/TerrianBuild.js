@@ -43,6 +43,9 @@ cc.Class({
         offset:0,
         cam:cc.Camera,
         constBG:cc.Node,
+        preBuildCount:0,
+        itemArr:[cc.Prefab],
+        itemPosArr:[cc.Vec2],
         // foo: {
         //     // ATTRIBUTES:
         //     default: null,        // The default value will be used only when the component attaching
@@ -82,8 +85,22 @@ cc.Class({
 
         this.terrainPerfectArr = new Array();
 
+        this.terrainBuildArr = new Array();
+
+        this.terrainPool = new cc.NodePool();
+        for(let i = 0; i < 15; i ++)
+        {
+            let terrain = cc.instantiate(this.baseterrain);
+            terrain.parent = this.bg;
+            //line.opacity = 0;
+            //line.active = false;
+            //LineMgr.getInstance().addInPool(line);
+            this.terrainPool.put(terrain);
+        }
+
         this.buildTerrainIdx = 0;
         this.buildTerrain(this.buildTerrainIdx);
+
 
         this.linePool = new cc.NodePool();
         for(let o = 0; o < 1; o ++)
@@ -95,6 +112,91 @@ cc.Class({
             //LineMgr.getInstance().addInPool(line);
             this.linePool.put(line);
         }
+
+        let itemBuildSumX = -this.halfSize * 2;
+        let itemBuildSumY = 0;
+        let itemSumX = -1;
+        let itemSumY = 0;
+        //load时直接生成物体
+        for (let i = 0; i < this.terrainArr.length; i++) {
+            let note = this.terrainArr[i].substr(0, 1);
+            let direction;
+            switch (note) {
+                case '0' :
+                    direction = 0;
+                    break;
+                case '1':
+                    direction = 1;
+                    break;
+                case '2':
+                    direction = 2;
+                    break;
+                case '3':
+                    direction = 3;
+                    break;
+            }
+            if (i > 0) {
+                //console.log(this.terrainArr[i - 1]);
+                itemBuildSumX += ((this.terrainArr[i].length - 1) * this.halfSize * 2 + this.halfSize) * this.directionArr[direction].x + this.halfSize * this.directionArr[parseInt(this.terrainArr[i - 1].slice(0, 1))].x;
+                itemBuildSumY += ((this.terrainArr[i].length - 1) * this.halfSize * 2 + this.halfSize) * this.directionArr[direction].y + this.halfSize * this.directionArr[parseInt(this.terrainArr[i - 1].slice(0, 1))].y;
+            }
+            else {
+                itemBuildSumX += ((this.terrainArr[i].length - 1) * this.halfSize * 2 + this.halfSize) * this.directionArr[direction].x;
+                itemBuildSumY += ((this.terrainArr[i].length - 1) * this.halfSize * 2 + this.halfSize) * this.directionArr[direction].y;
+            }
+            for (let j = 0; j < this.terrainArr[i].length; j++) {
+                let location = new cc.Vec2(0, 0);
+                itemSumX += this.directionArr[direction].x;
+                itemSumY += this.directionArr[direction].y;
+                location = new cc.Vec2(this.basePostion.x + (2 * itemSumX) * this.halfSize, this.basePostion.y + (2 * itemSumY + 1) * this.halfSize);
+
+                switch (parseInt(this.terrainArr[i].substr(j, 1))) {
+                    case 4:
+                        if (this.itemArr.length > 0 && this.itemPosArr.length > 0) {
+                            let item = cc.instantiate(this.itemArr[0]);
+                            item.position = new cc.Vec2(location.x + this.itemPosArr[0].x, location.y + this.itemPosArr[0].y);
+                            item.parent = this.constBG;
+                        }
+                        break;
+                    case 5:
+                        if (this.itemArr.length > 1 && this.itemPosArr.length > 1) {
+                            let item = cc.instantiate(this.itemArr[1]);
+                            item.position = new cc.Vec2(location.x + this.itemPosArr[1].x, location.y + this.itemPosArr[1].y);
+                            item.parent = this.constBG;
+                        }
+                        break;
+                    case 6:
+                        if (this.itemArr.length > 2 && this.itemPosArr.length > 2) {
+                            let item = cc.instantiate(this.itemArr[2]);
+                            item.position = new cc.Vec2(location.x + this.itemPosArr[2].x, location.y + this.itemPosArr[2].y);
+                            item.parent = this.constBG;
+                        }
+                        break;
+                    case 7:
+                        if (this.itemArr.length > 3 && this.itemPosArr.length > 3) {
+                            let item = cc.instantiate(this.itemArr[3]);
+                            item.position = new cc.Vec2(location.x + this.itemPosArr[3].x, location.y + this.itemPosArr[3].y);
+                            item.parent = this.constBG;
+                        }
+                        break;
+                    case 8:
+                        if (this.itemArr.length > 4 && this.itemPosArr.length > 4) {
+                            let item = cc.instantiate(this.itemArr[4]);
+                            item.position = new cc.Vec2(location.x + this.itemPosArr[4].x, location.y + this.itemPosArr[4].y);
+                            item.parent = this.constBG;
+                        }
+                        break;
+                    case 9:
+                        if (this.itemArr.length > 5 && this.itemPosArr.length > 5) {
+                            let item = cc.instantiate(this.itemArr[5]);
+                            item.position = new cc.Vec2(location.x + this.itemPosArr[5].x, location.y + this.itemPosArr[5].y);
+                            item.parent = this.constBG;
+                        }
+                        break;
+                }
+            }
+        }
+
 
         this.lineDirection = 0;
 
@@ -112,12 +214,42 @@ cc.Class({
                 }
                 else
                 {
-                    LineMgr.getInstance().removeAllLine();
+                    //this.bg.destroyAllChildren();
+                    for(let o = 0; o < this.terrainBuildArr.length; o ++)
+                    {
+                        for (let p = 0; p < this.terrainBuildArr[0].length; p ++)
+                        {
+                            this.terrainPool.put(this.terrainBuildArr[0][p]);
+                        }
+                        this.terrainBuildArr.shift();
+                    }
+                    // if(this.linePool.size() > 0)
+                    // //if(LineMgr.getInstance().getLineSize() > 0)
+                    // {
+                    //     //line = LineMgr.getInstance().getLine();
+                    //     this.line = this.linePool.get();
+                    // }
+                    // else {
+                    //     this.line = cc.instantiate(this.baseLineX);
+                    // }
+                    // this.line.position = new cc.Vec2(this.baseLinePostion.x, this.baseLinePostion.y);
+                    // if (this.line != null) {
+                    //     this.line.zIndex = 998;
+                    //     this.line.parent = this.bg;
+                    // }
+                    // let camCtrl = this.cam.getComponent("CameraControl");
+                    // if(camCtrl != null)
+                    // {
+                    //     camCtrl.target = this.line;
+                    // }
+
 
                     let curCp = CheckPointMgr.getInstance().getCurCp();
                     if(curCp != null) {
                         // this.bgm.setCurrentTime(curCp.idx * 0.4);
                         // this.bgm.resume();
+                         console.log(curCp);
+                        this.idx = curCp.baseIdx;
                         this.lineSumX = curCp.x - this.baseLinePostion.x;
                         this.lineSumY = curCp.y - this.baseLinePostion.y;
                         this.terrainSumX = curCp.buildSumX;
@@ -125,17 +257,38 @@ cc.Class({
                         this.lineDirection = curCp.direction;
                         this.nowDirecion = curCp.direction;
                         this.terrainIdx = curCp.terrainIdx;
+                        this.buildTerrainIdx = curCp.buildTerrainIdx;
+                        this.sumX = curCp.baseSumX;
+                        this.sumY = curCp.baseSumY;
+                        this.buildSumX = curCp.baseBuildSumX;
+                        this.buildSumY = curCp.baseBuildSumY;
+
+
+                        //this.buildTerrainIdx = Math.max(0,this.terrainIdx - this.preBuildCount);
+                        //console.log(this.buildTerrainIdx);
+                        CheckPointMgr.getInstance().clear();
+                        this.buildTerrain(this.buildTerrainIdx);
                     }
                     else {
                         // this.bgm.setCurrentTime(0);
                         // this.bgm.play();
-                        this.lineSumX = -30;
+                        this.idx = 0;
+                        this.lineSumX = 0;
                         this.lineSumY = 0;
+                        this.terrainIdx = 0;
                         this.terrainSumX = ((this.terrainArr[this.terrainIdx].length - 2)* this.halfSize * 2 + this.halfSize) * this.directionArr[this.baseDirection].x;
                         this.terrainSumY = 0;
                         this.lineDirection = this.baseDirection;
                         this.nowDirecion = this.baseDirection;
-                        this.terrainIdx = 0;
+                        this.buildTerrainIdx = 0;
+                        this.sumX = -1;
+                        this.sumY = 0;
+                        this.buildSumX = - this.halfSize * 2;
+                        this.buildSumY = 0;
+
+                        // this.buildTerrainIdx = 0;
+                        CheckPointMgr.getInstance().clear();
+                        this.buildTerrain(this.buildTerrainIdx);
                     }
 
                     // let line;
@@ -290,7 +443,7 @@ cc.Class({
             this.line.zIndex = 998;
             this.line.parent = this.bg;
         }
-        //this.cam.addTarget(this.line);
+//        this.cam.addTarget(this.line);
         let camCtrl = this.cam.getComponent("CameraControl");
         if(camCtrl != null)
         {
@@ -458,19 +611,20 @@ cc.Class({
                         console.log('die2');
                         this.bOver = true;
                         this.bBack = true;
-                        console.log(this.bgm.getCurrentTime()) ;
                         this.bgm.pause();
                         alert("发出GG的声音");
                     }
                 }
             }
 
-            let newX = -((this.line.position.x - this.baseLinePostion.x) * Math.cos(this.bg.rotation * Math.PI / 180) + (this.line.position.y - this.baseLinePostion.y) * Math.sin(this.bg.rotation * Math.PI / 180));
-            let newY = -(-(this.line.position.y - this.baseLinePostion.y) * Math.sin(this.bg.rotation * Math.PI / 180) + (this.line.position.x - this.baseLinePostion.x) * Math.cos(this.bg.rotation * Math.PI / 180));
-            //let newX = this.bg.position.x - this.directionArr[this.nowDirecion].x * this.lineMinSize * 2;
-            //let newY = this.bg.position.y - this.directionArr[this.nowDirecion].y * this.lineMinSize * 2;
-            //this.bg.position = new cc.Vec2(newX, newY);
+            // let newX = -((this.line.position.x - this.baseLinePostion.x) * Math.cos(this.bg.rotation * Math.PI / 180) + (this.line.position.y - this.baseLinePostion.y) * Math.sin(this.bg.rotation * Math.PI / 180));
+            //             // let newY = -(-(this.line.position.y - this.baseLinePostion.y) * Math.sin(this.bg.rotation * Math.PI / 180) + (this.line.position.x - this.baseLinePostion.x) * Math.cos(this.bg.rotation * Math.PI / 180));
+            //             // //let newX = this.bg.position.x - this.directionArr[this.nowDirecion].x * this.lineMinSize * 2;
+            //             // //let newY = this.bg.position.y - this.directionArr[this.nowDirecion].y * this.lineMinSize * 2;
+            //             // this.constBG.position = new cc.Vec2(newX, newY);
+            //             // this.bg.position = new cc.Vec2(newX,newY);
 //            console.log(this.bg.position);
+//             console.log(new cc.Vec2(newX,newY));
 
         }
         if(this.stop)
@@ -488,9 +642,9 @@ cc.Class({
             this.scoreLabel.string = "Score:" + ScoreMgr.getInstance().getScore();
         }
 
-        //console.log(this.terrainIdx);
-        //console.log(this.buildTerrainIdx)
-        if(this.terrainIdx >= this.buildTerrainIdx - 10)
+        // console.log(this.terrainIdx);
+        // console.log(this.buildTerrainIdx);
+        if(this.terrainIdx >= this.buildTerrainIdx - this.preBuildCount * 1.5)
         {
             this.buildTerrain(this.buildTerrainIdx);
         }
@@ -498,64 +652,164 @@ cc.Class({
 
     buildTerrain(terrainIdx)
     {
-        console.log(terrainIdx);
-        if(terrainIdx + parseInt(this. terrainArr.length / 40) < this.terrainArr.length) {
-            for (let i = terrainIdx; i < terrainIdx + parseInt(this.terrainArr.length / 4); i++) {
-                let note = this.terrainArr[i].substr(0, 1);
-                switch (note) {
-                    case '0' :
-                        this.direction = 0;
-                        this.terrainPerfectArr.push(this.basePostion.y + (2 * this.sumY + 1) * this.halfSize);
-                        break;
-                    case '1':
-                        this.direction = 1;
-                        this.terrainPerfectArr.push(this.basePostion.x + (2 * this.sumX + 1) * this.halfSize);
-                        break;
-                    case '2':
-                        this.direction = 2;
-                        this.terrainPerfectArr.push(this.basePostion.y + (2 * this.sumY + 1) * this.halfSize);
-                        break;
-                    case '3':
-                        this.direction = 3;
-                        this.terrainPerfectArr.push(this.basePostion.x + (2 * this.sumX + 1) * this.halfSize);
-                        break;
-                }
-                if (i > 0) {
-                    this.buildSumX += ((this.terrainArr[i].length - 1) * this.halfSize * 2 + this.halfSize) * this.directionArr[this.direction].x + this.halfSize * this.directionArr[parseInt(this.terrainArr[i - 1].slice(0, 1))].x;
-                    this.buildSumY += ((this.terrainArr[i].length - 1) * this.halfSize * 2 + this.halfSize) * this.directionArr[this.direction].y + this.halfSize * this.directionArr[parseInt(this.terrainArr[i - 1].slice(0, 1))].y;
-                }
-                else {
-                    this.buildSumX += ((this.terrainArr[i].length - 1) * this.halfSize * 2 + this.halfSize) * this.directionArr[this.direction].x;
-                    this.buildSumY += ((this.terrainArr[i].length - 1) * this.halfSize * 2 + this.halfSize) * this.directionArr[this.direction].y;
-                }
-                for (let j = 0; j < this.terrainArr[i].length; j++) {
-                    let terrain;
-                    if (parseInt(this.terrainArr[i].substr(j, 1)) === 6) {
-                        terrain = cc.instantiate(this.baseCPterrain);
-                        this.sumX += this.directionArr[this.direction].x;
-                        this.sumY += this.directionArr[this.direction].y;
-                        terrain.position = new cc.Vec2(this.basePostion.x + (2 * this.sumX) * this.halfSize, this.basePostion.y + (2 * this.sumY + 1) * this.halfSize);
-
-                        CheckPointMgr.getInstance().addCheckPoint(terrain.position.x, terrain.position.y, this.idx, this.direction, i, this.buildSumX, this.buildSumY);
+        if(this.preBuildCount === 0) return;
+        //console.log(terrainIdx);
+        //删除一半旧的
+        if(terrainIdx > this.preBuildCount && terrainIdx < this.terrainArr.length - this.preBuildCount)
+        {
+            for(let o = 0; o < this.preBuildCount; o ++)
+            {
+                if(o < this.terrainBuildArr.length) {
+                    for (let p = 0; p < this.terrainBuildArr[0].length; p ++)
+                    {
+                        this.terrainPool.put(this.terrainBuildArr[0][p]);
                     }
-                    else {
-                        terrain = cc.instantiate(this.baseterrain);
-                        this.sumX += this.directionArr[this.direction].x;
-                        this.sumY += this.directionArr[this.direction].y;
-                        terrain.position = new cc.Vec2(this.basePostion.x + (2 * this.sumX) * this.halfSize, this.basePostion.y + (2 * this.sumY + 1) * this.halfSize);
-                    }
-                    terrain.parent = this.bg;
-                    if (parseInt(this.terrainArr[i].substr(j, 1)) === 5) {
-                        let diamond = cc.instantiate(this.diamondBase);
-                        diamond.position = new cc.Vec2(terrain.position.x + (2 * Math.random() - 1) * this.halfSize * this.diamondArea, terrain.position.y + (2 * Math.random() - 1) * this.halfSize * this.diamondArea);
-                        DiamondMgr.getInstance().addDiamond(diamond);
-                        diamond.parent = this.bg;
-                    }
-                    this.idx++;
+                    this.terrainBuildArr.shift();
                 }
             }
-            this.buildTerrainIdx += parseInt(this.terrainArr.length / 4);
         }
+
+        let baseSumX = this.sumX;
+        let baseSumY = this.sumY;
+
+        let baseBuildSumX = this.buildSumX;
+        let baseBuildSumY = this.buildSumY;
+
+        let baseIdx = this.idx;
+
+        //创建
+        let count = this.preBuildCount;
+        if(terrainIdx + count > this.terrainArr.length) {
+            count = this.terrainArr.length - terrainIdx;
+        }
+        if(terrainIdx === 0)
+        {
+            count = this.preBuildCount * 3;
+        }
+        for (let i = terrainIdx; i < terrainIdx + count; i++) {
+            let note = this.terrainArr[i].substr(0, 1);
+            switch (note) {
+                case '0' :
+                    this.direction = 0;
+                    this.terrainPerfectArr.push(this.basePostion.y + (2 * this.sumY + 1) * this.halfSize);
+                    break;
+                case '1':
+                    this.direction = 1;
+                    this.terrainPerfectArr.push(this.basePostion.x + (2 * this.sumX + 1) * this.halfSize);
+                    break;
+                case '2':
+                    this.direction = 2;
+                    this.terrainPerfectArr.push(this.basePostion.y + (2 * this.sumY + 1) * this.halfSize);
+                    break;
+                case '3':
+                    this.direction = 3;
+                    this.terrainPerfectArr.push(this.basePostion.x + (2 * this.sumX + 1) * this.halfSize);
+                    break;
+            }
+            if (i > 0) {
+                //console.log(this.terrainArr[i - 1]);
+                this.buildSumX += ((this.terrainArr[i].length - 1) * this.halfSize * 2 + this.halfSize) * this.directionArr[this.direction].x + this.halfSize * this.directionArr[parseInt(this.terrainArr[i - 1].slice(0, 1))].x;
+                this.buildSumY += ((this.terrainArr[i].length - 1) * this.halfSize * 2 + this.halfSize) * this.directionArr[this.direction].y + this.halfSize * this.directionArr[parseInt(this.terrainArr[i - 1].slice(0, 1))].y;
+            }
+            else {
+                this.buildSumX += ((this.terrainArr[i].length - 1) * this.halfSize * 2 + this.halfSize) * this.directionArr[this.direction].x;
+                this.buildSumY += ((this.terrainArr[i].length - 1) * this.halfSize * 2 + this.halfSize) * this.directionArr[this.direction].y;
+            }
+            let buildOnArr = new Array();
+
+            let terrain;
+            if(this.terrainPool.size() > 0)
+            {
+                terrain = this.terrainPool.get();
+            }
+            else {
+                terrain = cc.instantiate(this.baseterrain);
+            }
+            terrain.setScale(new cc.Vec2(this.directionArr[this.direction].x === 0 ? 1 : this.terrainArr[i].length,this.directionArr[this.direction].y === 0 ? 1 : this.terrainArr[i].length));
+            terrain.position = new cc.Vec2(this.basePostion.x + (2 * this.sumX + (this.directionArr[this.direction].x === 0 ? 0 : this.terrainArr[i].length - 1)) * this.halfSize, this.basePostion.y + (2 * this.sumY + 1 + (this.directionArr[this.direction].y === 0 ? 0 : this.terrainArr[i].length - 1)) * this.halfSize);
+            buildOnArr.push(terrain);
+            terrain.parent = this.bg;
+            for (let j = 0; j < this.terrainArr[i].length; j++) {
+                let terrain;
+                let location = new cc.Vec2(0,0);
+                if (parseInt(this.terrainArr[i].substr(j, 1)) === 3) {
+                    terrain = cc.instantiate(this.baseCPterrain);
+                    this.sumX += this.directionArr[this.direction].x;
+                    this.sumY += this.directionArr[this.direction].y;
+                    terrain.position = new cc.Vec2(this.basePostion.x + (2 * this.sumX) * this.halfSize, this.basePostion.y + (2 * this.sumY + 1) * this.halfSize);
+
+                    CheckPointMgr.getInstance().addCheckPoint(terrain.position.x, terrain.position.y, this.idx, this.direction, i, this.buildSumX, this.buildSumY,terrainIdx,baseSumX,baseSumY,baseBuildSumX,baseBuildSumY,baseIdx);
+                    terrain.parent = this.bg;
+                    location = terrain.position;
+                }
+                else {
+                    // if(this.terrainPool.size() > 0)
+                    // {
+                    //     terrain = this.terrainPool.get();
+                    // }
+                    // else {
+                    //     terrain = cc.instantiate(this.baseterrain);
+                    // }
+                    this.sumX += this.directionArr[this.direction].x;
+                    this.sumY += this.directionArr[this.direction].y;
+                    location = new cc.Vec2(this.basePostion.x + (2 * this.sumX) * this.halfSize, this.basePostion.y + (2 * this.sumY + 1) * this.halfSize);
+                }
+                switch (parseInt(this.terrainArr[i].substr(j, 1)))
+                {
+                    case 2://宝石
+                        let diamond = cc.instantiate(this.diamondBase);
+                        diamond.position = new cc.Vec2(location.x + (2 * Math.random() - 1) * this.halfSize * this.diamondArea, location.y + (2 * Math.random() - 1) * this.halfSize * this.diamondArea);
+                        DiamondMgr.getInstance().addDiamond(diamond);
+                        diamond.parent = this.bg;
+                        break;
+                    // case 4:
+                    //     if(this.itemArr.length > 0 && this.itemPosArr.length > 0) {
+                    //         let item = cc.instantiate(this.itemArr[0]);
+                    //         item.position = new cc.Vec2(location.x + this.itemPosArr[0].x, location.y + this.itemPosArr[0].y);
+                    //         item.parent = this.bg;
+                    //     }
+                    //     break;
+                    // case 5:
+                    //     if(this.itemArr.length > 1 && this.itemPosArr.length > 1) {
+                    //         let item = cc.instantiate(this.itemArr[1]);
+                    //         item.position = new cc.Vec2(location.x + this.itemPosArr[1].x, location.y + this.itemPosArr[1].y);
+                    //         item.parent = this.bg;
+                    //     }
+                    //     break;
+                    // case 6:
+                    //     if(this.itemArr.length > 2 && this.itemPosArr.length > 2) {
+                    //         let item = cc.instantiate(this.itemArr[2]);
+                    //         item.position = new cc.Vec2(location.x + this.itemPosArr[2].x, location.y + this.itemPosArr[2].y);
+                    //         item.parent = this.bg;
+                    //     }
+                    //     break;
+                    // case 7:
+                    //     if(this.itemArr.length > 3 && this.itemPosArr.length > 3) {
+                    //         let item = cc.instantiate(this.itemArr[3]);
+                    //         item.position = new cc.Vec2(location.x + this.itemPosArr[3].x, location.y + this.itemPosArr[3].y);
+                    //         item.parent = this.bg;
+                    //     }
+                    //     break;
+                    // case 8:
+                    //     if(this.itemArr.length > 4 && this.itemPosArr.length > 4) {
+                    //         let item = cc.instantiate(this.itemArr[4]);
+                    //         item.position = new cc.Vec2(location.x + this.itemPosArr[4].x, location.y + this.itemPosArr[4].y);
+                    //         item.parent = this.bg;
+                    //     }
+                    //     break;
+                    // case 9:
+                    //     if(this.itemArr.length > 5 && this.itemPosArr.length > 5) {
+                    //         let item = cc.instantiate(this.itemArr[5]);
+                    //         item.position = new cc.Vec2(location.x + this.itemPosArr[5].x, location.y + this.itemPosArr[5].y);
+                    //         item.parent = this.bg;
+                    //     }
+                    //     break;
+                }
+                this.idx++;
+            }
+            this.terrainBuildArr.push(buildOnArr);
+        }
+        this.buildTerrainIdx += count;
     }
 
     // lateUpdate() {
