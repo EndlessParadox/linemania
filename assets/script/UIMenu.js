@@ -15,6 +15,10 @@ cc.Class({
         sv:cc.ScrollView,
         sceneArr:[cc.String],
         spriteArr:[cc.Node],
+        buttonArr:[cc.Button],
+        progressArr:[cc.Label],
+        upArrow:cc.Node,
+        downArrow:cc.Node,
         // foo: {
         //     // ATTRIBUTES:
         //     default: null,        // The default value will be used only when the component attaching
@@ -34,7 +38,16 @@ cc.Class({
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
+    onLoad () {
+        for(let i = 0; i < this.buttonArr.length; i ++)
+        {
+            this.buttonArr[i].node.on('click',function(){
+                cc.director.loadScene(this.sceneArr[i]);
+            }.bind(this));
+
+            this.progressArr[i].string = localStorage.getItem("record" + i) == null ? "0%" : localStorage.getItem("record" + i) + "%";
+        }
+    },
 
     start () {
         this.content = this.sv.content;
@@ -58,6 +71,8 @@ cc.Class({
                     // this.spriteArr[i].Size = new cc.Vec2(800,404);
                 }
             }
+            this.upArrow.active = autoIdx !== 0;
+            this.downArrow.active = autoIdx !== this.spriteArr.length - 1;
             this.sv.scrollToPercentVertical(1 - autoOffset,2);
         }.bind(this));
     },
