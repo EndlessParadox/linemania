@@ -3,6 +3,7 @@
     let DiamondMgr = function() {
         this.instance = null;
         this.diamondArr = new Array();
+        this.diamondCount = 0;
     };
 
     DiamondMgr.getInstance = function() {
@@ -28,6 +29,16 @@
                 }
             }
         }
+    };
+
+    DiamondMgr.prototype.addDiamondCount = function()
+    {
+        this.diamondCount ++;
+    };
+
+    DiamondMgr.prototype.getDiamondCount = function()
+    {
+        return this.diamondCount;
     };
 
     window.DiamondMgr = DiamondMgr;

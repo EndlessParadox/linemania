@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "10674f80-17a5-4fc8-a42f-1d19f72ff377",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "道路": {
+      "ver": "1.0.3",
+      "uuid": "98886d2c-d9c1-4e87-82f7-8069251490a9",
+      "rawTextureUuid": "10674f80-17a5-4fc8-a42f-1d19f72ff377",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 90,
+      "height": 90,
+      "rawWidth": 90,
+      "rawHeight": 90,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

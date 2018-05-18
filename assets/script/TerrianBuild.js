@@ -48,6 +48,12 @@ cc.Class({
         itemPosArr:[cc.Vec2],
         itemRotateArr:[cc.Float],
         itemScaleArr:[cc.Vec2],
+        uiDie:cc.Node,
+        bgmName:'',
+        sceneName:'',
+        resumeChance:1,
+        fullLength:0,
+        recordIdx:0,
         // foo: {
         //     // ATTRIBUTES:
         //     default: null,        // The default value will be used only when the component attaching
@@ -235,115 +241,6 @@ cc.Class({
                 }
                 else
                 {
-                    //this.bg.destroyAllChildren();
-                    for(let o = 0; o < this.terrainBuildArr.length; o ++)
-                    {
-                        for (let p = 0; p < this.terrainBuildArr[0].length; p ++)
-                        {
-                            this.terrainPool.put(this.terrainBuildArr[0][p]);
-                        }
-                        this.terrainBuildArr.shift();
-                    }
-                    // if(this.linePool.size() > 0)
-                    // //if(LineMgr.getInstance().getLineSize() > 0)
-                    // {
-                    //     //line = LineMgr.getInstance().getLine();
-                    //     this.line = this.linePool.get();
-                    // }
-                    // else {
-                    //     this.line = cc.instantiate(this.baseLineX);
-                    // }
-                    // this.line.position = new cc.Vec2(this.baseLinePostion.x, this.baseLinePostion.y);
-                    // if (this.line != null) {
-                    //     this.line.zIndex = 998;
-                    //     this.line.parent = this.bg;
-                    // }
-                    // let camCtrl = this.cam.getComponent("CameraControl");
-                    // if(camCtrl != null)
-                    // {
-                    //     camCtrl.target = this.line;
-                    // }
-
-
-                    let curCp = CheckPointMgr.getInstance().getCurCp();
-                    if(curCp != null) {
-                        // this.bgm.setCurrentTime(curCp.idx * 0.4);
-                        // this.bgm.resume();
-                         console.log(curCp);
-                        this.idx = curCp.baseIdx;
-                        this.lineSumX = curCp.x - this.baseLinePostion.x;
-                        this.lineSumY = curCp.y - this.baseLinePostion.y;
-                        this.terrainSumX = curCp.buildSumX;
-                        this.terrainSumY = curCp.buildSumY;
-                        this.lineDirection = curCp.direction;
-                        this.nowDirecion = curCp.direction;
-                        this.terrainIdx = curCp.terrainIdx;
-                        this.buildTerrainIdx = curCp.buildTerrainIdx;
-                        this.sumX = curCp.baseSumX;
-                        this.sumY = curCp.baseSumY;
-                        this.buildSumX = curCp.baseBuildSumX;
-                        this.buildSumY = curCp.baseBuildSumY;
-
-
-                        //this.buildTerrainIdx = Math.max(0,this.terrainIdx - this.preBuildCount);
-                        //console.log(this.buildTerrainIdx);
-                        CheckPointMgr.getInstance().clear();
-                        this.buildTerrain(this.buildTerrainIdx);
-                    }
-                    else {
-                        // this.bgm.setCurrentTime(0);
-                        // this.bgm.play();
-                        this.idx = 0;
-                        this.lineSumX = 0;
-                        this.lineSumY = 0;
-                        this.terrainIdx = 0;
-                        this.terrainSumX = ((this.terrainArr[this.terrainIdx].length - 2)* this.halfSize * 2 + this.halfSize) * this.directionArr[this.baseDirection].x;
-                        this.terrainSumY = 0;
-                        this.lineDirection = this.baseDirection;
-                        this.nowDirecion = this.baseDirection;
-                        this.buildTerrainIdx = 0;
-                        this.sumX = -1;
-                        this.sumY = 0;
-                        this.buildSumX = - this.halfSize * 2;
-                        this.buildSumY = 0;
-
-                        // this.buildTerrainIdx = 0;
-                        CheckPointMgr.getInstance().clear();
-                        this.buildTerrain(this.buildTerrainIdx);
-                    }
-
-                    // let line;
-                    // if(LineMgr.getInstance().getLineSize() > 0)
-                    // {
-                    //     line = LineMgr.getInstance().getLine();
-                    // }
-                    // else {
-                    //     line = cc.instantiate(this.baseLineX);
-                    // }
-                    // LineMgr.getInstance().addLine(line,this.linePool);
-                    this.line.position = new cc.Vec2(this.baseLinePostion.x + this.lineSumX, this.baseLinePostion.y + this.lineSumY);
-
-                    //let newX = -((line.position.x - this.baseLinePostion.x) * Math.cos(this.bg.rotation * Math.PI / 180) + (line.position.y - this.baseLinePostion.y) * Math.sin(this.bg.rotation * Math.PI / 180));
-                    //let newY = -(-(line.position.y - this.baseLinePostion.y) * Math.sin(this.bg.rotation * Math.PI / 180) + (line.position.x - this.baseLinePostion.x) * Math.cos(this.bg.rotation * Math.PI / 180));
-                    //let newX = this.bg.position.x - this.directionArr[this.nowDirecion].x * this.lineMinSize * 2;
-                    //let newY = this.bg.position.y - this.directionArr[this.nowDirecion].y * this.lineMinSize * 2;
-                    //this.bg.position = new cc.Vec2(newX, newY);
-
-                    this.stop = true;
-
-                    setTimeout(function(){
-                        if(curCp != null) {
-                            this.bgm.setCurrentTime(curCp.idx * 0.4);
-                            this.bgm.resume();
-                        }
-                        else {
-                            this.bgm.setCurrentTime(0);
-                            this.bgm.play();
-                        }
-                        this.bBack = false;
-                        this.bOver = false;
-                        this.stop = false;
-                    }.bind(this),3000);
                 }
             }
             else {
@@ -422,6 +319,119 @@ cc.Class({
         }, this);
     },
 
+    resumeGame()
+    {
+        //this.bg.destroyAllChildren();
+        for(let o = 0; o < this.terrainBuildArr.length; o ++)
+        {
+            for (let p = 0; p < this.terrainBuildArr[0].length; p ++)
+            {
+                this.terrainPool.put(this.terrainBuildArr[0][p]);
+            }
+            this.terrainBuildArr.shift();
+        }
+        // if(this.linePool.size() > 0)
+        // //if(LineMgr.getInstance().getLineSize() > 0)
+        // {
+        //     //line = LineMgr.getInstance().getLine();
+        //     this.line = this.linePool.get();
+        // }
+        // else {
+        //     this.line = cc.instantiate(this.baseLineX);
+        // }
+        // this.line.position = new cc.Vec2(this.baseLinePostion.x, this.baseLinePostion.y);
+        // if (this.line != null) {
+        //     this.line.zIndex = 998;
+        //     this.line.parent = this.bg;
+        // }
+        // let camCtrl = this.cam.getComponent("CameraControl");
+        // if(camCtrl != null)
+        // {
+        //     camCtrl.target = this.line;
+        // }
+
+
+        let curCp = CheckPointMgr.getInstance().getCurCp();
+        if(curCp != null) {
+            // this.bgm.setCurrentTime(curCp.idx * 0.4);
+            // this.bgm.resume();
+            console.log(curCp);
+            this.idx = curCp.baseIdx;
+            this.lineSumX = curCp.x - this.baseLinePostion.x;
+            this.lineSumY = curCp.y - this.baseLinePostion.y;
+            this.terrainSumX = curCp.buildSumX;
+            this.terrainSumY = curCp.buildSumY;
+            this.lineDirection = curCp.direction;
+            this.nowDirecion = curCp.direction;
+            this.terrainIdx = curCp.terrainIdx;
+            this.buildTerrainIdx = curCp.buildTerrainIdx;
+            this.sumX = curCp.baseSumX;
+            this.sumY = curCp.baseSumY;
+            this.buildSumX = curCp.baseBuildSumX;
+            this.buildSumY = curCp.baseBuildSumY;
+
+
+            //this.buildTerrainIdx = Math.max(0,this.terrainIdx - this.preBuildCount);
+            //console.log(this.buildTerrainIdx);
+            CheckPointMgr.getInstance().clear();
+            this.buildTerrain(this.buildTerrainIdx);
+        }
+        else {
+            // this.bgm.setCurrentTime(0);
+            // this.bgm.play();
+            this.idx = 0;
+            this.lineSumX = 0;
+            this.lineSumY = 0;
+            this.terrainIdx = 0;
+            this.terrainSumX = ((this.terrainArr[this.terrainIdx].length - 2)* this.halfSize * 2 + this.halfSize) * this.directionArr[this.baseDirection].x;
+            this.terrainSumY = 0;
+            this.lineDirection = this.baseDirection;
+            this.nowDirecion = this.baseDirection;
+            this.buildTerrainIdx = 0;
+            this.sumX = -1;
+            this.sumY = 0;
+            this.buildSumX = - this.halfSize * 2;
+            this.buildSumY = 0;
+
+            // this.buildTerrainIdx = 0;
+            CheckPointMgr.getInstance().clear();
+            this.buildTerrain(this.buildTerrainIdx);
+        }
+
+        // let line;
+        // if(LineMgr.getInstance().getLineSize() > 0)
+        // {
+        //     line = LineMgr.getInstance().getLine();
+        // }
+        // else {
+        //     line = cc.instantiate(this.baseLineX);
+        // }
+        // LineMgr.getInstance().addLine(line,this.linePool);
+        this.line.position = new cc.Vec2(this.baseLinePostion.x + this.lineSumX, this.baseLinePostion.y + this.lineSumY);
+
+        //let newX = -((line.position.x - this.baseLinePostion.x) * Math.cos(this.bg.rotation * Math.PI / 180) + (line.position.y - this.baseLinePostion.y) * Math.sin(this.bg.rotation * Math.PI / 180));
+        //let newY = -(-(line.position.y - this.baseLinePostion.y) * Math.sin(this.bg.rotation * Math.PI / 180) + (line.position.x - this.baseLinePostion.x) * Math.cos(this.bg.rotation * Math.PI / 180));
+        //let newX = this.bg.position.x - this.directionArr[this.nowDirecion].x * this.lineMinSize * 2;
+        //let newY = this.bg.position.y - this.directionArr[this.nowDirecion].y * this.lineMinSize * 2;
+        //this.bg.position = new cc.Vec2(newX, newY);
+
+        this.stop = true;
+
+        setTimeout(function(){
+            if(curCp != null) {
+                this.bgm.setCurrentTime(curCp.idx * 0.4);
+                this.bgm.resume();
+            }
+            else {
+                this.bgm.setCurrentTime(0);
+                this.bgm.play();
+            }
+            this.bBack = false;
+            this.bOver = false;
+            this.stop = false;
+        }.bind(this),3000);
+    },
+
     start () {
         this.lineDirection = this.baseDirection;
         this.time = 0;
@@ -485,10 +495,13 @@ cc.Class({
 
         this.bOver = true;
         this.bBack = false;
+
+        this.nowTime = 0;
     },
 
     update (dt) {
         if (!this.bOver) {
+            this.nowTime += dt;
             //console.log(this.offset);
             // this.lineSumX += this.directionArr[this.lineDirection].x;
             // this.lineSumY += this.directionArr[this.lineDirection].y;
@@ -607,7 +620,28 @@ cc.Class({
                         this.bOver = true;
                         this.bBack = true;
                         this.bgm.pause();
-                        alert("发出GG的声音");
+                        if(this.uiDie != null)
+                        {
+                            let die = this.uiDie.getComponent('UIDie');
+                            if(die != null)
+                            {
+                                let data = {
+                                    bgmName: this.bgmName,
+                                    progress: ((this.nowTime/this.fullLength) * 100).toFixed(0),
+                                    diamond: DiamondMgr.getInstance().getDiamondCount(),
+                                    maxCombo: ScoreMgr.getInstance().getMaxCombo(),
+                                    sumCombo:ScoreMgr.getInstance().getComboCount(),
+                                    point:ScoreMgr.getInstance().getScore(),
+                                    sceneName:this.sceneName,
+                                    resumeChance : this.resumeChance,
+                                    recordIdx:this.recordIdx,
+                                };
+                                this.resumeChance -= 1;
+                                die.setData(data);
+                            }
+                            this.uiDie.active = true;
+                        }
+//                        alert("发出GG的声音");
                     }
                 }
             }
@@ -633,7 +667,28 @@ cc.Class({
                         this.bOver = true;
                         this.bBack = true;
                         this.bgm.pause();
-                        alert("发出GG的声音");
+                        if(this.uiDie != null)
+                        {
+                            let die = this.uiDie.getComponent('UIDie');
+                            if(die != null)
+                            {
+                                let data = {
+                                    bgmName: this.bgmName,
+                                    progress: ((this.nowTime/this.fullLength) * 100).toFixed(0),
+                                    diamond: DiamondMgr.getInstance().getDiamondCount(),
+                                    maxCombo: ScoreMgr.getInstance().getMaxCombo(),
+                                    sumCombo:ScoreMgr.getInstance().getComboCount(),
+                                    point:ScoreMgr.getInstance().getScore(),
+                                    sceneName:this.sceneName,
+                                    resumeChance : this.resumeChance,
+                                    recordIdx:this.recordIdx,
+                                };
+                                this.resumeChance -= 1;
+                                die.setData(data);
+                            }
+                            this.uiDie.active = true;
+                        }
+                        //alert("发出GG的声音");
                     }
                 }
             }
@@ -764,13 +819,6 @@ cc.Class({
                     location = terrain.position;
                 }
                 else {
-                    // if(this.terrainPool.size() > 0)
-                    // {
-                    //     terrain = this.terrainPool.get();
-                    // }
-                    // else {
-                    //     terrain = cc.instantiate(this.baseterrain);
-                    // }
                     this.sumX += this.directionArr[this.direction].x;
                     this.sumY += this.directionArr[this.direction].y;
                     location = new cc.Vec2(this.basePostion.x + (2 * this.sumX) * this.halfSize, this.basePostion.y + (2 * this.sumY + 1) * this.halfSize);
@@ -783,48 +831,6 @@ cc.Class({
                         DiamondMgr.getInstance().addDiamond(diamond);
                         diamond.parent = this.bg;
                         break;
-                    // case 4:
-                    //     if(this.itemArr.length > 0 && this.itemPosArr.length > 0) {
-                    //         let item = cc.instantiate(this.itemArr[0]);
-                    //         item.position = new cc.Vec2(location.x + this.itemPosArr[0].x, location.y + this.itemPosArr[0].y);
-                    //         item.parent = this.bg;
-                    //     }
-                    //     break;
-                    // case 5:
-                    //     if(this.itemArr.length > 1 && this.itemPosArr.length > 1) {
-                    //         let item = cc.instantiate(this.itemArr[1]);
-                    //         item.position = new cc.Vec2(location.x + this.itemPosArr[1].x, location.y + this.itemPosArr[1].y);
-                    //         item.parent = this.bg;
-                    //     }
-                    //     break;
-                    // case 6:
-                    //     if(this.itemArr.length > 2 && this.itemPosArr.length > 2) {
-                    //         let item = cc.instantiate(this.itemArr[2]);
-                    //         item.position = new cc.Vec2(location.x + this.itemPosArr[2].x, location.y + this.itemPosArr[2].y);
-                    //         item.parent = this.bg;
-                    //     }
-                    //     break;
-                    // case 7:
-                    //     if(this.itemArr.length > 3 && this.itemPosArr.length > 3) {
-                    //         let item = cc.instantiate(this.itemArr[3]);
-                    //         item.position = new cc.Vec2(location.x + this.itemPosArr[3].x, location.y + this.itemPosArr[3].y);
-                    //         item.parent = this.bg;
-                    //     }
-                    //     break;
-                    // case 8:
-                    //     if(this.itemArr.length > 4 && this.itemPosArr.length > 4) {
-                    //         let item = cc.instantiate(this.itemArr[4]);
-                    //         item.position = new cc.Vec2(location.x + this.itemPosArr[4].x, location.y + this.itemPosArr[4].y);
-                    //         item.parent = this.bg;
-                    //     }
-                    //     break;
-                    // case 9:
-                    //     if(this.itemArr.length > 5 && this.itemPosArr.length > 5) {
-                    //         let item = cc.instantiate(this.itemArr[5]);
-                    //         item.position = new cc.Vec2(location.x + this.itemPosArr[5].x, location.y + this.itemPosArr[5].y);
-                    //         item.parent = this.bg;
-                    //     }
-                    //     break;
                 }
                 this.idx++;
             }
@@ -833,11 +839,4 @@ cc.Class({
         this.buildTerrainIdx += count;
     }
 
-    // lateUpdate() {
-    // let context = cc.sys.__audioSupport.context;
-    // if (context.state === 'suspended') {
-    //     context.resume();
-    //     console.log(context.state);
-    //     }
-    // },
 });

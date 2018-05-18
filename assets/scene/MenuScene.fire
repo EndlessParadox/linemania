@@ -3470,11 +3470,11 @@
       "__id__": 63
     },
     "sceneArr": [
-      "GameScene_Dust",
-      "GameScene_Dust",
-      "GameScene_Dust",
-      "GameScene_Dust",
-      "GameScene_Dust"
+      "GameScene_Beach",
+      "GameScene_Beach",
+      "GameScene_Beach",
+      "GameScene_Beach",
+      "GameScene_Beach"
     ],
     "spriteArr": [
       {
