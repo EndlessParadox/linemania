@@ -118,6 +118,7 @@ cc.Class({
         let itemSumX = -1;
         let itemSumY = 0;
         //load时直接生成物体
+        let itemIdx = 0;
         for (let i = 0; i < this.terrainArr.length; i++) {
             let note = this.terrainArr[i].substr(0, 1);
             let direction;
@@ -154,43 +155,49 @@ cc.Class({
                     case 4:
                         if (this.itemArr.length > 0 && this.itemPosArr.length > 0) {
                             let item = cc.instantiate(this.itemArr[0]);
-                            item.position = new cc.Vec2(location.x + this.itemPosArr[0].x, location.y + this.itemPosArr[0].y);
+                            item.position = new cc.Vec2(location.x + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].x, location.y + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].y);
                             item.parent = this.constBG;
+                            itemIdx++;
                         }
                         break;
                     case 5:
                         if (this.itemArr.length > 1 && this.itemPosArr.length > 1) {
                             let item = cc.instantiate(this.itemArr[1]);
-                            item.position = new cc.Vec2(location.x + this.itemPosArr[1].x, location.y + this.itemPosArr[1].y);
+                            item.position = new cc.Vec2(location.x + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].x, location.y + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].y);
                             item.parent = this.constBG;
+                            itemIdx++;
                         }
                         break;
                     case 6:
                         if (this.itemArr.length > 2 && this.itemPosArr.length > 2) {
                             let item = cc.instantiate(this.itemArr[2]);
-                            item.position = new cc.Vec2(location.x + this.itemPosArr[2].x, location.y + this.itemPosArr[2].y);
+                            item.position = new cc.Vec2(location.x + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].x, location.y + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].y);
                             item.parent = this.constBG;
+                            itemIdx++;
                         }
                         break;
                     case 7:
                         if (this.itemArr.length > 3 && this.itemPosArr.length > 3) {
                             let item = cc.instantiate(this.itemArr[3]);
-                            item.position = new cc.Vec2(location.x + this.itemPosArr[3].x, location.y + this.itemPosArr[3].y);
+                            item.position = new cc.Vec2(location.x + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].x, location.y + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].y);
                             item.parent = this.constBG;
+                            itemIdx++;
                         }
                         break;
                     case 8:
                         if (this.itemArr.length > 4 && this.itemPosArr.length > 4) {
                             let item = cc.instantiate(this.itemArr[4]);
-                            item.position = new cc.Vec2(location.x + this.itemPosArr[4].x, location.y + this.itemPosArr[4].y);
+                            item.position = new cc.Vec2(location.x + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].x, location.y + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].y);
                             item.parent = this.constBG;
+                            itemIdx++;
                         }
                         break;
                     case 9:
                         if (this.itemArr.length > 5 && this.itemPosArr.length > 5) {
                             let item = cc.instantiate(this.itemArr[5]);
-                            item.position = new cc.Vec2(location.x + this.itemPosArr[5].x, location.y + this.itemPosArr[5].y);
+                            item.position = new cc.Vec2(location.x + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].x, location.y + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].y);
                             item.parent = this.constBG;
+                            itemIdx++;
                         }
                         break;
                 }

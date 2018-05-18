@@ -2007,7 +2007,7 @@
     "lineSumY": 0,
     "lineDirection": 0,
     "lineMaxSize": 20,
-    "lineMinSize": 2.4,
+    "lineMinSize": 2.24,
     "baseLinePostion": {
       "__type__": "cc.Vec2",
       "x": 0,
@@ -2103,7 +2103,7 @@
     },
     "_enabled": true,
     "_clip": {
-      "__uuid__": "5d1e0904-25e6-4eb2-8781-b9667f782fd5"
+      "__uuid__": "54fcf8df-c488-4a69-acac-c7936699b98a"
     },
     "_volume": 1,
     "_mute": false,
