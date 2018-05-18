@@ -185,7 +185,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "fcdaa6eb-7349-46d2-a219-9c676727aec1"
+      "__uuid__": "937df687-ccab-4279-a57c-219474d6a491"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -2043,22 +2043,22 @@
     "preBuildCount": 8,
     "itemArr": [
       {
-        "__uuid__": "8b5de3a8-2ab4-4ac7-a154-8a172744cb94"
+        "__uuid__": "3ee86e22-036e-426e-a3a9-9b42f9d17a9d"
       },
       {
-        "__uuid__": "481f3d7c-252a-41ae-ae9b-9ae95986624f"
+        "__uuid__": "2eac8516-c9bc-451f-b275-649f03c1046c"
       },
       {
-        "__uuid__": "2293f07d-b083-49f8-a9fd-08d2ea26b573"
+        "__uuid__": "afc27967-9d30-48c6-ab15-1d1e01787ddb"
       },
       {
-        "__uuid__": "b810ae92-7288-44d0-b5bf-11ed56bdae30"
+        "__uuid__": "b3c8058d-9bea-4021-8e6b-ea101c5a8607"
       },
       {
-        "__uuid__": "8fe22e57-ca00-4657-ab01-bdc11a18912e"
+        "__uuid__": "8eafe9ab-6ce1-4d9c-8a73-522bb8d4ca79"
       },
       {
-        "__uuid__": "dd1741b7-ea23-4354-9c93-c0b0af9a9704"
+        "__uuid__": "59691cec-6be9-4794-a6c4-510fa60a44c0"
       }
     ],
     "itemPosArr": [
@@ -2092,6 +2092,16 @@
         "x": 500,
         "y": 1000
       }
+    ],
+    "itemRotateArr": [
+      0
+    ],
+    "itemScaleArr": [
+      {
+        "__type__": "cc.Vec2",
+        "x": 1,
+        "y": 1
+      }
     ]
   },
   {
@@ -2103,7 +2113,7 @@
     },
     "_enabled": true,
     "_clip": {
-      "__uuid__": "5d1e0904-25e6-4eb2-8781-b9667f782fd5"
+      "__uuid__": "fcf869aa-a4e2-4312-b99f-1b10ed26a364"
     },
     "_volume": 1,
     "_mute": false,

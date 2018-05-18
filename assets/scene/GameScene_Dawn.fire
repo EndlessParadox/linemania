@@ -21,7 +21,7 @@
     "_active": true,
     "_components": [],
     "_prefab": null,
-    "_id": "8675ffdf-766e-463a-b0a7-ca6fdedb6dee",
+    "_id": "4cbcc22b-4d6c-4707-bbfb-30c040282279",
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
@@ -185,7 +185,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "fcdaa6eb-7349-46d2-a219-9c676727aec1"
+      "__uuid__": "10bfb1d1-fb6d-4929-b17b-c0d4df2b627b"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -2043,22 +2043,22 @@
     "preBuildCount": 8,
     "itemArr": [
       {
-        "__uuid__": "8b5de3a8-2ab4-4ac7-a154-8a172744cb94"
+        "__uuid__": "f13fb1e3-c255-48ac-a6c2-97d01ce3e0db"
       },
       {
-        "__uuid__": "481f3d7c-252a-41ae-ae9b-9ae95986624f"
+        "__uuid__": "2b3e2fdd-ea83-4cd5-9cf4-f4c075b39a95"
       },
       {
-        "__uuid__": "2293f07d-b083-49f8-a9fd-08d2ea26b573"
+        "__uuid__": "a47268d0-227f-49ed-8d73-7ee63a399b64"
       },
       {
-        "__uuid__": "b810ae92-7288-44d0-b5bf-11ed56bdae30"
+        "__uuid__": "902311e0-91ce-4154-93c2-e33271e7ee65"
       },
       {
-        "__uuid__": "8fe22e57-ca00-4657-ab01-bdc11a18912e"
+        "__uuid__": "a136083b-7f83-43bd-b7a8-a785dff0094b"
       },
       {
-        "__uuid__": "dd1741b7-ea23-4354-9c93-c0b0af9a9704"
+        "__uuid__": "e98cfed8-12df-4cb1-9ff0-b6f7eb492688"
       }
     ],
     "itemPosArr": [
@@ -2092,6 +2092,16 @@
         "x": 500,
         "y": 1000
       }
+    ],
+    "itemRotateArr": [
+      0
+    ],
+    "itemScaleArr": [
+      {
+        "__type__": "cc.Vec2",
+        "x": 1,
+        "y": 1
+      }
     ]
   },
   {
@@ -2103,7 +2113,7 @@
     },
     "_enabled": true,
     "_clip": {
-      "__uuid__": "5d1e0904-25e6-4eb2-8781-b9667f782fd5"
+      "__uuid__": "70354235-f7fc-4ff8-acfe-6d02433e8b0d"
     },
     "_volume": 1,
     "_mute": false,
