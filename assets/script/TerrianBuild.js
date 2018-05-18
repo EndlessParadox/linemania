@@ -46,6 +46,7 @@ cc.Class({
         preBuildCount:0,
         itemArr:[cc.Prefab],
         itemPosArr:[cc.Vec2],
+        itemRotateArr:[cc.Float],
         // foo: {
         //     // ATTRIBUTES:
         //     default: null,        // The default value will be used only when the component attaching
@@ -156,6 +157,7 @@ cc.Class({
                         if (this.itemArr.length > 0 && this.itemPosArr.length > 0) {
                             let item = cc.instantiate(this.itemArr[0]);
                             item.position = new cc.Vec2(location.x + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].x, location.y + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].y);
+                            item.rotation = this.itemRotateArr[itemIdx < this.itemRotateArr.length ? itemIdx : 0];
                             item.parent = this.constBG;
                             itemIdx++;
                         }
@@ -164,6 +166,7 @@ cc.Class({
                         if (this.itemArr.length > 1 && this.itemPosArr.length > 1) {
                             let item = cc.instantiate(this.itemArr[1]);
                             item.position = new cc.Vec2(location.x + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].x, location.y + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].y);
+                            item.rotation = this.itemRotateArr[itemIdx < this.itemRotateArr.length ? itemIdx : 0];
                             item.parent = this.constBG;
                             itemIdx++;
                         }
@@ -172,6 +175,7 @@ cc.Class({
                         if (this.itemArr.length > 2 && this.itemPosArr.length > 2) {
                             let item = cc.instantiate(this.itemArr[2]);
                             item.position = new cc.Vec2(location.x + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].x, location.y + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].y);
+                            item.rotation = this.itemRotateArr[itemIdx < this.itemRotateArr.length ? itemIdx : 0];
                             item.parent = this.constBG;
                             itemIdx++;
                         }
@@ -180,6 +184,7 @@ cc.Class({
                         if (this.itemArr.length > 3 && this.itemPosArr.length > 3) {
                             let item = cc.instantiate(this.itemArr[3]);
                             item.position = new cc.Vec2(location.x + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].x, location.y + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].y);
+                            item.rotation = this.itemRotateArr[itemIdx < this.itemRotateArr.length ? itemIdx : 0];
                             item.parent = this.constBG;
                             itemIdx++;
                         }
@@ -188,6 +193,7 @@ cc.Class({
                         if (this.itemArr.length > 4 && this.itemPosArr.length > 4) {
                             let item = cc.instantiate(this.itemArr[4]);
                             item.position = new cc.Vec2(location.x + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].x, location.y + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].y);
+                            item.rotation = this.itemRotateArr[itemIdx < this.itemRotateArr.length ? itemIdx : 0];
                             item.parent = this.constBG;
                             itemIdx++;
                         }
@@ -196,6 +202,7 @@ cc.Class({
                         if (this.itemArr.length > 5 && this.itemPosArr.length > 5) {
                             let item = cc.instantiate(this.itemArr[5]);
                             item.position = new cc.Vec2(location.x + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].x, location.y + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].y);
+                            item.rotation = this.itemRotateArr[itemIdx < this.itemRotateArr.length ? itemIdx : 0];
                             item.parent = this.constBG;
                             itemIdx++;
                         }
