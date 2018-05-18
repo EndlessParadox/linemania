@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "19c3ef6a-1a0f-46db-bdbc-08482b0a743e",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "跳线沙滩背景海星": {
+      "ver": "1.0.3",
+      "uuid": "a78e2eac-2046-4cce-a14c-3f7f4f67865d",
+      "rawTextureUuid": "19c3ef6a-1a0f-46db-bdbc-08482b0a743e",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 195,
+      "height": 196,
+      "rawWidth": 195,
+      "rawHeight": 196,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

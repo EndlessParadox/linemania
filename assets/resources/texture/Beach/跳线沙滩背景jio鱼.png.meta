@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "623543d0-9c9d-4e58-a2b6-237072498c46",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "跳线沙滩背景jio鱼": {
+      "ver": "1.0.3",
+      "uuid": "66e841d4-c7d8-43e6-8ba4-69e3c987f68c",
+      "rawTextureUuid": "623543d0-9c9d-4e58-a2b6-237072498c46",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": -1.5,
+      "trimX": 0,
+      "trimY": 3,
+      "width": 200,
+      "height": 214,
+      "rawWidth": 200,
+      "rawHeight": 217,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

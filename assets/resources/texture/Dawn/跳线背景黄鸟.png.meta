@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "97f05073-1c1f-40a8-aa37-10d9c271a2e8",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "跳线背景黄鸟": {
+      "ver": "1.0.3",
+      "uuid": "47766719-5337-4c49-882e-4657e685278f",
+      "rawTextureUuid": "97f05073-1c1f-40a8-aa37-10d9c271a2e8",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -3.5,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 293,
+      "height": 220,
+      "rawWidth": 300,
+      "rawHeight": 220,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

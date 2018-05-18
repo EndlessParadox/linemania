@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "31cc9eff-8ad9-406a-ae81-9ada13bc6f7b",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "道路转弯指示方块粉": {
+      "ver": "1.0.3",
+      "uuid": "69a31d45-81b2-455b-b66b-ea9df9570e0b",
+      "rawTextureUuid": "31cc9eff-8ad9-406a-ae81-9ada13bc6f7b",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0.5,
+      "offsetY": -0.5,
+      "trimX": 5,
+      "trimY": 6,
+      "width": 150,
+      "height": 150,
+      "rawWidth": 159,
+      "rawHeight": 161,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

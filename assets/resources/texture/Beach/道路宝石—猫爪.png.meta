@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "fcc28a9e-cce0-46a7-9ae4-174078ff1482",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "道路宝石—猫爪": {
+      "ver": "1.0.3",
+      "uuid": "93b474bd-18ab-4744-8c8b-e1912e5f2eb2",
+      "rawTextureUuid": "fcc28a9e-cce0-46a7-9ae4-174078ff1482",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -1,
+      "offsetY": 0.5,
+      "trimX": 30,
+      "trimY": 31,
+      "width": 97,
+      "height": 98,
+      "rawWidth": 159,
+      "rawHeight": 161,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

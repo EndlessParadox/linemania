@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "26a46124-fb27-4c15-ac05-ec679444d34c",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "跳线沙滩背景jio印": {
+      "ver": "1.0.3",
+      "uuid": "44c9ff09-fb79-4719-a076-4dc6f18bb707",
+      "rawTextureUuid": "26a46124-fb27-4c15-ac05-ec679444d34c",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 1,
+      "offsetY": -1,
+      "trimX": 12,
+      "trimY": 7,
+      "width": 515,
+      "height": 252,
+      "rawWidth": 537,
+      "rawHeight": 264,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "74471218-d783-4009-b963-ab58373e5341",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "跳线沙滩背景贝kuo": {
+      "ver": "1.0.3",
+      "uuid": "c8a1d7df-5095-49e4-a141-983c3e7c212b",
+      "rawTextureUuid": "74471218-d783-4009-b963-ab58373e5341",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 139,
+      "height": 132,
+      "rawWidth": 139,
+      "rawHeight": 132,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
