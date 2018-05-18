@@ -2095,6 +2095,13 @@
     ],
     "itemRotateArr": [
       90
+    ],
+    "itemScaleArr": [
+      {
+        "__type__": "cc.Vec2",
+        "x": 0.1,
+        "y": 0.5
+      }
     ]
   },
   {

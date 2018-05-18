@@ -27,7 +27,7 @@
   "renderMode": "0",
   "startScene": "8675ffdf-766e-463a-b0a7-ca6fdedb6dee",
   "title": "LineMania",
-  "webOrientation": "landscape",
+  "webOrientation": "portrait",
   "wechatgame": {
     "appid": "wx6ac3f5090a6b99c5",
     "orientation": "portrait"
