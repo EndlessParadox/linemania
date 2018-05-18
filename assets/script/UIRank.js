@@ -13,15 +13,11 @@ cc.Class({
 
     properties: {
         sv:cc.ScrollView,
-        sceneArr:[cc.String],
         spriteArr:[cc.Node],
-        buttonArr:[cc.Button],
         progressArr:[cc.Label],
         upArrow:cc.Node,
         downArrow:cc.Node,
-        uiRank:cc.Node,
-        btnRank:cc.Button,
-        btnExit:cc.Button,
+        btnExit:cc.Node,
         // foo: {
         //     // ATTRIBUTES:
         //     default: null,        // The default value will be used only when the component attaching
@@ -42,23 +38,16 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        for(let i = 0; i < this.buttonArr.length; i ++)
+        for(let i = 0; i < this.progressArr.length; i ++)
         {
-            this.buttonArr[i].node.on('click',function(){
-                cc.director.loadScene(this.sceneArr[i]);
-            }.bind(this));
 
-            this.progressArr[i].string = localStorage.getItem("record" + i) == null ? "0%" : localStorage.getItem("record" + i) + "%";
+            this.progressArr[i].string = localStorage.getItem("record" + i) == null ? "完成度0%" : "完成度" +localStorage.getItem("record" + i) + "%";
         }
     },
 
     start () {
-        this.content = this.sv.content;
-        // this.sv.node.on('scroll-began',function(){
-        // }.bind(this));
-
         this.sv.node.on('scroll-ended',function(){
-            let realOffset = this.sv.getScrollOffset().y/this.sv.getMaxScrollOffset().y;
+            let realOffset = Math.abs(this.sv.getScrollOffset().x)/this.sv.getMaxScrollOffset().x;
             let autoIdx = Math.round(realOffset / (1 / (this.spriteArr.length - 1)));
             let autoOffset = autoIdx * (1 / (this.spriteArr.length - 1));
             for(let i = 0; i < this.spriteArr.length; i ++)
@@ -66,24 +55,21 @@ cc.Class({
                 if(i !== autoIdx)
                 {
                     this.spriteArr[i].setScale(0.6);
-                    this.spriteArr[i].opacity = 153;
                 }
                 else {
                     this.spriteArr[i].setScale(1);
-                    this.spriteArr[i].opacity = 255;
                     // this.spriteArr[i].Size = new cc.Vec2(800,404);
                 }
             }
             this.upArrow.active = autoIdx !== 0;
             this.downArrow.active = autoIdx !== this.spriteArr.length - 1;
-            this.sv.scrollToPercentVertical(1 - autoOffset,2);
+            this.sv.scrollToPercentHorizontal(autoOffset,1);
         }.bind(this));
 
-        this.btnRank.node.on('click',function(){
-            this.uiRank.active = true;
+        this.btnExit.on('click',function(){
+            this.node.active = false;
         }.bind(this));
     },
 
-    update (dt) {
-    },
+    // update (dt) {},
 });

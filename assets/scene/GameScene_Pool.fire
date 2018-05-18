@@ -21,7 +21,7 @@
     "_active": true,
     "_components": [],
     "_prefab": null,
-    "_id": "8675ffdf-766e-463a-b0a7-ca6fdedb6dee",
+    "_id": "e3220f9c-4f80-49f1-afe1-da8c46dac7e8",
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
@@ -185,7 +185,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "fcdaa6eb-7349-46d2-a219-9c676727aec1"
+      "__uuid__": "63bd2eaa-564f-4421-a81d-21fa148a507c"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -2043,22 +2043,22 @@
     "preBuildCount": 8,
     "itemArr": [
       {
-        "__uuid__": "8b5de3a8-2ab4-4ac7-a154-8a172744cb94"
+        "__uuid__": "2b878073-b7a8-43ec-b70c-ab83b82e3f5b"
       },
       {
-        "__uuid__": "481f3d7c-252a-41ae-ae9b-9ae95986624f"
+        "__uuid__": "3e9c26ef-b2d3-4c17-9222-9d6b84659aeb"
       },
       {
-        "__uuid__": "2293f07d-b083-49f8-a9fd-08d2ea26b573"
+        "__uuid__": "92144a0b-e573-4e11-8106-e79234763c02"
       },
       {
-        "__uuid__": "b810ae92-7288-44d0-b5bf-11ed56bdae30"
+        "__uuid__": "26cf2e12-5a22-4196-bded-941e4683c68e"
       },
       {
-        "__uuid__": "8fe22e57-ca00-4657-ab01-bdc11a18912e"
+        "__uuid__": "f300413c-8b35-4cc9-bc6c-a99db9c2dba3"
       },
       {
-        "__uuid__": "dd1741b7-ea23-4354-9c93-c0b0af9a9704"
+        "__uuid__": "444dcd78-d7c6-4afe-a22f-84e83f543ddb"
       }
     ],
     "itemPosArr": [
