@@ -47,6 +47,7 @@ cc.Class({
         itemArr:[cc.Prefab],
         itemPosArr:[cc.Vec2],
         itemRotateArr:[cc.Float],
+        itemScaleArr:[cc.Vec2],
         // foo: {
         //     // ATTRIBUTES:
         //     default: null,        // The default value will be used only when the component attaching
@@ -158,6 +159,7 @@ cc.Class({
                             let item = cc.instantiate(this.itemArr[0]);
                             item.position = new cc.Vec2(location.x + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].x, location.y + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].y);
                             item.rotation = this.itemRotateArr[itemIdx < this.itemRotateArr.length ? itemIdx : 0];
+                            item.setScale(new cc.Vec2(this.itemScaleArr[itemIdx < this.itemScaleArr.length ? itemIdx : 0]));
                             item.parent = this.constBG;
                             itemIdx++;
                         }
@@ -167,6 +169,7 @@ cc.Class({
                             let item = cc.instantiate(this.itemArr[1]);
                             item.position = new cc.Vec2(location.x + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].x, location.y + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].y);
                             item.rotation = this.itemRotateArr[itemIdx < this.itemRotateArr.length ? itemIdx : 0];
+                            item.setScale(new cc.Vec2(this.itemScaleArr[itemIdx < this.itemScaleArr.length ? itemIdx : 0]));
                             item.parent = this.constBG;
                             itemIdx++;
                         }
@@ -176,6 +179,7 @@ cc.Class({
                             let item = cc.instantiate(this.itemArr[2]);
                             item.position = new cc.Vec2(location.x + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].x, location.y + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].y);
                             item.rotation = this.itemRotateArr[itemIdx < this.itemRotateArr.length ? itemIdx : 0];
+                            item.setScale(new cc.Vec2(this.itemScaleArr[itemIdx < this.itemScaleArr.length ? itemIdx : 0]));
                             item.parent = this.constBG;
                             itemIdx++;
                         }
@@ -185,6 +189,7 @@ cc.Class({
                             let item = cc.instantiate(this.itemArr[3]);
                             item.position = new cc.Vec2(location.x + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].x, location.y + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].y);
                             item.rotation = this.itemRotateArr[itemIdx < this.itemRotateArr.length ? itemIdx : 0];
+                            item.setScale(new cc.Vec2(this.itemScaleArr[itemIdx < this.itemScaleArr.length ? itemIdx : 0]));
                             item.parent = this.constBG;
                             itemIdx++;
                         }
@@ -194,6 +199,7 @@ cc.Class({
                             let item = cc.instantiate(this.itemArr[4]);
                             item.position = new cc.Vec2(location.x + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].x, location.y + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].y);
                             item.rotation = this.itemRotateArr[itemIdx < this.itemRotateArr.length ? itemIdx : 0];
+                            item.setScale(new cc.Vec2(this.itemScaleArr[itemIdx < this.itemScaleArr.length ? itemIdx : 0]));
                             item.parent = this.constBG;
                             itemIdx++;
                         }
@@ -203,6 +209,7 @@ cc.Class({
                             let item = cc.instantiate(this.itemArr[5]);
                             item.position = new cc.Vec2(location.x + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].x, location.y + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].y);
                             item.rotation = this.itemRotateArr[itemIdx < this.itemRotateArr.length ? itemIdx : 0];
+                            item.setScale(new cc.Vec2(this.itemScaleArr[itemIdx < this.itemScaleArr.length ? itemIdx : 0]));
                             item.parent = this.constBG;
                             itemIdx++;
                         }
