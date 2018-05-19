@@ -8,6 +8,8 @@
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
 
+var DiamondMgr = require("DiamondMgr");
+
 cc.Class({
     extends: cc.Component,
 
@@ -74,6 +76,8 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
+
+        this.DiamondMgr = new DiamondMgr();
         //this.build = '0000000000|10|20|30|20|30000000|20|10|00|10|20000000|10|00|10|00|10000000|00|10|00|10|00000000|10|0|1|00|10|00|10|0000|10|0|1|00|10|00|10|0000|10|0|1|00|10|000|1|0000|1|0|1|0|10|00|100000000';
         this.baseDirection = parseInt(this.build.slice(0,1));
         this.terrainArr = this.build.split('|');
@@ -534,7 +538,7 @@ cc.Class({
                 //line.getComponent('SelfDestroy').setPool(this.linePool);
                 //console.log(this.line);
                 this.line.position = new cc.Vec2(this.baseLinePostion.x + this.lineSumX + this.lineMinSize * this.directionArr[this.lineDirection].x * dt / this.deltaTime, this.baseLinePostion.y + this.lineSumY + this.lineMaxSize* this.directionArr[this.lineDirection].y);
-                DiamondMgr.getInstance().updateDiamond(this.line.position.x,this.line.position.y,this.lineMinSize,this.lineMaxSize);
+                this.DiamondMgr.updateDiamond(this.line.position.x,this.line.position.y,this.lineMinSize,this.lineMaxSize,this.DiamondMgr);
                 CheckPointMgr.getInstance().updateCheck(this.line.position.x,this.line.position.y,this.halfSize);
                 // LineMgr.getInstance().addLine(line,this.linePool);
                 //console.log(line.position.y + "-----" + this.terrainPerfectArr[this.terrainIdx]);
@@ -578,7 +582,7 @@ cc.Class({
 
                 //line.getComponent('SelfDestroy').setPool(this.linePool);
                 this.line.position = new cc.Vec2(this.baseLinePostion.x + this.lineSumX + this.lineMaxSize* this.directionArr[this.lineDirection].x, this.baseLinePostion.y + this.lineSumY + this.lineMinSize* this.directionArr[this.lineDirection].y * dt /this.deltaTime);
-                DiamondMgr.getInstance().updateDiamond(this.line.position.x,this.line.position.y,this.lineMaxSize,this.lineMinSize);
+                this.DiamondMgr.updateDiamond(this.line.position.x,this.line.position.y,this.lineMaxSize,this.lineMinSize,this.DiamondMgr);
                 CheckPointMgr.getInstance().updateCheck(this.line.position.x,this.line.position.y,this.halfSize);
                 //LineMgr.getInstance().addLine(this.line,this.linePool);
                 //console.log(line.position.x + " ---- " + (this.terrainSumX + this.baseLinePostion.x + this.lineMinSize));
@@ -604,9 +608,29 @@ cc.Class({
                     this.terrainIdx++;
                     if(this.terrainIdx >= this.terrainArr.length)
                     {
-                        alert("发出胜利的声音");
+                        //alert("发出胜利的声音");
                         this.bOver = true;
                         this.bgm.stop();
+                        if(this.uiDie != null) {
+                            let die = this.uiDie.getComponent('UIDie');
+                            if (die != null) {
+                                let data = {
+                                    bgmName: this.bgmName,
+                                    progress: ((this.nowTime / this.fullLength) * 100).toFixed(0),
+                                    diamond: this.DiamondMgr.getDiamondCount(),
+                                    maxCombo: ScoreMgr.getInstance().getMaxCombo(),
+                                    sumCombo: ScoreMgr.getInstance().getComboCount(),
+                                    point: ScoreMgr.getInstance().getScore(),
+                                    sceneName: this.sceneName,
+                                    resumeChance: this.resumeChance,
+                                    recordIdx: this.recordIdx,
+                                    finish: true,
+                                };
+                                this.resumeChance -= 1;
+                                die.setData(data);
+                            }
+                            this.uiDie.active = true;
+                        }
                         return;
                     }
                     this.nowDirecion = parseInt(this.terrainArr[this.terrainIdx].slice(0, 1));
@@ -628,7 +652,7 @@ cc.Class({
                                 let data = {
                                     bgmName: this.bgmName,
                                     progress: ((this.nowTime/this.fullLength) * 100).toFixed(0),
-                                    diamond: DiamondMgr.getInstance().getDiamondCount(),
+                                    diamond: this.DiamondMgr.getDiamondCount(),
                                     maxCombo: ScoreMgr.getInstance().getMaxCombo(),
                                     sumCombo:ScoreMgr.getInstance().getComboCount(),
                                     point:ScoreMgr.getInstance().getScore(),
@@ -651,9 +675,29 @@ cc.Class({
                     this.terrainIdx++;
                     if(this.terrainIdx >= this.terrainArr.length)
                     {
-                        alert("发出胜利的声音");
+                        //alert("发出胜利的声音");
                         this.bOver = true;
                         this.bgm.stop();
+                        if(this.uiDie != null) {
+                            let die = this.uiDie.getComponent('UIDie');
+                            if (die != null) {
+                                let data = {
+                                    bgmName: this.bgmName,
+                                    progress: ((this.nowTime / this.fullLength) * 100).toFixed(0),
+                                    diamond: this.DiamondMgr.getDiamondCount(),
+                                    maxCombo: ScoreMgr.getInstance().getMaxCombo(),
+                                    sumCombo: ScoreMgr.getInstance().getComboCount(),
+                                    point: ScoreMgr.getInstance().getScore(),
+                                    sceneName: this.sceneName,
+                                    resumeChance: this.resumeChance,
+                                    recordIdx: this.recordIdx,
+                                    finish: true,
+                                };
+                                this.resumeChance -= 1;
+                                die.setData(data);
+                            }
+                            this.uiDie.active = true;
+                        }
                         return;
                     }
                     this.nowDirecion = parseInt(this.terrainArr[this.terrainIdx].slice(0, 1));
@@ -675,13 +719,14 @@ cc.Class({
                                 let data = {
                                     bgmName: this.bgmName,
                                     progress: ((this.nowTime/this.fullLength) * 100).toFixed(0),
-                                    diamond: DiamondMgr.getInstance().getDiamondCount(),
+                                    diamond: this.DiamondMgr.getDiamondCount(),
                                     maxCombo: ScoreMgr.getInstance().getMaxCombo(),
                                     sumCombo:ScoreMgr.getInstance().getComboCount(),
                                     point:ScoreMgr.getInstance().getScore(),
                                     sceneName:this.sceneName,
                                     resumeChance : this.resumeChance,
                                     recordIdx:this.recordIdx,
+                                    finish:false,
                                 };
                                 this.resumeChance -= 1;
                                 die.setData(data);
@@ -815,6 +860,7 @@ cc.Class({
                     terrain.position = new cc.Vec2(this.basePostion.x + (2 * this.sumX) * this.halfSize, this.basePostion.y + (2 * this.sumY + 1) * this.halfSize);
 
                     CheckPointMgr.getInstance().addCheckPoint(terrain.position.x, terrain.position.y, this.idx, this.direction, i, this.buildSumX, this.buildSumY,terrainIdx,baseSumX,baseSumY,baseBuildSumX,baseBuildSumY,baseIdx);
+                    terrain.zIndex = 996;
                     terrain.parent = this.bg;
                     location = terrain.position;
                 }
@@ -828,7 +874,8 @@ cc.Class({
                     case 2://宝石
                         let diamond = cc.instantiate(this.diamondBase);
                         diamond.position = new cc.Vec2(location.x + (2 * Math.random() - 1) * this.halfSize * this.diamondArea, location.y + (2 * Math.random() - 1) * this.halfSize * this.diamondArea);
-                        DiamondMgr.getInstance().addDiamond(diamond);
+                        this.DiamondMgr.addDiamond(diamond);
+                        diamond.zIndex = 997;
                         diamond.parent = this.bg;
                         break;
                 }

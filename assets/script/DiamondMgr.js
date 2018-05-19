@@ -1,45 +1,37 @@
-(function(window){
-
-    let DiamondMgr = function() {
-        this.instance = null;
+let DiamondMgr = cc.Class({
+    ctor:function()
+    {
         this.diamondArr = new Array();
         this.diamondCount = 0;
-    };
+    },
 
-    DiamondMgr.getInstance = function() {
-        if (!this.instance) {
-            this.instance = new DiamondMgr();
-        }
-
-        return this.instance;
-    };
-
-    DiamondMgr.prototype.addDiamond = function(item){
+    addDiamond:function(item)
+    {
         this.diamondArr.push(item);
-    };
+    },
 
-    DiamondMgr.prototype.updateDiamond = function(x,y,lineSizeX,lineSizeY)
+    updateDiamond:function(x,y,lineSizeX,lineSizeY,diamondMgr)
     {
         for(let i = 0; i < this.diamondArr.length; i ++)
         {
             if(cc.isValid(this.diamondArr[i])) {
                 let check = this.diamondArr[i].getComponent("DiamondCheck");
                 if (check != null) {
-                    check.onLineUpdate(x, y, lineSizeX, lineSizeY);
+                    check.onLineUpdate(x, y, lineSizeX, lineSizeY,diamondMgr);
                 }
             }
         }
-    };
+    },
 
-    DiamondMgr.prototype.addDiamondCount = function()
+    addDiamondCount:function()
     {
         this.diamondCount ++;
-    };
+    },
 
-    DiamondMgr.prototype.getDiamondCount = function()
+    getDiamondCount : function()
     {
         return this.diamondCount;
-    };
+    }
+});
 
-    window.DiamondMgr = DiamondMgr;
-})(window);
+module.exports = DiamondMgr;

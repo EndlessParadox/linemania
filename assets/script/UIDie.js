@@ -49,7 +49,7 @@ cc.Class({
 
         this.btnBack.node.on('click',function()
         {
-            localStorage.setItem('record' + this.recordIdx,this.progress);
+            localStorage.setItem('record' + this.recordIdx,this.record);
             cc.director.loadScene("MenuScene");
         }.bind(this));
         this.btnShare.node.on('click',function()
@@ -82,17 +82,26 @@ cc.Class({
 
     setData(data)
     {
+        if(data.progress > 100)
+        {
+            data.progress = 100;
+        }
         this.bgmName.string = data.bgmName;
         this.progress.string = data.progress + '%';
-        this.progressBar.progress = data.progress;
+        this.progressBar.progress = data.progress / 100;
         this.diamond.string = data.diamond;
         this.maxCombo.string = data.maxCombo;
         this.sumCombo.string = data.sumCombo;
         this.point.string = data.point;
         this.sceneName = data.sceneName;
         this.recordIdx = data.recordIdx;
-        this.progress = data.progress;
+        this.record = data.progress;
+        this.finish = data.finish;
         if(data.resumeChance === 0 )
+        {
+            this.btnShare.enabled = false;
+        }
+        if(this.finish)
         {
             this.btnShare.enabled = false;
         }
