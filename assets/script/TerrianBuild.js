@@ -56,6 +56,12 @@ cc.Class({
         resumeChance:1,
         fullLength:0,
         recordIdx:0,
+        minBeat:0,
+        standardBeat:0,
+        perfectShow:cc.Prefab,
+        // baseBgTerrain:cc.Prefab,
+        gp:cc.Graphics,
+        help:cc.Node,
         // foo: {
         //     // ATTRIBUTES:
         //     default: null,        // The default value will be used only when the component attaching
@@ -77,6 +83,7 @@ cc.Class({
 
     onLoad () {
 
+        this.multi =  this.minBeat / this.standardBeat;
         this.DiamondMgr = new DiamondMgr();
         //this.build = '0000000000|10|20|30|20|30000000|20|10|00|10|20000000|10|00|10|00|10000000|00|10|00|10|00000000|10|0|1|00|10|00|10|0000|10|0|1|00|10|00|10|0000|10|0|1|00|10|000|1|0000|1|0|1|0|10|00|100000000';
         this.baseDirection = parseInt(this.build.slice(0,1));
@@ -86,6 +93,9 @@ cc.Class({
         this.direction = this.baseDirection;
         //let sumX = -1 * this.directionArr[this.baseDirection].x;
         //let sumY = -1 * this.directionArr[this.baseDirection].y;
+
+        this.help.active = true;
+
         //锁定从右边开始
         this.sumX = -1;
         this.sumY = 0;
@@ -99,16 +109,24 @@ cc.Class({
 
         this.terrainBuildArr = new Array();
 
+        this.terrainBGBuildArr = new Array();
+
         this.terrainPool = new cc.NodePool();
-        for(let i = 0; i < 15; i ++)
-        {
-            let terrain = cc.instantiate(this.baseterrain);
-            terrain.parent = this.bg;
-            //line.opacity = 0;
-            //line.active = false;
-            //LineMgr.getInstance().addInPool(line);
-            this.terrainPool.put(terrain);
-        }
+        // this.terrainBGPool = new cc.NodePool();
+        // for(let i = 0; i < 15; i ++)
+        // {
+        //     let terrain = cc.instantiate(this.baseterrain);
+        //     terrain.parent = this.bg;
+        //     //line.opacity = 0;
+        //     //line.active = false;
+        //     //LineMgr.getInstance().addInPool(line);
+        //     this.terrainPool.put(terrain);
+        //
+        //     let terrainBG = cc.instantiate(this.baseBgTerrain);
+        //     terrainBG.parent = this.constBG;
+        //     this.terrainBGPool.put(terrainBG);
+        // }
+
 
         this.buildTerrainIdx = 0;
         this.buildTerrain(this.buildTerrainIdx);
@@ -240,6 +258,7 @@ cc.Class({
             if(this.bOver)
             {
                 if(!this.bBack) {
+                    this.help.active = false;
                     this.bOver = false;
                     this.bgm.play();
                 }
@@ -280,7 +299,7 @@ cc.Class({
                     }
                     else
                     {
-                            if (Math.abs(this.lineSumX + this.baseLinePostion.x + this.halfSize - this.terrainPerfectArr[this.terrainIdx]) <= this.halfSize * this.perfectArea) {
+                            if (Math.abs(this.lineSumX + this.baseLinePostion.x - this.terrainPerfectArr[this.terrainIdx]) <= this.halfSize * this.perfectArea) {
                                 ScoreMgr.getInstance().addCombo();
                                 ScoreMgr.getInstance().addScore(100 * ScoreMgr.getInstance().getCombo());
                                 let perfectShow = cc.instantiate(this.perfectBase);
@@ -325,7 +344,7 @@ cc.Class({
 
     resumeGame()
     {
-        //this.bg.destroyAllChildren();
+        this.bg.destroyAllChildren();
         for(let o = 0; o < this.terrainBuildArr.length; o ++)
         {
             for (let p = 0; p < this.terrainBuildArr[0].length; p ++)
@@ -334,25 +353,33 @@ cc.Class({
             }
             this.terrainBuildArr.shift();
         }
-        // if(this.linePool.size() > 0)
-        // //if(LineMgr.getInstance().getLineSize() > 0)
-        // {
-        //     //line = LineMgr.getInstance().getLine();
-        //     this.line = this.linePool.get();
-        // }
-        // else {
-        //     this.line = cc.instantiate(this.baseLineX);
-        // }
-        // this.line.position = new cc.Vec2(this.baseLinePostion.x, this.baseLinePostion.y);
-        // if (this.line != null) {
-        //     this.line.zIndex = 998;
-        //     this.line.parent = this.bg;
-        // }
-        // let camCtrl = this.cam.getComponent("CameraControl");
-        // if(camCtrl != null)
-        // {
-        //     camCtrl.target = this.line;
-        // }
+        for(let m = 0; m < this.terrainBGBuildArr.length; m ++)
+        {
+            for (let n = 0; n < this.terrainBGBuildArr[0].length; n ++)
+            {
+                this.terrainPool.put(this.terrainBGBuildArr[0][n]);
+            }
+            this.terrainBGBuildArr.shift();
+        }
+        if(this.linePool.size() > 0)
+        //if(LineMgr.getInstance().getLineSize() > 0)
+        {
+            //line = LineMgr.getInstance().getLine();
+            this.line = this.linePool.get();
+        }
+        else {
+            this.line = cc.instantiate(this.baseLineX);
+        }
+        this.line.position = new cc.Vec2(this.baseLinePostion.x, this.baseLinePostion.y);
+        if (this.line != null) {
+            this.line.zIndex = 998;
+            this.line.parent = this.bg;
+        }
+        let camCtrl = this.cam.getComponent("CameraControl");
+        if(camCtrl != null)
+        {
+            camCtrl.target = this.line;
+        }
 
 
         let curCp = CheckPointMgr.getInstance().getCurCp();
@@ -373,7 +400,9 @@ cc.Class({
             this.sumY = curCp.baseSumY;
             this.buildSumX = curCp.baseBuildSumX;
             this.buildSumY = curCp.baseBuildSumY;
-
+            this.nowTime = curCp.time;
+            ScoreMgr.getInstance().revertData(curCp.data);
+            this.DiamondMgr.setDiamondCount(curCp.diamondCount);
 
             //this.buildTerrainIdx = Math.max(0,this.terrainIdx - this.preBuildCount);
             //console.log(this.buildTerrainIdx);
@@ -396,6 +425,9 @@ cc.Class({
             this.sumY = 0;
             this.buildSumX = - this.halfSize * 2;
             this.buildSumY = 0;
+            this.nowTime = 0;
+            ScoreMgr.getInstance().revertData(null);
+            this.DiamondMgr.setDiamondCount(0);
 
             // this.buildTerrainIdx = 0;
             CheckPointMgr.getInstance().clear();
@@ -510,6 +542,7 @@ cc.Class({
             // this.lineSumX += this.directionArr[this.lineDirection].x;
             // this.lineSumY += this.directionArr[this.lineDirection].y;
             if (this.lineDirection === 0 || this.lineDirection === 2) {
+                this.line.rotation = 180;
                 //  if(this.linePool.size() > 0)
                 // // {
                 // //if(LineMgr.getInstance().getLineSize() > 0)
@@ -539,7 +572,12 @@ cc.Class({
                 //console.log(this.line);
                 this.line.position = new cc.Vec2(this.baseLinePostion.x + this.lineSumX + this.lineMinSize * this.directionArr[this.lineDirection].x * dt / this.deltaTime, this.baseLinePostion.y + this.lineSumY + this.lineMaxSize* this.directionArr[this.lineDirection].y);
                 this.DiamondMgr.updateDiamond(this.line.position.x,this.line.position.y,this.lineMinSize,this.lineMaxSize,this.DiamondMgr);
-                CheckPointMgr.getInstance().updateCheck(this.line.position.x,this.line.position.y,this.halfSize);
+                let data = {
+                    score : ScoreMgr.getInstance().getScore(),
+                    comboCount:ScoreMgr.getInstance().getComboCount(),
+                    maxCombo : ScoreMgr.getInstance().getMaxCombo(),
+                };
+                CheckPointMgr.getInstance().updateCheck(this.line.position.x,this.line.position.y,this.halfSize,this.time,data,this.DiamondMgr.getDiamondCount());
                 // LineMgr.getInstance().addLine(line,this.linePool);
                 //console.log(line.position.y + "-----" + this.terrainPerfectArr[this.terrainIdx]);
                 // if(line.position.y === this.terrainPerfectArr[this.terrainIdx])
@@ -554,6 +592,7 @@ cc.Class({
                 this.lineSumY += this.lineMaxSize * this.directionArr[this.lineDirection].y;
             }
             else {
+                this.line.rotation = 90;
                 //  if(this.linePool.size() > 0)
                 // // {
                 // //if(LineMgr.getInstance().getLineSize() > 0)
@@ -583,7 +622,12 @@ cc.Class({
                 //line.getComponent('SelfDestroy').setPool(this.linePool);
                 this.line.position = new cc.Vec2(this.baseLinePostion.x + this.lineSumX + this.lineMaxSize* this.directionArr[this.lineDirection].x, this.baseLinePostion.y + this.lineSumY + this.lineMinSize* this.directionArr[this.lineDirection].y * dt /this.deltaTime);
                 this.DiamondMgr.updateDiamond(this.line.position.x,this.line.position.y,this.lineMaxSize,this.lineMinSize,this.DiamondMgr);
-                CheckPointMgr.getInstance().updateCheck(this.line.position.x,this.line.position.y,this.halfSize);
+                let data = {
+                    score : ScoreMgr.getInstance().getScore(),
+                    comboCount:ScoreMgr.getInstance().getComboCount(),
+                    maxCombo : ScoreMgr.getInstance().getMaxCombo(),
+                };
+                CheckPointMgr.getInstance().updateCheck(this.line.position.x,this.line.position.y,this.halfSize,this.nowTime,data,this.DiamondMgr.getDiamondCount());
                 //LineMgr.getInstance().addLine(this.line,this.linePool);
                 //console.log(line.position.x + " ---- " + (this.terrainSumX + this.baseLinePostion.x + this.lineMinSize));
                 //console.log(line.position.x + "-----" + this.terrainPerfectArr[this.terrainIdx]);
@@ -739,11 +783,12 @@ cc.Class({
             }
 
             // let newX = -((this.line.position.x - this.baseLinePostion.x) * Math.cos(this.bg.rotation * Math.PI / 180) + (this.line.position.y - this.baseLinePostion.y) * Math.sin(this.bg.rotation * Math.PI / 180));
-            //             // let newY = -(-(this.line.position.y - this.baseLinePostion.y) * Math.sin(this.bg.rotation * Math.PI / 180) + (this.line.position.x - this.baseLinePostion.x) * Math.cos(this.bg.rotation * Math.PI / 180));
-            //             // //let newX = this.bg.position.x - this.directionArr[this.nowDirecion].x * this.lineMinSize * 2;
-            //             // //let newY = this.bg.position.y - this.directionArr[this.nowDirecion].y * this.lineMinSize * 2;
-            //             // this.constBG.position = new cc.Vec2(newX, newY);
-            //             // this.bg.position = new cc.Vec2(newX,newY);
+            // let newY = -(-(this.line.position.y - this.baseLinePostion.y) * Math.sin(this.bg.rotation * Math.PI / 180) + (this.line.position.x - this.baseLinePostion.x) * Math.cos(this.bg.rotation * Math.PI / 180));
+            // //             // //let newX = this.bg.position.x - this.directionArr[this.nowDirecion].x * this.lineMinSize * 2;
+            // //             // //let newY = this.bg.position.y - this.directionArr[this.nowDirecion].y * this.lineMinSize * 2;
+            // this.constBG.position = new cc.Vec2(newX, newY);
+            // this.bg.position = new cc.Vec2(newX,newY);
+            // this.gp.node.position = new cc.Vec2(newX, newY);
 //            console.log(this.bg.position);
 //             console.log(new cc.Vec2(newX,newY));
 
@@ -809,22 +854,55 @@ cc.Class({
         }
         for (let i = terrainIdx; i < terrainIdx + count; i++) {
             let note = this.terrainArr[i].substr(0, 1);
+            let perfectShow = null;
             switch (note) {
                 case '0' :
                     this.direction = 0;
-                    this.terrainPerfectArr.push(this.basePostion.y + (2 * this.sumY + 1) * this.halfSize);
+                    this.terrainPerfectArr.push(this.basePostion.y + (2 * this.sumY) * this.halfSize);
+                    if(i !== 0) {
+                        perfectShow = cc.instantiate(this.perfectShow);
+                        if (perfectShow != null) {
+                            perfectShow.position = new cc.Vec2(this.basePostion.x + (2 * this.sumX) * this.halfSize, this.basePostion.y + (2 * this.sumY) * this.halfSize);
+                            perfectShow.zIndex = 996;
+                            perfectShow.parent = this.bg;
+                        }
+                    }
                     break;
                 case '1':
                     this.direction = 1;
-                    this.terrainPerfectArr.push(this.basePostion.x + (2 * this.sumX + 1) * this.halfSize);
+                    this.terrainPerfectArr.push(this.basePostion.x + (2 * this.sumX) * this.halfSize);
+                    if(i !== 0) {
+                        perfectShow = cc.instantiate(this.perfectShow);
+                        if (perfectShow != null) {
+                            perfectShow.position = new cc.Vec2(this.basePostion.x + (2 * this.sumX) * this.halfSize, this.basePostion.y + (2 * this.sumY) * this.halfSize);
+                            perfectShow.zIndex = 996;
+                            perfectShow.parent = this.bg;
+                        }
+                    }
                     break;
                 case '2':
                     this.direction = 2;
-                    this.terrainPerfectArr.push(this.basePostion.y + (2 * this.sumY + 1) * this.halfSize);
+                    this.terrainPerfectArr.push(this.basePostion.y + (2 * this.sumY ) * this.halfSize);
+                    if( i !== 0) {
+                        perfectShow = cc.instantiate(this.perfectShow);
+                        if (perfectShow != null) {
+                            perfectShow.position = new cc.Vec2(this.basePostion.x + (2 * this.sumX) * this.halfSize, this.basePostion.y + (2 * this.sumY) * this.halfSize);
+                            perfectShow.zIndex = 996;
+                            perfectShow.parent = this.bg;
+                        }
+                    }
                     break;
                 case '3':
                     this.direction = 3;
-                    this.terrainPerfectArr.push(this.basePostion.x + (2 * this.sumX + 1) * this.halfSize);
+                    this.terrainPerfectArr.push(this.basePostion.x + (2 * this.sumX) * this.halfSize);
+                    if( i !== 0) {
+                        perfectShow = cc.instantiate(this.perfectShow);
+                        if (perfectShow != null) {
+                            perfectShow.position = new cc.Vec2(this.basePostion.x + (2 * this.sumX) * this.halfSize, this.basePostion.y + (2 * this.sumY) * this.halfSize);
+                            perfectShow.zIndex = 996;
+                            perfectShow.parent = this.bg;
+                        }
+                    }
                     break;
             }
             if (i > 0) {
@@ -837,8 +915,22 @@ cc.Class({
                 this.buildSumY += ((this.terrainArr[i].length - 1) * this.halfSize * 2 + this.halfSize) * this.directionArr[this.direction].y;
             }
             let buildOnArr = new Array();
+            let buildOnBgArr = new Array();
 
             let terrain;
+            // let anotherTerrain;
+            //
+            // if(this.terrainBGPool.size() > 0)
+            // {
+            //     anotherTerrain = this.terrainBGPool.get();
+            // }
+            // else {
+            //     anotherTerrain = cc.instantiate(this.baseBgTerrain);
+            // }
+            // anotherTerrain.setScale(new cc.Vec2(this.directionArr[this.direction].x === 0 ? 1.1 : this.terrainArr[i].length,this.directionArr[this.direction].y === 0 ? 1.1 : this.terrainArr[i].length));
+            // anotherTerrain.parent = this.bg;
+            // buildOnBgArr.push(anotherTerrain);
+
             if(this.terrainPool.size() > 0)
             {
                 terrain = this.terrainPool.get();
@@ -847,9 +939,20 @@ cc.Class({
                 terrain = cc.instantiate(this.baseterrain);
             }
             terrain.setScale(new cc.Vec2(this.directionArr[this.direction].x === 0 ? 1 : this.terrainArr[i].length,this.directionArr[this.direction].y === 0 ? 1 : this.terrainArr[i].length));
-            terrain.position = new cc.Vec2(this.basePostion.x + (2 * this.sumX + (this.directionArr[this.direction].x === 0 ? 0 : this.terrainArr[i].length - 1)) * this.halfSize, this.basePostion.y + (2 * this.sumY + 1 + (this.directionArr[this.direction].y === 0 ? 0 : this.terrainArr[i].length - 1)) * this.halfSize);
-            buildOnArr.push(terrain);
+            terrain.position = new cc.Vec2(this.basePostion.x + (2 * this.sumX + (this.directionArr[this.direction].x === 0 ? 0 : this.terrainArr[i].length - 1)) * this.halfSize, this.basePostion.y + (2 * this.sumY + (this.directionArr[this.direction].y === 0 ? 0 : this.terrainArr[i].length - 1)) * this.halfSize);
             terrain.parent = this.bg;
+            buildOnArr.push(terrain);
+
+            this.gp.moveTo(new cc.Vec2(terrain.position.x - terrain.scaleX * this.halfSize, terrain.position.y - terrain.scaleY * this.halfSize));
+            this.gp.lineTo(new cc.Vec2(terrain.position.x - terrain.scaleX * this.halfSize, terrain.position.y + terrain.scaleY * this.halfSize));
+            this.gp.lineTo(new cc.Vec2(terrain.position.x + terrain.scaleX * this.halfSize, terrain.position.y + terrain.scaleY * this.halfSize));
+            this.gp.moveTo(new cc.Vec2(terrain.position.x - terrain.scaleX * this.halfSize, terrain.position.y - terrain.scaleY * this.halfSize));
+            this.gp.lineTo(new cc.Vec2(terrain.position.x + terrain.scaleX * this.halfSize, terrain.position.y - terrain.scaleY * this.halfSize));
+            this.gp.lineTo(new cc.Vec2(terrain.position.x + terrain.scaleX * this.halfSize, terrain.position.y + terrain.scaleY * this.halfSize));
+            this.gp.stroke();
+
+            //anotherTerrain.position = new cc.Vec2(terrain.position.x - 5 * this.directionArr[this.direction].x, terrain.position.y - 5 * this.directionArr[this.direction].y);
+
             for (let j = 0; j < this.terrainArr[i].length; j++) {
                 let terrain;
                 let location = new cc.Vec2(0,0);
@@ -857,7 +960,7 @@ cc.Class({
                     terrain = cc.instantiate(this.baseCPterrain);
                     this.sumX += this.directionArr[this.direction].x;
                     this.sumY += this.directionArr[this.direction].y;
-                    terrain.position = new cc.Vec2(this.basePostion.x + (2 * this.sumX) * this.halfSize, this.basePostion.y + (2 * this.sumY + 1) * this.halfSize);
+                    terrain.position = new cc.Vec2(this.basePostion.x + (2 * this.sumX) * this.halfSize, this.basePostion.y + (2 * this.sumY) * this.halfSize);
 
                     CheckPointMgr.getInstance().addCheckPoint(terrain.position.x, terrain.position.y, this.idx, this.direction, i, this.buildSumX, this.buildSumY,terrainIdx,baseSumX,baseSumY,baseBuildSumX,baseBuildSumY,baseIdx);
                     terrain.zIndex = 996;
@@ -867,13 +970,13 @@ cc.Class({
                 else {
                     this.sumX += this.directionArr[this.direction].x;
                     this.sumY += this.directionArr[this.direction].y;
-                    location = new cc.Vec2(this.basePostion.x + (2 * this.sumX) * this.halfSize, this.basePostion.y + (2 * this.sumY + 1) * this.halfSize);
+                    location = new cc.Vec2(this.basePostion.x + (2 * this.sumX) * this.halfSize, this.basePostion.y + (2 * this.sumY) * this.halfSize);
                 }
                 switch (parseInt(this.terrainArr[i].substr(j, 1)))
                 {
                     case 2://宝石
                         let diamond = cc.instantiate(this.diamondBase);
-                        diamond.position = new cc.Vec2(location.x + (2 * Math.random() - 1) * this.halfSize * this.diamondArea, location.y + (2 * Math.random() - 1) * this.halfSize * this.diamondArea);
+                        diamond.position = new cc.Vec2(location.x + Math.random() * this.halfSize * this.diamondArea, location.y + Math.random() * this.halfSize * this.diamondArea);
                         this.DiamondMgr.addDiamond(diamond);
                         diamond.zIndex = 997;
                         diamond.parent = this.bg;
@@ -881,6 +984,7 @@ cc.Class({
                 }
                 this.idx++;
             }
+            this.terrainBGBuildArr.push(buildOnBgArr);
             this.terrainBuildArr.push(buildOnArr);
         }
         this.buildTerrainIdx += count;
