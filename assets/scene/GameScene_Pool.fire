@@ -2382,7 +2382,18 @@
         "x": 1,
         "y": 1
       }
-    ]
+    ],
+    "uiDie": null,
+    "bgmName": "",
+    "sceneName": "",
+    "resumeChance": 1,
+    "fullLength": 0,
+    "recordIdx": 0,
+    "minBeat": 0,
+    "standardBeat": 0,
+    "perfectShow": null,
+    "gp": null,
+    "help": null
   },
   {
     "__type__": "cc.AudioSource",
