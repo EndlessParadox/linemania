@@ -30,6 +30,7 @@
             baseBuildSumY:baseBuildSumY,
             baseIdx:baseIdx,
         };
+        console.log(pos);
         this.cpPosArr.push(pos);
     };
 

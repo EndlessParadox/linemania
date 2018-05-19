@@ -113,19 +113,19 @@ cc.Class({
 
         this.terrainPool = new cc.NodePool();
         // this.terrainBGPool = new cc.NodePool();
-        // for(let i = 0; i < 15; i ++)
-        // {
-        //     let terrain = cc.instantiate(this.baseterrain);
-        //     terrain.parent = this.bg;
-        //     //line.opacity = 0;
-        //     //line.active = false;
-        //     //LineMgr.getInstance().addInPool(line);
-        //     this.terrainPool.put(terrain);
-        //
-        //     let terrainBG = cc.instantiate(this.baseBgTerrain);
-        //     terrainBG.parent = this.constBG;
-        //     this.terrainBGPool.put(terrainBG);
-        // }
+        for(let i = 0; i < 15; i ++)
+        {
+            let terrain = cc.instantiate(this.baseterrain);
+            //terrain.parent = this.bg;
+            //line.opacity = 0;
+            //line.active = false;
+            //LineMgr.getInstance().addInPool(line);
+            this.terrainPool.put(terrain);
+
+            // let terrainBG = cc.instantiate(this.baseBgTerrain);
+            // terrainBG.parent = this.constBG;
+            // this.terrainBGPool.put(terrainBG);
+        }
 
 
         this.buildTerrainIdx = 0;
@@ -387,13 +387,20 @@ cc.Class({
         if(curCp != null) {
             // this.bgm.setCurrentTime(curCp.idx * 0.4);
             // this.bgm.resume();
-            console.log(curCp);
             this.idx = curCp.baseIdx;
             this.lineSumX = curCp.x - this.baseLinePostion.x;
             this.lineSumY = curCp.y - this.baseLinePostion.y;
             this.terrainSumX = curCp.buildSumX;
             this.terrainSumY = curCp.buildSumY;
             this.lineDirection = curCp.direction;
+            if(this.lineDirection === 0)
+            {
+                this.line.rotation = 180;
+            }
+            else
+            {
+                this.line.rotation = 90;
+            }
             this.nowDirecion = curCp.direction;
             this.terrainIdx = curCp.terrainIdx;
             this.buildTerrainIdx = curCp.buildTerrainIdx;
@@ -408,7 +415,7 @@ cc.Class({
             //this.buildTerrainIdx = Math.max(0,this.terrainIdx - this.preBuildCount);
             //console.log(this.buildTerrainIdx);
             CheckPointMgr.getInstance().clear();
-            this.buildTerrain(this.buildTerrainIdx);
+            this.buildTerrain(this.buildTerrainIdx, true);
         }
         else {
             // this.bgm.setCurrentTime(0);
@@ -432,7 +439,7 @@ cc.Class({
 
             // this.buildTerrainIdx = 0;
             CheckPointMgr.getInstance().clear();
-            this.buildTerrain(this.buildTerrainIdx);
+            this.buildTerrain(this.buildTerrainIdx,true);
         }
 
         // let line;
@@ -456,7 +463,7 @@ cc.Class({
 
         setTimeout(function(){
             if(curCp != null) {
-                this.bgm.setCurrentTime(curCp.idx * 0.4);
+                this.bgm.setCurrentTime(curCp.idx * this.minBeat);
                 this.bgm.resume();
             }
             else {
@@ -792,7 +799,6 @@ cc.Class({
             // this.gp.node.position = new cc.Vec2(newX, newY);
 //            console.log(this.bg.position);
 //             console.log(new cc.Vec2(newX,newY));
-
         }
         if(this.stop)
         {
@@ -809,29 +815,31 @@ cc.Class({
             this.scoreLabel.string = "Score:" + ScoreMgr.getInstance().getScore();
         }
 
-        // console.log(this.terrainIdx);
-        // console.log(this.buildTerrainIdx);
         if(this.terrainIdx >= this.buildTerrainIdx - this.preBuildCount * 1.5)
         {
-            this.buildTerrain(this.buildTerrainIdx);
+            this.buildTerrain(this.buildTerrainIdx, false);
         }
     },
 
-    buildTerrain(terrainIdx)
+    buildTerrain(terrainIdx, revive)
     {
         if(this.preBuildCount === 0) return;
+
+        if(revive && terrainIdx > this.preBuildCount)
+        {
+            terrainIdx -= this.preBuildCount;
+        }
         //console.log(terrainIdx);
         //删除一半旧的
-        if(terrainIdx > this.preBuildCount && terrainIdx < this.terrainArr.length - this.preBuildCount)
-        {
-            for(let o = 0; o < this.preBuildCount; o ++)
-            {
-                if(o < this.terrainBuildArr.length) {
-                    for (let p = 0; p < this.terrainBuildArr[0].length; p ++)
-                    {
-                        this.terrainPool.put(this.terrainBuildArr[0][p]);
+        if(!revive) {
+            if (terrainIdx > this.preBuildCount && terrainIdx < this.terrainArr.length - this.preBuildCount) {
+                for (let o = 0; o < this.preBuildCount; o++) {
+                    if (o < this.terrainBuildArr.length) {
+                        for (let p = 0; p < this.terrainBuildArr[0].length; p++) {
+                            this.terrainPool.put(this.terrainBuildArr[0][p]);
+                        }
+                        this.terrainBuildArr.shift();
                     }
-                    this.terrainBuildArr.shift();
                 }
             }
         }
@@ -849,7 +857,7 @@ cc.Class({
         if(terrainIdx + count > this.terrainArr.length) {
             count = this.terrainArr.length - terrainIdx;
         }
-        if(terrainIdx === 0)
+        if(terrainIdx === 0 || revive)
         {
             count = this.preBuildCount * 3;
         }
@@ -935,14 +943,13 @@ cc.Class({
             if(this.terrainPool.size() > 0)
             {
                 terrain = this.terrainPool.get();
-                console.log(terrain);
             }
             else {
                 terrain = cc.instantiate(this.baseterrain);
             }
             terrain.setScale(new cc.Vec2(this.directionArr[this.direction].x === 0 ? 1 : this.terrainArr[i].length,this.directionArr[this.direction].y === 0 ? 1 : this.terrainArr[i].length));
             terrain.position = new cc.Vec2(this.basePostion.x + (2 * this.sumX + (this.directionArr[this.direction].x === 0 ? 0 : this.terrainArr[i].length - 1)) * this.halfSize, this.basePostion.y + (2 * this.sumY + (this.directionArr[this.direction].y === 0 ? 0 : this.terrainArr[i].length - 1)) * this.halfSize);
-            terrain.parent = this.bg;
+            terrain.parent = this.constBG;
             buildOnArr.push(terrain);
 
             this.gp.moveTo(new cc.Vec2(terrain.position.x - terrain.scaleX * this.halfSize, terrain.position.y - terrain.scaleY * this.halfSize));
@@ -986,7 +993,7 @@ cc.Class({
                 }
                 this.idx++;
             }
-            this.terrainBGBuildArr.push(buildOnBgArr);
+            //this.terrainBGBuildArr.push(buildOnBgArr);
             this.terrainBuildArr.push(buildOnArr);
         }
         this.buildTerrainIdx += count;
