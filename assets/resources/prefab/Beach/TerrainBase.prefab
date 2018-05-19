@@ -10,7 +10,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "XLineBase",
+    "_name": "TerrainBase",
     "_objFlags": 0,
     "_parent": null,
     "_children": [
@@ -44,8 +44,8 @@
       "width": 0,
       "height": 0
     },
-    "_rotationX": 180,
-    "_rotationY": 180,
+    "_rotationX": 0,
+    "_rotationY": 0,
     "_scaleX": 1,
     "_scaleY": 1,
     "_position": {
@@ -82,9 +82,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 253,
-      "g": 253,
-      "b": 253,
+      "r": 243,
+      "g": 129,
+      "b": 52,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -95,11 +95,11 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 40,
-      "height": 40
+      "width": 120,
+      "height": 120
     },
-    "_rotationX": 90,
-    "_rotationY": 90,
+    "_rotationX": 0,
+    "_rotationY": 0,
     "_scaleX": 1,
     "_scaleY": 1,
     "_position": {
@@ -123,7 +123,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "b08b6c92-a136-4692-9b1b-f5060a0658e7"
+      "__uuid__": "fe0fc1a4-4e62-45d3-a221-c57cf6a342c0"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -146,9 +146,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "e49a5c8e-3c65-47e3-89ce-12014226331f"
+      "__uuid__": "373d805f-b0ab-483e-b15e-1cbb8fa17f8c"
     },
-    "fileId": "4ab0180Q1IJr9LOi7+QGwO",
+    "fileId": "c8Z/Wh3vVKzbNIy1AEKqfW",
     "sync": false
   },
   {
@@ -157,9 +157,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "e49a5c8e-3c65-47e3-89ce-12014226331f"
+      "__uuid__": "373d805f-b0ab-483e-b15e-1cbb8fa17f8c"
     },
-    "fileId": "80DYNIYbFGX5P+vOyJSycA",
+    "fileId": "05R3yenOpB8KXUs3w6x4JQ",
     "sync": false
   }
 ]

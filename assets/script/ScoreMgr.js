@@ -55,5 +55,22 @@
         return this.comboCount;
     };
 
+    ScoreMgr.prototype.revertData = function(data)
+    {
+        if(data != null) {
+            this.score = data.score;
+            this.combo = 0;
+            this.comboCount = data.comboCount;
+            this.maxCombo = data.maxCombo;
+        }
+        else
+        {
+            this.score = 0;
+            this.combo = 0;
+            this.comboCount = 0;
+            this.maxCombo = 0;
+        }
+    };
+
     window.ScoreMgr = ScoreMgr;
 })(window);

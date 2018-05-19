@@ -31,6 +31,11 @@ let DiamondMgr = cc.Class({
     getDiamondCount : function()
     {
         return this.diamondCount;
+    },
+
+    setDiamondCount:function(count)
+    {
+        this.diamondCount = count;
     }
 });
 
