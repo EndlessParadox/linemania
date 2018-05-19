@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "11ed5e96-8feb-4600-8491-694902cb6942",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "跳线沙滩小图": {
+      "ver": "1.0.3",
+      "uuid": "a203a291-9d7f-44b7-b267-b11a8ffaa7e8",
+      "rawTextureUuid": "11ed5e96-8feb-4600-8491-694902cb6942",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 587,
+      "height": 340,
+      "rawWidth": 587,
+      "rawHeight": 340,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

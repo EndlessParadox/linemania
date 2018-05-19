@@ -690,7 +690,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 165,
+      "width": 80,
       "height": 40
     },
     "_rotationX": 0,
@@ -725,7 +725,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "de_dust2",
+    "_N$string": "沙滩",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -764,7 +764,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 100,
+      "width": 72,
       "height": 40
     },
     "_rotationX": 0,
@@ -799,7 +799,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "40%",
+    "_N$string": "0%",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -814,7 +814,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "de1f815d-5033-435f-a859-cf5a3350b870"
+      "__uuid__": "a203a291-9d7f-44b7-b267-b11a8ffaa7e8"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -1112,7 +1112,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 165,
+      "width": 80,
       "height": 40
     },
     "_rotationX": 0,
@@ -1147,7 +1147,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "de_dust2",
+    "_N$string": "黄昏",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -1236,7 +1236,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "6526f7e6-7d04-495c-b03a-2503b359a142"
+      "__uuid__": "48b91764-f837-40e9-a8e6-6a954248922b"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -1534,7 +1534,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 165,
+      "width": 80,
       "height": 40
     },
     "_rotationX": 0,
@@ -1569,7 +1569,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "de_dust2",
+    "_N$string": "荷叶",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -1658,7 +1658,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "de1f815d-5033-435f-a859-cf5a3350b870"
+      "__uuid__": "6526f7e6-7d04-495c-b03a-2503b359a142"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -1956,7 +1956,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 165,
+      "width": 80,
       "height": 40
     },
     "_rotationX": 0,
@@ -1991,7 +1991,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "de_dust2",
+    "_N$string": "太空",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -2080,7 +2080,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "de1f815d-5033-435f-a859-cf5a3350b870"
+      "__uuid__": "87553b33-1394-44de-be4f-68f11f322ffe"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -2378,7 +2378,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 165,
+      "width": 80,
       "height": 40
     },
     "_rotationX": 0,
@@ -2413,7 +2413,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "de_dust2",
+    "_N$string": "沙漠",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -2502,7 +2502,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "6526f7e6-7d04-495c-b03a-2503b359a142"
+      "__uuid__": "de1f815d-5033-435f-a859-cf5a3350b870"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -3471,8 +3471,8 @@
     },
     "sceneArr": [
       "GameScene_Beach",
-      "GameScene_Beach",
-      "GameScene_Beach",
+      "GameScene_Dawn",
+      "GameScene_Pool",
       "GameScene_Beach",
       "GameScene_Beach"
     ],

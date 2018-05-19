@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "b3e4a0d1-61a5-4162-b13b-35ef0132a3d8",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "道路转弯指示方块白": {
+      "ver": "1.0.3",
+      "uuid": "bd86a47f-7dec-4654-8fa0-cbaec836c0d4",
+      "rawTextureUuid": "b3e4a0d1-61a5-4162-b13b-35ef0132a3d8",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0.5,
+      "offsetY": -0.5,
+      "trimX": 5,
+      "trimY": 6,
+      "width": 150,
+      "height": 150,
+      "rawWidth": 159,
+      "rawHeight": 161,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

@@ -374,7 +374,7 @@
       "a": 255
     },
     "_lineJoin": 2,
-    "_lineCap": 0,
+    "_lineCap": 2,
     "_fillColor": {
       "__type__": "cc.Color",
       "r": 255,

@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "b98837d8-43c1-40cc-a2f4-b2968e797a83",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "跳线黄昏小图": {
+      "ver": "1.0.3",
+      "uuid": "48b91764-f837-40e9-a8e6-6a954248922b",
+      "rawTextureUuid": "b98837d8-43c1-40cc-a2f4-b2968e797a83",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 587,
+      "height": 340,
+      "rawWidth": 587,
+      "rawHeight": 340,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

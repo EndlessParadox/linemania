@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "ee1447d2-4b50-4907-996c-bf868af89f24",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "跳线太空小图": {
+      "ver": "1.0.3",
+      "uuid": "87553b33-1394-44de-be4f-68f11f322ffe",
+      "rawTextureUuid": "ee1447d2-4b50-4907-996c-bf868af89f24",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 587,
+      "height": 340,
+      "rawWidth": 587,
+      "rawHeight": 340,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

@@ -344,7 +344,6 @@ cc.Class({
 
     resumeGame()
     {
-        this.bg.destroyAllChildren();
         for(let o = 0; o < this.terrainBuildArr.length; o ++)
         {
             for (let p = 0; p < this.terrainBuildArr[0].length; p ++)
@@ -353,14 +352,16 @@ cc.Class({
             }
             this.terrainBuildArr.shift();
         }
-        for(let m = 0; m < this.terrainBGBuildArr.length; m ++)
-        {
-            for (let n = 0; n < this.terrainBGBuildArr[0].length; n ++)
-            {
-                this.terrainPool.put(this.terrainBGBuildArr[0][n]);
-            }
-            this.terrainBGBuildArr.shift();
-        }
+
+        this.bg.destroyAllChildren();
+        // for(let m = 0; m < this.terrainBGBuildArr.length; m ++)
+        // {
+        //     for (let n = 0; n < this.terrainBGBuildArr[0].length; n ++)
+        //     {
+        //         this.terrainPool.put(this.terrainBGBuildArr[0][n]);
+        //     }
+        //     this.terrainBGBuildArr.shift();
+        // }
         if(this.linePool.size() > 0)
         //if(LineMgr.getInstance().getLineSize() > 0)
         {
@@ -934,6 +935,7 @@ cc.Class({
             if(this.terrainPool.size() > 0)
             {
                 terrain = this.terrainPool.get();
+                console.log(terrain);
             }
             else {
                 terrain = cc.instantiate(this.baseterrain);
