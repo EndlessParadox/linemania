@@ -2289,7 +2289,7 @@
       },
       {
         "__type__": "cc.Vec2",
-        "x": 260,
+        "x": -260,
         "y": 280
       },
       {
@@ -2299,13 +2299,13 @@
       },
       {
         "__type__": "cc.Vec2",
-        "x": 350,
+        "x": -350,
         "y": 250
       },
       {
         "__type__": "cc.Vec2",
         "x": 250,
-        "y": 300
+        "y": -300
       },
       {
         "__type__": "cc.Vec2",
@@ -2403,7 +2403,13 @@
         "x": 0.4,
         "y": 0.4
       }
-    ]
+    ],
+    "uiDie": null,
+    "bgmName": "",
+    "sceneName": "",
+    "resumeChance": 1,
+    "fullLength": 0,
+    "recordIdx": 0
   },
   {
     "__type__": "cc.AudioSource",
