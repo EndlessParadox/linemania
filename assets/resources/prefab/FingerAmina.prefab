@@ -10,71 +10,16 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "DiamondBase",
+    "_name": "FingerAmina",
     "_objFlags": 0,
     "_parent": null,
-    "_children": [
-      {
-        "__id__": 2
-      }
-    ],
-    "_tag": -1,
-    "_active": true,
-    "_components": [
-      {
-        "__id__": 5
-      }
-    ],
-    "_prefab": {
-      "__id__": 6
-    },
-    "_id": "",
-    "_opacity": 255,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
-      "a": 255
-    },
-    "_cascadeOpacityEnabled": true,
-    "_anchorPoint": {
-      "__type__": "cc.Vec2",
-      "x": 0.5,
-      "y": 0.5
-    },
-    "_contentSize": {
-      "__type__": "cc.Size",
-      "width": 0,
-      "height": 0
-    },
-    "_rotationX": 0,
-    "_rotationY": 0,
-    "_scaleX": 1,
-    "_scaleY": 1,
-    "_position": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "_skewX": 0,
-    "_skewY": 0,
-    "_localZOrder": 0,
-    "_globalZOrder": 0,
-    "_opacityModifyRGB": false,
-    "groupIndex": 0
-  },
-  {
-    "__type__": "cc.Node",
-    "_name": "New Sprite",
-    "_objFlags": 0,
-    "_parent": {
-      "__id__": 1
-    },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
+      {
+        "__id__": 2
+      },
       {
         "__id__": 3
       }
@@ -99,8 +44,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 30,
-      "height": 30
+      "width": 221,
+      "height": 353
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -109,7 +54,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 0
+      "y": -335
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -123,14 +68,14 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 2
+      "__id__": 1
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "8b139342-37ea-4ae8-92b6-c92d900306bf"
+      "__uuid__": "fafbe035-0176-41bc-b62e-780ba7739724"
     },
     "_type": 0,
-    "_sizeMode": 0,
+    "_sizeMode": 1,
     "_fillType": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
@@ -145,26 +90,22 @@
     "_atlas": null
   },
   {
-    "__type__": "cc.PrefabInfo",
-    "root": {
-      "__id__": 1
-    },
-    "asset": {
-      "__uuid__": "aa0afc9c-2aa4-47f4-bc32-e5133b4b9377"
-    },
-    "fileId": "93Ndp8zEFPcIxSgW3aWths",
-    "sync": false
-  },
-  {
-    "__type__": "e3ddbhL8IBFEaXHAsC/YcsU",
+    "__type__": "cc.Animation",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 1
     },
     "_enabled": true,
-    "diamondSize": 7.5,
-    "score": 200
+    "_defaultClip": {
+      "__uuid__": "603e6678-e9f9-4335-9524-f07a95faf4db"
+    },
+    "_clips": [
+      {
+        "__uuid__": "603e6678-e9f9-4335-9524-f07a95faf4db"
+      }
+    ],
+    "playOnLoad": true
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -172,9 +113,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "aa0afc9c-2aa4-47f4-bc32-e5133b4b9377"
+      "__id__": 0
     },
-    "fileId": "23O8RyIJpCWIMLFxlw9+/Y",
+    "fileId": "46KB3iaV5CW4iCCRiByO72",
     "sync": false
   }
 ]
