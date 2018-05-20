@@ -22,6 +22,7 @@ cc.Class({
         uiRank:cc.Node,
         btnRank:cc.Button,
         btnExit:cc.Button,
+        uiLoad:cc.Node,
         // foo: {
         //     // ATTRIBUTES:
         //     default: null,        // The default value will be used only when the component attaching
@@ -45,7 +46,13 @@ cc.Class({
         for(let i = 0; i < this.buttonArr.length; i ++)
         {
             this.buttonArr[i].node.on('click',function(){
-                cc.director.loadScene(this.sceneArr[i]);
+                this.uiLoad.active = true;
+                let sceneName =  this.sceneArr[i];
+                let load = this.uiLoad.getComponent('UILoading');
+                if(load != null)
+                {
+                    load.setLoadData(sceneName);
+                }
             }.bind(this));
 
             this.progressArr[i].string = localStorage.getItem("record" + i) == null ? "0%" : localStorage.getItem("record" + i) + "%";

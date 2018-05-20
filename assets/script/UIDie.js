@@ -17,7 +17,7 @@ cc.Class({
         progressBar:cc.ProgressBar,
         diamond:cc.Label,
         maxCombo:cc.Label,
-        sumCombo:cc.Label,
+        //sumCombo:cc.Label,
         point:cc.Label,
         btnBack:cc.Button,
         btnShare:cc.Button,
@@ -49,7 +49,6 @@ cc.Class({
 
         this.btnBack.node.on('click',function()
         {
-            localStorage.setItem('record' + this.recordIdx,this.record);
             cc.director.loadScene("MenuScene");
         }.bind(this));
         this.btnShare.node.on('click',function()
@@ -91,7 +90,7 @@ cc.Class({
         this.progressBar.progress = data.progress / 100;
         this.diamond.string = data.diamond;
         this.maxCombo.string = data.maxCombo;
-        this.sumCombo.string = data.sumCombo;
+        //this.sumCombo.string = data.sumCombo;
         this.point.string = data.point;
         this.sceneName = data.sceneName;
         this.recordIdx = data.recordIdx;
@@ -104,6 +103,16 @@ cc.Class({
         if(this.finish)
         {
             this.btnShare.enabled = false;
+        }
+
+        let record = localStorage.getItem('record' + this.recordIdx);
+        if(record != null)
+        {
+            localStorage.setItem('record' + this.recordIdx,Math.max(parseInt(record),parseInt(this.record)));
+        }
+        else
+        {
+            localStorage.setItem('record' + this.recordIdx,parseInt(this.record));
         }
     }
 

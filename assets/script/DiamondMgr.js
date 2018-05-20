@@ -10,14 +10,14 @@ let DiamondMgr = cc.Class({
         this.diamondArr.push(item);
     },
 
-    updateDiamond:function(x,y,lineSizeX,lineSizeY,diamondMgr)
+    updateDiamond:function(x,y,lineSizeX,lineSizeY,diamondMgr,scoreMgr)
     {
         for(let i = 0; i < this.diamondArr.length; i ++)
         {
             if(cc.isValid(this.diamondArr[i])) {
                 let check = this.diamondArr[i].getComponent("DiamondCheck");
                 if (check != null) {
-                    check.onLineUpdate(x, y, lineSizeX, lineSizeY,diamondMgr);
+                    check.onLineUpdate(x, y, lineSizeX, lineSizeY,diamondMgr,scoreMgr);
                 }
             }
         }

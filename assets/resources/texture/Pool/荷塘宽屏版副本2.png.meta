@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "100cb253-e079-4e08-a301-60f265bc3072",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "荷塘宽屏版副本2": {
+      "ver": "1.0.3",
+      "uuid": "c7caf2d9-2db4-4c1a-ae24-1f544e32d047",
+      "rawTextureUuid": "100cb253-e079-4e08-a301-60f265bc3072",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 1000,
+      "height": 1280,
+      "rawWidth": 1000,
+      "rawHeight": 1280,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

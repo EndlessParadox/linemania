@@ -41,7 +41,7 @@ cc.Class({
 
     setPerfectCombo(combo)
     {
-        this.label.string = "perfect!!x"+combo;
+        //this.label.string = "perfect!!x"+combo;
     },
 
     update (dt) {

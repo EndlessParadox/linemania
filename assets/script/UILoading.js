@@ -12,8 +12,8 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        diamondSize:0,
-        score:0,
+        pg:cc.ProgressBar,
+        mark:cc.Node,
         // foo: {
         //     // ATTRIBUTES:
         //     default: null,        // The default value will be used only when the component attaching
@@ -33,21 +33,33 @@ cc.Class({
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
+     onLoad () {
+         this.pg.progress = 0;
+     },
 
     start () {
 
     },
 
-    onLineUpdate(x,y,lineSizeX,lineSizeY,diamondMgr,scoreMgr)
+    setLoadData(sceneName)
     {
-        if((Math.abs(this.node.position.x - x) <= (lineSizeX + this.diamondSize)) && (Math.abs(this.node.position.y - y)<= (lineSizeY + this.diamondSize)))
-        {
-            diamondMgr.addDiamondCount();
-            scoreMgr.addScore(this.score);
-            this.node.destroy();
-        }
-    }
+        let self = this;
+        cc.loader.onProgress = function(completedCount,totalCount,item){
+            if(totalCount !== 0) {
+                let pg = (completedCount / totalCount).toFixed(2);
+                if (self.pg != null && pg != null) {
+                    self.pg.progress = pg;
+                }
+            }
+        };
+        cc.director.preloadScene(sceneName,function(){
+            cc.director.loadScene(sceneName);
+        });
+    },
 
-    // update (dt) {},
+    update (dt) {
+        if(this.pg.progress != null) {
+            this.mark.position = new cc.Vec2(this.pg.node.position.x - this.pg.totalLength / 2 + this.pg.totalLength * this.pg.progress, this.pg.node.position.y);
+        }
+    },
 });
