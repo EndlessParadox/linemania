@@ -25,6 +25,7 @@ cc.Class({
         baseLineY:cc.Prefab,
         bg:cc.Node,
         halfSize:0,
+        halfWidth:0,
         directionArr:[cc.Vec2],
         basePostion:cc.Vec2,
         baseDirection:0,
@@ -88,7 +89,8 @@ cc.Class({
 
     onLoad () {
         this.gp.node.zIndex = 990;
-        this.multi =  this.minBeat / this.standardBeat;
+        this.multi = 1;
+        this.halfSize = this.lineMinSize * this.minBeat / this.deltaTime;
         this.DiamondMgr = new DiamondMgr();
         this.CheckPointMgr = new CheckPointMgr();
         this.ScoreMgr = new ScoreMgr();
@@ -100,6 +102,9 @@ cc.Class({
         this.direction = this.baseDirection;
         //let sumX = -1 * this.directionArr[this.baseDirection].x;
         //let sumY = -1 * this.directionArr[this.baseDirection].y;
+
+        this.terrainPosX = -4 * this.halfSize * this.multi;
+        this.terrainPosY = 0;
 
         this.help.active = true;
 
@@ -706,6 +711,7 @@ cc.Class({
                 else {
                     //console.log(this.lineSumY + "---" + this.terrainSumY + "----Y");
                     if (this.lineSumY >= this.terrainSumY + this.halfSize - this.lineMaxSize || this.lineSumY <= this.terrainSumY - this.halfSize + this.lineMaxSize) {
+                        return;
                         console.log('die1');
                         this.bOver = true;
                         this.bBack = true;
@@ -773,6 +779,7 @@ cc.Class({
                 else {
                     //console.log(this.lineSumX + "---" + this.terrainSumX + "----X");
                     if (this.lineSumX >= this.terrainSumX + this.halfSize - this.lineMaxSize|| this.lineSumX <= this.terrainSumX - this.halfSize + this.lineMaxSize) {
+                        return;
                         console.log('die2');
                         this.bOver = true;
                         this.bBack = true;
@@ -849,16 +856,16 @@ cc.Class({
         //console.log(terrainIdx);
         //删除一半旧的
         if(!revive) {
-            if (terrainIdx > this.preBuildCount && terrainIdx < this.terrainArr.length - this.preBuildCount) {
-                for (let o = 0; o < this.preBuildCount; o++) {
-                    if (o < this.terrainBuildArr.length) {
-                        for (let p = 0; p < this.terrainBuildArr[0].length; p++) {
-                            this.terrainPool.put(this.terrainBuildArr[0][p]);
-                        }
-                        this.terrainBuildArr.shift();
-                    }
-                }
-            }
+            // if (terrainIdx > this.preBuildCount && terrainIdx < this.terrainArr.length - this.preBuildCount) {
+            //     for (let o = 0; o < this.preBuildCount; o++) {
+            //         if (o < this.terrainBuildArr.length) {
+            //             for (let p = 0; p < this.terrainBuildArr[0].length; p++) {
+            //                 this.terrainPool.put(this.terrainBuildArr[0][p]);
+            //             }
+            //             this.terrainBuildArr.shift();
+            //         }
+            //     }
+            // }
         }
 
         let baseSumX = this.sumX;
@@ -878,6 +885,7 @@ cc.Class({
         {
             count = this.preBuildCount * 3;
         }
+
         for (let i = terrainIdx; i < terrainIdx + count; i++) {
             let note = this.terrainArr[i].substr(0, 1);
             let perfectShow = null;
@@ -888,7 +896,7 @@ cc.Class({
                     if(i !== 0) {
                         perfectShow = cc.instantiate(this.perfectShow);
                         if (perfectShow != null) {
-                            perfectShow.position = new cc.Vec2(this.basePostion.x + (2 * this.sumX) * this.halfSize, this.basePostion.y + (2 * this.sumY) * this.halfSize);
+                            perfectShow.position = new cc.Vec2(this.basePostion.x + (2 * this.sumX - 2) * this.halfSize + this.halfWidth, this.basePostion.y + (2 * this.sumY) * this.halfSize);
                             perfectShow.zIndex = 996;
                             perfectShow.parent = this.bg;
                         }
@@ -896,11 +904,11 @@ cc.Class({
                     break;
                 case '1':
                     this.direction = 1;
-                    this.terrainPerfectArr.push(this.basePostion.x + (2 * this.sumX) * this.halfSize);
+                    this.terrainPerfectArr.push(this.basePostion.x + (2 * this.sumX - 2) * this.halfSize + this.halfWidth);
                     if(i !== 0) {
                         perfectShow = cc.instantiate(this.perfectShow);
                         if (perfectShow != null) {
-                            perfectShow.position = new cc.Vec2(this.basePostion.x + (2 * this.sumX) * this.halfSize, this.basePostion.y + (2 * this.sumY) * this.halfSize);
+                            perfectShow.position = new cc.Vec2(this.basePostion.x + (2 * this.sumX - 2) * this.halfSize + this.halfWidth, this.basePostion.y + (2 * this.sumY) * this.halfSize);
                             perfectShow.zIndex = 996;
                             perfectShow.parent = this.bg;
                         }
@@ -935,13 +943,15 @@ cc.Class({
                 //console.log(this.terrainArr[i - 1]);
                 this.buildSumX += ((this.terrainArr[i].length - 1) * this.halfSize * 2 + this.halfSize) * this.directionArr[this.direction].x + this.halfSize * this.directionArr[parseInt(this.terrainArr[i - 1].slice(0, 1))].x;
                 this.buildSumY += ((this.terrainArr[i].length - 1) * this.halfSize * 2 + this.halfSize) * this.directionArr[this.direction].y + this.halfSize * this.directionArr[parseInt(this.terrainArr[i - 1].slice(0, 1))].y;
+                this.terrainPosY -= this.directionArr[parseInt((this.terrainArr[i - 1].slice(0,1)))].x * ( this.halfWidth - this.halfSize * this.multi );
+                this.terrainPosX -= this.directionArr[parseInt((this.terrainArr[i - 1].slice(0,1)))].y * ( this.halfWidth - this.halfSize * this.multi );
             }
             else {
                 this.buildSumX += ((this.terrainArr[i].length - 1) * this.halfSize * 2 + this.halfSize) * this.directionArr[this.direction].x;
                 this.buildSumY += ((this.terrainArr[i].length - 1) * this.halfSize * 2 + this.halfSize) * this.directionArr[this.direction].y;
             }
             let buildOnArr = new Array();
-            let buildOnBgArr = new Array();
+            //let buildOnBgArr = new Array();
 
             let terrain;
             // let anotherTerrain;
@@ -964,8 +974,21 @@ cc.Class({
             else {
                 terrain = cc.instantiate(this.baseterrain);
             }
-            terrain.setScale(new cc.Vec2(this.directionArr[this.direction].x === 0 ? 1 : this.terrainArr[i].length,this.directionArr[this.direction].y === 0 ? 1 : this.terrainArr[i].length));
-            terrain.position = new cc.Vec2(this.basePostion.x + (2 * this.sumX + (this.directionArr[this.direction].x === 0 ? 0 : this.terrainArr[i].length - 1)) * this.halfSize, this.basePostion.y + (2 * this.sumY + (this.directionArr[this.direction].y === 0 ? 0 : this.terrainArr[i].length - 1)) * this.halfSize);
+
+            terrain.width = this.directionArr[this.direction].x === 0 ? this.halfWidth * 2 : this.terrainArr[i].length * this.multi * this.halfSize * 2;
+            terrain.height = this.directionArr[this.direction].y === 0 ? this.halfWidth * 2 : this.terrainArr[i].length * this.multi * this.halfSize * 2;
+            //terrain.setScale(new cc.Vec2(this.directionArr[this.direction].x === 0 ? 1 : (this.terrainArr[i].length * this.multi),this.directionArr[this.direction].y === 0 ? 1 : (this.terrainArr[i].length * this.multi) ));
+            //console.log(terrain.width);
+            //console.log(terrain.height);
+            //this.terrainPosX += (this.directionArr[this.direction].x === 0 ? 0 : 1) * this.halfSize + (this.directionArr[this.direction].x === 0 ? 0 : 1) * this.halfWidth;
+            //this.terrainPosY += (this.directionArr[this.direction].y === 0 ? 0 : 1) * this.halfSize + (this.directionArr[this.direction].y === 0 ? 0 : 1) * this.halfWidth;
+            //terrain.position = new cc.Vec2(this.basePostion.x + (2 * this.sumX + (this.directionArr[this.direction].x === 0 ? 0 : this.terrainArr[i].length - 1)) * this.halfSize, this.basePostion.y + (2 * this.sumY + (this.directionArr[this.direction].y === 0 ? 0 : this.terrainArr[i].length - 1)) * this.halfSize);
+            terrain.position = new cc.Vec2(this.basePostion.x + this.terrainPosX + (this.directionArr[this.direction].x === 0 ? 0 : this.terrainArr[i].length * this.multi) * this.halfSize,this.basePostion.y + this.terrainPosY + (this.directionArr[this.direction].y === 0 ? 0 : this.terrainArr[i].length * this.multi) * this.halfSize);
+            //terrain.position = new cc.Vec2(this.basePostion.x + this.terrainPosX + (this.directionArr[this.direction].x === 0 ? 0 : this.terrainArr[i].length * this.multi) * this.halfSize,this.basePostion.y + this.terrainPosY + (this.directionArr[this.direction].y === 0 ? 0 : this.terrainArr[i].length * this.multi) * this.halfSize);
+            this.terrainPosX += ((this.directionArr[this.direction].x === 0 ? 0 : this.terrainArr[i].length * this.multi) * 2 - 1) * this.halfSize;
+            this.terrainPosY += ((this.directionArr[this.direction].y === 0 ? 0 : this.terrainArr[i].length * this.multi) * 2 - 1) * this.halfSize;
+
+            console.log(terrain.position);
             terrain.zIndex = 991;
             terrain.parent = this.constBG;
             buildOnArr.push(terrain);
@@ -977,6 +1000,9 @@ cc.Class({
             this.gp.lineTo(new cc.Vec2(terrain.position.x + terrain.scaleX * this.halfSize, terrain.position.y - terrain.scaleY * this.halfSize));
             this.gp.lineTo(new cc.Vec2(terrain.position.x + terrain.scaleX * this.halfSize, terrain.position.y + terrain.scaleY * this.halfSize));
             this.gp.stroke();
+
+            this.terrainPosX += (this.directionArr[this.direction].x === 0 ? 0 : 1) * this.halfSize * this.multi + (this.directionArr[this.direction].x === 0 ? 0 : 1) * this.halfWidth;
+            this.terrainPosY += (this.directionArr[this.direction].y === 0 ? 0 : 1) * this.halfSize * this.multi + (this.directionArr[this.direction].y === 0 ? 0 : 1) * this.halfWidth;
 
             //anotherTerrain.position = new cc.Vec2(terrain.position.x - 5 * this.directionArr[this.direction].x, terrain.position.y - 5 * this.directionArr[this.direction].y);
 
