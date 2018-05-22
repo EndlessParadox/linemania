@@ -1004,12 +1004,12 @@ cc.Class({
             terrain.parent = this.constBG;
             buildOnArr.push(terrain);
 
-            this.gp.moveTo(new cc.Vec2(terrain.position.x - terrain.scaleX * this.halfSize, terrain.position.y - terrain.scaleY * this.halfSize));
-            this.gp.lineTo(new cc.Vec2(terrain.position.x - terrain.scaleX * this.halfSize, terrain.position.y + terrain.scaleY * this.halfSize));
-            this.gp.lineTo(new cc.Vec2(terrain.position.x + terrain.scaleX * this.halfSize, terrain.position.y + terrain.scaleY * this.halfSize));
-            this.gp.moveTo(new cc.Vec2(terrain.position.x - terrain.scaleX * this.halfSize, terrain.position.y - terrain.scaleY * this.halfSize));
-            this.gp.lineTo(new cc.Vec2(terrain.position.x + terrain.scaleX * this.halfSize, terrain.position.y - terrain.scaleY * this.halfSize));
-            this.gp.lineTo(new cc.Vec2(terrain.position.x + terrain.scaleX * this.halfSize, terrain.position.y + terrain.scaleY * this.halfSize));
+            this.gp.moveTo(new cc.Vec2(terrain.position.x - terrain.width / 2 , terrain.position.y - terrain.height / 2));
+            this.gp.lineTo(new cc.Vec2(terrain.position.x - terrain.width / 2 , terrain.position.y + terrain.height / 2 ));
+            this.gp.lineTo(new cc.Vec2(terrain.position.x + terrain.width / 2 , terrain.position.y + terrain.height / 2 ));
+            this.gp.moveTo(new cc.Vec2(terrain.position.x - terrain.width / 2 , terrain.position.y - terrain.height / 2 ));
+            this.gp.lineTo(new cc.Vec2(terrain.position.x + terrain.width / 2 , terrain.position.y - terrain.height / 2 ));
+            this.gp.lineTo(new cc.Vec2(terrain.position.x + terrain.width / 2 , terrain.position.y + terrain.height / 2));
             this.gp.stroke();
 
             this.terrainPosX += (this.directionArr[this.direction].x === 0 ? 0 : 1) * this.halfSize * this.multi + (this.directionArr[this.direction].x === 0 ? 0 : 1) * this.halfWidth;
