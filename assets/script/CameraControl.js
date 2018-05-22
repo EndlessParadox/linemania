@@ -46,8 +46,10 @@ cc.Class({
 
     lateUpdate: function (dt) {
         if(this.target != null && this.target.parent != null) {
-            let targetPos = this.target.parent.convertToWorldSpaceAR(this.target.position);
+            let targetPos = this.target.convertToWorldSpaceAR(cc.Vec2.ZERO);
             this.node.position = this.node.parent.convertToNodeSpaceAR(targetPos);
+            // let targetPos = this.target.parent.convertToWorldSpaceAR(this.target.position);
+            // this.node.position = this.node.parent.convertToNodeSpaceAR(targetPos);
 
             //let ratio = targetPos.y / cc.winSize.height;
             //this.camera.zoomRatio = 1 + (0.5 - ratio) * 0.5;
