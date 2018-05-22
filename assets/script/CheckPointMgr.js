@@ -5,7 +5,7 @@ let CheckPointMgr = cc.Class({
         this.cpPosArr = new Array();
     },
 
-    addCheckPoint:function(x,y,idx,direction,terrainIdx,buildSumX,buildSumY,buildTerrainIdx,baseSumX,baseSumY,baseBuildSumX,baseBuildSumY,baseIdx){
+    addCheckPoint:function(x,y,idx,direction,terrainIdx,buildSumX,buildSumY,buildTerrainIdx,baseSumX,baseSumY,baseBuildSumX,baseBuildSumY,baseIdx,terrainPosX,terrainPosY){
         let pos = {
             x:x,
             y:y,
@@ -20,27 +20,29 @@ let CheckPointMgr = cc.Class({
             baseBuildSumX:baseBuildSumX,
             baseBuildSumY:baseBuildSumY,
             baseIdx:baseIdx,
+            terrainPosX:terrainPosX,
+            terrainPosY:terrainPosY,
         };
         console.log(pos);
         this.cpPosArr.push(pos);
     },
-
-    updateCheck :function(x,y,size,time,data,diamondCount)
-    {
-        if(this.cpPosArr.length !== 0 && this.checkPoint < this.cpPosArr.length - 1){
-            if((Math.abs(x - this.cpPosArr[this.checkPoint + 1].x )<= size) && ( Math.abs(y - this.cpPosArr[this.checkPoint + 1].y) <= size))
-            {
-                this.cpPosArr[this.checkPoint + 1].time = time;
-                this.cpPosArr[this.checkPoint + 1].data = data;
-                this.cpPosArr[this.checkPoint + 1].diamondCount = diamondCount;
-                //console.log("Pass CheckPoint : " + this.checkPoint + 1 + ",Song : " + this.cpPosArr[this.checkPoint + 1].idx * 0.4);
-                if(this.checkPoint < this.cpPosArr.length)
-                {
-                    this.checkPoint ++;
-                }
-            }
-        }
-    },
+    //
+    // updateCheck :function(x,y,size,time,data,diamondCount)
+    // {
+    //     if(this.cpPosArr.length !== 0 && this.checkPoint < this.cpPosArr.length - 1){
+    //         if((Math.abs(x - this.cpPosArr[this.checkPoint + 1].x )<= size) && ( Math.abs(y - this.cpPosArr[this.checkPoint + 1].y) <= size))
+    //         {
+    //             this.cpPosArr[this.checkPoint + 1].time = time;
+    //             this.cpPosArr[this.checkPoint + 1].data = data;
+    //             this.cpPosArr[this.checkPoint + 1].diamondCount = diamondCount;
+    //             //console.log("Pass CheckPoint : " + this.checkPoint + 1 + ",Song : " + this.cpPosArr[this.checkPoint + 1].idx * 0.4);
+    //             if(this.checkPoint < this.cpPosArr.length)
+    //             {
+    //                 this.checkPoint ++;
+    //             }
+    //         }
+    //     }
+    // },
 
     updateCheck:function(x,y,size,time,data,diamondCount)
     {
