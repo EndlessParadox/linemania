@@ -140,6 +140,7 @@ cc.Class({
             // this.terrainBGPool.put(terrainBG);
         }
 
+        this.itemIdx = 0;
 
         this.buildTerrainIdx = 0;
         this.buildTerrain(this.buildTerrainIdx);
@@ -161,7 +162,6 @@ cc.Class({
         let itemSumX = -1;
         let itemSumY = 0;
         //load时直接生成物体
-        this.itemIdx = 0;
         for (let i = 0; i < this.terrainArr.length; i++) {
             let note = this.terrainArr[i].substr(0, 1);
             let direction;
