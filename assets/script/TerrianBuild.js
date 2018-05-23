@@ -68,6 +68,7 @@ cc.Class({
         gp:cc.Graphics,
         help:cc.Node,
         restart:cc.Node,
+        NTD:false,
         // foo: {
         //     // ATTRIBUTES:
         //     default: null,        // The default value will be used only when the component attaching
@@ -305,7 +306,7 @@ cc.Class({
                                 //this.offsetY = (this.lineSumY - this.terrainStandardSumY) * this.directionArr[this.lineDirection].y;
                                 //console.log(this.lineSumY + this.baseLinePostion.y -  this.terrainPerfectArr[this.terrainIdx]);
                                 // console.log(this.offsetY + "YYYY");
-                                if (Math.abs(this.lineSumY + this.baseLinePostion.y - this.terrainPerfectArr[this.terrainIdx]) <= this.halfSize) {
+                                if (Math.abs(this.lineSumY + this.baseLinePostion.y - this.terrainPerfectArr[this.terrainIdx]) <= this.halfWidth) {
                                     this.ScoreMgr.clearCombo();
                                 }
                             }
@@ -331,7 +332,7 @@ cc.Class({
                                 //this.offset += (this.lineSumX + this.baseLinePostion.x -  this.terrainPerfectArr[this.terrainIdx]) * this.directionArr[this.lineDirection].x;
                                 // console.log(this.lineSumX + " ---" + this.terrainStandardSumX + "____________X");
                                 //this.offsetX = (this.lineSumX - this.terrainStandardSumX) * this.directionArr[this.lineDirection].x;
-                                if(Math.abs(this.lineSumX +  this.halfSize + this.baseLinePostion.x - this.terrainPerfectArr[this.terrainIdx]) <= this.halfSize) {
+                                if(Math.abs(this.lineSumX + this.baseLinePostion.x - this.terrainPerfectArr[this.terrainIdx]) <= this.halfWidth) {
                                     // console.log( this.offsetX + "XXXX");
                                     this.ScoreMgr.clearCombo();
                                 }
@@ -571,6 +572,7 @@ cc.Class({
 
     update (dt) {
         if (!this.bOver) {
+
             this.nowTime += dt;
             //console.log(this.offset);
             // this.lineSumX += this.directionArr[this.lineDirection].x;
@@ -604,14 +606,14 @@ cc.Class({
                 //}
                 //line.getComponent('SelfDestroy').setPool(this.linePool);
                 //console.log(this.line);
-                this.line.position = new cc.Vec2(this.baseLinePostion.x + this.lineSumX + this.lineMinSize * this.directionArr[this.lineDirection].x * dt / this.deltaTime, this.baseLinePostion.y + this.lineSumY + this.lineMaxSize* this.directionArr[this.lineDirection].y);
-                this.DiamondMgr.updateDiamond(this.line.position.x,this.line.position.y,this.lineMinSize,this.lineMaxSize,this.DiamondMgr,this.ScoreMgr);
+                this.line.position = new cc.Vec2(this.baseLinePostion.x + this.lineSumX + this.lineMinSize * this.directionArr[this.lineDirection].x * dt / this.deltaTime, this.baseLinePostion.y + this.lineSumY + this.lineMaxSize * this.directionArr[this.lineDirection].y);
+                this.DiamondMgr.updateDiamond(this.line.position.x, this.line.position.y, this.lineMinSize, this.lineMaxSize, this.DiamondMgr, this.ScoreMgr);
                 let data = {
-                    score : this.ScoreMgr.getScore(),
-                    comboCount:this.ScoreMgr.getComboCount(),
-                    maxCombo : this.ScoreMgr.getMaxCombo(),
+                    score: this.ScoreMgr.getScore(),
+                    comboCount: this.ScoreMgr.getComboCount(),
+                    maxCombo: this.ScoreMgr.getMaxCombo(),
                 };
-                this.CheckPointMgr.updateCheck(this.line.position.x,this.line.position.y,this.halfSize,this.time,data,this.DiamondMgr.getDiamondCount());
+                this.CheckPointMgr.updateCheck(this.line.position.x, this.line.position.y, this.halfSize, this.time, data, this.DiamondMgr.getDiamondCount());
                 // LineMgr.getInstance().addLine(line,this.linePool);
                 //console.log(line.position.y + "-----" + this.terrainPerfectArr[this.terrainIdx]);
                 // if(line.position.y === this.terrainPerfectArr[this.terrainIdx])
@@ -622,7 +624,7 @@ cc.Class({
                 // {
                 //     console.log("good");
                 // }
-                this.lineSumX += this.lineMinSize * this.directionArr[this.lineDirection].x *  2 * dt /this.deltaTime;
+                this.lineSumX += this.lineMinSize * this.directionArr[this.lineDirection].x * 2 * dt / this.deltaTime;
                 this.lineSumY += this.lineMaxSize * this.directionArr[this.lineDirection].y;
             }
             else {
@@ -654,14 +656,14 @@ cc.Class({
                 //}
 
                 //line.getComponent('SelfDestroy').setPool(this.linePool);
-                this.line.position = new cc.Vec2(this.baseLinePostion.x + this.lineSumX + this.lineMaxSize* this.directionArr[this.lineDirection].x, this.baseLinePostion.y + this.lineSumY + this.lineMinSize* this.directionArr[this.lineDirection].y * dt /this.deltaTime);
-                this.DiamondMgr.updateDiamond(this.line.position.x,this.line.position.y,this.lineMaxSize,this.lineMinSize,this.DiamondMgr,this.ScoreMgr);
+                this.line.position = new cc.Vec2(this.baseLinePostion.x + this.lineSumX + this.lineMaxSize * this.directionArr[this.lineDirection].x, this.baseLinePostion.y + this.lineSumY + this.lineMinSize * this.directionArr[this.lineDirection].y * dt / this.deltaTime);
+                this.DiamondMgr.updateDiamond(this.line.position.x, this.line.position.y, this.lineMaxSize, this.lineMinSize, this.DiamondMgr, this.ScoreMgr);
                 let data = {
-                    score : this.ScoreMgr.getScore(),
-                    comboCount:this.ScoreMgr.getComboCount(),
-                    maxCombo : this.ScoreMgr.getMaxCombo(),
+                    score: this.ScoreMgr.getScore(),
+                    comboCount: this.ScoreMgr.getComboCount(),
+                    maxCombo: this.ScoreMgr.getMaxCombo(),
                 };
-                this.CheckPointMgr.updateCheck(this.line.position.x,this.line.position.y,this.halfSize,this.nowTime,data,this.DiamondMgr.getDiamondCount());
+                this.CheckPointMgr.updateCheck(this.line.position.x, this.line.position.y, this.halfSize, this.nowTime, data, this.DiamondMgr.getDiamondCount());
                 //LineMgr.getInstance().addLine(this.line,this.linePool);
                 //console.log(line.position.x + " ---- " + (this.terrainSumX + this.baseLinePostion.x + this.lineMinSize));
                 //console.log(line.position.x + "-----" + this.terrainPerfectArr[this.terrainIdx]);
@@ -674,22 +676,21 @@ cc.Class({
                 //     console.log("good");
                 // }
                 this.lineSumX += this.lineMaxSize * this.directionArr[this.lineDirection].x;
-                this.lineSumY +=  this.lineMinSize * this.directionArr[this.lineDirection].y * 2 * dt /this.deltaTime;
+                this.lineSumY += this.lineMinSize * this.directionArr[this.lineDirection].y * 2 * dt / this.deltaTime;
             }
             // if (line != null) {
             //     line.parent = this.bg;
             // }
 
             if (this.nowDirecion === 0 || this.nowDirecion === 2) {
-//                console.log(this.lineSumX + "!" + this.terrainSumX);
+                console.log(this.lineSumX + "!" + this.terrainSumX);
                 if (((this.lineSumX >= this.terrainSumX + this.lineMaxSize) && (this.nowDirecion === 0)) || ((this.lineSumX <= this.terrainSumX - this.lineMaxSize) && (this.nowDirecion === 2))) {
                     this.terrainIdx++;
-                    if(this.terrainIdx >= this.terrainArr.length)
-                    {
+                    if (this.terrainIdx >= this.terrainArr.length) {
                         //alert("发出胜利的声音");
                         this.bOver = true;
                         this.bgm.stop();
-                        if(this.uiDie != null) {
+                        if (this.uiDie != null) {
                             let die = this.uiDie.getComponent('UIDie');
                             if (die != null) {
                                 let data = {
@@ -711,6 +712,7 @@ cc.Class({
                         }
                         return;
                     }
+                    console.log(this.terrainArr[this.terrainIdx] + "~~~~~~~~~~~~~~~");
                     this.nowDirecion = parseInt(this.terrainArr[this.terrainIdx].slice(0, 1));
                     this.terrainSumY += ((this.terrainArr[this.terrainIdx].length) * this.halfSize * 2 - this.halfWidth) * this.directionArr[this.nowDirecion].y;
                     this.terrainSumX += this.halfWidth * this.directionArr[parseInt(this.terrainArr[this.terrainIdx - 1].slice(0, 1))].x;
@@ -722,21 +724,19 @@ cc.Class({
                         this.bOver = true;
                         this.bBack = true;
                         this.bgm.pause();
-                        if(this.uiDie != null)
-                        {
+                        if (this.uiDie != null) {
                             let die = this.uiDie.getComponent('UIDie');
-                            if(die != null)
-                            {
+                            if (die != null) {
                                 let data = {
                                     bgmName: this.bgmName,
-                                    progress: ((this.nowTime/this.fullLength) * 100).toFixed(0),
+                                    progress: ((this.nowTime / this.fullLength) * 100).toFixed(0),
                                     diamond: this.DiamondMgr.getDiamondCount(),
                                     maxCombo: this.ScoreMgr.getMaxCombo(),
-                                    sumCombo:this.ScoreMgr.getComboCount(),
-                                    point:this.ScoreMgr.getScore(),
-                                    sceneName:this.sceneName,
-                                    resumeChance : this.resumeChance,
-                                    recordIdx:this.recordIdx,
+                                    sumCombo: this.ScoreMgr.getComboCount(),
+                                    point: this.ScoreMgr.getScore(),
+                                    sceneName: this.sceneName,
+                                    resumeChance: this.resumeChance,
+                                    recordIdx: this.recordIdx,
                                 };
                                 this.resumeChance -= 1;
                                 die.setData(data);
@@ -748,15 +748,14 @@ cc.Class({
                 }
             }
             else {
-//                console.log(this.lineSumY + "!" + this.terrainSumY);
+                console.log(this.lineSumY + "!" + this.terrainSumY);
                 if (((this.lineSumY >= this.terrainSumY + this.lineMaxSize) && (this.nowDirecion === 1)) || ((this.lineSumY <= this.terrainSumY - this.lineMaxSize) && (this.nowDirecion === 3))) {
                     this.terrainIdx++;
-                    if(this.terrainIdx >= this.terrainArr.length)
-                    {
+                    if (this.terrainIdx >= this.terrainArr.length) {
                         //alert("发出胜利的声音");
                         this.bOver = true;
                         this.bgm.stop();
-                        if(this.uiDie != null) {
+                        if (this.uiDie != null) {
                             let die = this.uiDie.getComponent('UIDie');
                             if (die != null) {
                                 let data = {
@@ -778,33 +777,32 @@ cc.Class({
                         }
                         return;
                     }
+                    console.log(this.terrainArr[this.terrainIdx]  + "~~~~~~~~~~~~~~~");
                     this.nowDirecion = parseInt(this.terrainArr[this.terrainIdx].slice(0, 1));
-                    this.terrainSumX += ((this.terrainArr[this.terrainIdx].length) * this.halfSize * 2 - this.halfWidth)* this.directionArr[this.nowDirecion].x;
+                    this.terrainSumX += ((this.terrainArr[this.terrainIdx].length) * this.halfSize * 2 - this.halfWidth) * this.directionArr[this.nowDirecion].x;
                     this.terrainSumY += this.halfWidth * this.directionArr[parseInt(this.terrainArr[this.terrainIdx - 1].slice(0, 1))].y;
                 }
                 else {
                     console.log(this.lineSumX + "---" + this.terrainSumX + "----X");
-                    if (this.lineSumX > this.terrainSumX + this.halfWidth - this.lineMaxSize|| this.lineSumX < this.terrainSumX - this.halfWidth + this.lineMaxSize) {
+                    if (this.lineSumX > this.terrainSumX + this.halfWidth - this.lineMaxSize || this.lineSumX < this.terrainSumX - this.halfWidth + this.lineMaxSize) {
                         console.log('die2');
                         this.bOver = true;
                         this.bBack = true;
                         this.bgm.pause();
-                        if(this.uiDie != null)
-                        {
+                        if (this.uiDie != null) {
                             let die = this.uiDie.getComponent('UIDie');
-                            if(die != null)
-                            {
+                            if (die != null) {
                                 let data = {
                                     bgmName: this.bgmName,
-                                    progress: ((this.nowTime/this.fullLength) * 100).toFixed(0),
+                                    progress: ((this.nowTime / this.fullLength) * 100).toFixed(0),
                                     diamond: this.DiamondMgr.getDiamondCount(),
                                     maxCombo: this.ScoreMgr.getMaxCombo(),
-                                    sumCombo:this.ScoreMgr.getComboCount(),
-                                    point:this.ScoreMgr.getScore(),
-                                    sceneName:this.sceneName,
-                                    resumeChance : this.resumeChance,
-                                    recordIdx:this.recordIdx,
-                                    finish:false,
+                                    sumCombo: this.ScoreMgr.getComboCount(),
+                                    point: this.ScoreMgr.getScore(),
+                                    sceneName: this.sceneName,
+                                    resumeChance: this.resumeChance,
+                                    recordIdx: this.recordIdx,
+                                    finish: false,
                                 };
                                 this.resumeChance -= 1;
                                 die.setData(data);
@@ -815,17 +813,9 @@ cc.Class({
                     }
                 }
             }
-
-            // let newX = -((this.line.position.x - this.baseLinePostion.x) * Math.cos(this.bg.rotation * Math.PI / 180) + (this.line.position.y - this.baseLinePostion.y) * Math.sin(this.bg.rotation * Math.PI / 180));
-            // let newY = -(-(this.line.position.y - this.baseLinePostion.y) * Math.sin(this.bg.rotation * Math.PI / 180) + (this.line.position.x - this.baseLinePostion.x) * Math.cos(this.bg.rotation * Math.PI / 180));
-            // //             // //let newX = this.bg.position.x - this.directionArr[this.nowDirecion].x * this.lineMinSize * 2;
-            // //             // //let newY = this.bg.position.y - this.directionArr[this.nowDirecion].y * this.lineMinSize * 2;
-            // this.constBG.position = new cc.Vec2(newX, newY);
-            // this.bg.position = new cc.Vec2(newX,newY);
-            // this.gp.node.position = new cc.Vec2(newX, newY);
-//            console.log(this.bg.position);
-//             console.log(new cc.Vec2(newX,newY));
         }
+
+
         if(this.stop)
         {
             this.waitTime += dt;
@@ -845,6 +835,23 @@ cc.Class({
         if(this.terrainIdx >= this.buildTerrainIdx - this.preBuildCount)
         {
             this.buildTerrain(this.buildTerrainIdx, false);
+        }
+    },
+
+    lateUpdate(){
+        if(!this.bOver && this.terrainIdx > 0) {
+            if (this.NTD) {
+                if (this.lineDirection === 1 || this.lineDirection === 3) {
+                    if (this.lineSumY > this.terrainSumY + this.lineMaxSize) {
+                        this.lineDirection = 0;
+                    }
+                }
+                else {
+                    if (this.lineSumX >= this.terrainSumX + this.lineMaxSize) {
+                        this.lineDirection = 1;
+                    }
+                }
+            }
         }
     },
 
@@ -1005,10 +1012,10 @@ cc.Class({
             buildOnArr.push(terrain);
 
             this.gp.moveTo(new cc.Vec2(terrain.position.x - terrain.width / 2 , terrain.position.y - terrain.height / 2));
-            this.gp.lineTo(new cc.Vec2(terrain.position.x - terrain.width / 2 , terrain.position.y + terrain.height / 2 ));
-            this.gp.lineTo(new cc.Vec2(terrain.position.x + terrain.width / 2 , terrain.position.y + terrain.height / 2 ));
-            this.gp.moveTo(new cc.Vec2(terrain.position.x - terrain.width / 2 , terrain.position.y - terrain.height / 2 ));
-            this.gp.lineTo(new cc.Vec2(terrain.position.x + terrain.width / 2 , terrain.position.y - terrain.height / 2 ));
+            this.gp.lineTo(new cc.Vec2(terrain.position.x - terrain.width / 2 , terrain.position.y + terrain.height / 2));
+            this.gp.lineTo(new cc.Vec2(terrain.position.x + terrain.width / 2 , terrain.position.y + terrain.height / 2));
+            this.gp.moveTo(new cc.Vec2(terrain.position.x - terrain.width / 2 , terrain.position.y - terrain.height / 2));
+            this.gp.lineTo(new cc.Vec2(terrain.position.x + terrain.width / 2 , terrain.position.y - terrain.height / 2));
             this.gp.lineTo(new cc.Vec2(terrain.position.x + terrain.width / 2 , terrain.position.y + terrain.height / 2));
             this.gp.stroke();
 
