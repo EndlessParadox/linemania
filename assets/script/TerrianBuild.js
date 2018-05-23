@@ -25,6 +25,7 @@ cc.Class({
         baseLineY:cc.Prefab,
         bg:cc.Node,
         halfSize:0,
+        halfWidth:0,
         directionArr:[cc.Vec2],
         basePostion:cc.Vec2,
         baseDirection:0,
@@ -67,6 +68,7 @@ cc.Class({
         gp:cc.Graphics,
         help:cc.Node,
         restart:cc.Node,
+        NTD:false,
         // foo: {
         //     // ATTRIBUTES:
         //     default: null,        // The default value will be used only when the component attaching
@@ -88,7 +90,8 @@ cc.Class({
 
     onLoad () {
         this.gp.node.zIndex = 990;
-        this.multi =  this.minBeat / this.standardBeat;
+        this.multi = 1;
+        this.halfSize = this.lineMinSize * this.minBeat / this.deltaTime;
         this.DiamondMgr = new DiamondMgr();
         this.CheckPointMgr = new CheckPointMgr();
         this.ScoreMgr = new ScoreMgr();
@@ -100,6 +103,9 @@ cc.Class({
         this.direction = this.baseDirection;
         //let sumX = -1 * this.directionArr[this.baseDirection].x;
         //let sumY = -1 * this.directionArr[this.baseDirection].y;
+
+        this.terrainPosX = -2 * this.halfSize * this.multi;
+        this.terrainPosY = 0;
 
         this.help.active = true;
 
@@ -155,7 +161,7 @@ cc.Class({
         let itemSumX = -1;
         let itemSumY = 0;
         //load时直接生成物体
-        let itemIdx = 0;
+        this.itemIdx = 0;
         for (let i = 0; i < this.terrainArr.length; i++) {
             let note = this.terrainArr[i].substr(0, 1);
             let direction;
@@ -182,75 +188,75 @@ cc.Class({
                 itemBuildSumX += ((this.terrainArr[i].length - 1) * this.halfSize * 2 + this.halfSize) * this.directionArr[direction].x;
                 itemBuildSumY += ((this.terrainArr[i].length - 1) * this.halfSize * 2 + this.halfSize) * this.directionArr[direction].y;
             }
-            for (let j = 0; j < this.terrainArr[i].length; j++) {
-                let location = new cc.Vec2(0, 0);
-                itemSumX += this.directionArr[direction].x;
-                itemSumY += this.directionArr[direction].y;
-                location = new cc.Vec2(this.basePostion.x + (2 * itemSumX) * this.halfSize, this.basePostion.y + (2 * itemSumY + 1) * this.halfSize);
-
-                switch (parseInt(this.terrainArr[i].substr(j, 1))) {
-                    case 4:
-                        if (this.itemArr.length > 0 ) {
-                            let item = cc.instantiate(this.itemArr[0]);
-                            item.position = new cc.Vec2(location.x + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].x, location.y + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].y);
-                            item.rotation = this.itemRotateArr[itemIdx < this.itemRotateArr.length ? itemIdx : 0];
-                            item.setScale(new cc.Vec2(this.itemScaleArr[itemIdx < this.itemScaleArr.length ? itemIdx : 0]));
-                            item.parent = this.constBG;
-                            itemIdx++;
-                        }
-                        break;
-                    case 5:
-                        if (this.itemArr.length > 1 ) {
-                            let item = cc.instantiate(this.itemArr[1]);
-                            item.position = new cc.Vec2(location.x + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].x, location.y + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].y);
-                            item.rotation = this.itemRotateArr[itemIdx < this.itemRotateArr.length ? itemIdx : 0];
-                            item.setScale(new cc.Vec2(this.itemScaleArr[itemIdx < this.itemScaleArr.length ? itemIdx : 0]));
-                            item.parent = this.constBG;
-                            itemIdx++;
-                        }
-                        break;
-                    case 6:
-                        if (this.itemArr.length > 2 ) {
-                            let item = cc.instantiate(this.itemArr[2]);
-                            item.position = new cc.Vec2(location.x + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].x, location.y + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].y);
-                            item.rotation = this.itemRotateArr[itemIdx < this.itemRotateArr.length ? itemIdx : 0];
-                            item.setScale(new cc.Vec2(this.itemScaleArr[itemIdx < this.itemScaleArr.length ? itemIdx : 0]));
-                            item.parent = this.constBG;
-                            itemIdx++;
-                        }
-                        break;
-                    case 7:
-                        if (this.itemArr.length > 3 ) {
-                            let item = cc.instantiate(this.itemArr[3]);
-                            item.position = new cc.Vec2(location.x + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].x, location.y + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].y);
-                            item.rotation = this.itemRotateArr[itemIdx < this.itemRotateArr.length ? itemIdx : 0];
-                            item.setScale(new cc.Vec2(this.itemScaleArr[itemIdx < this.itemScaleArr.length ? itemIdx : 0]));
-                            item.parent = this.constBG;
-                            itemIdx++;
-                        }
-                        break;
-                    case 8:
-                        if (this.itemArr.length > 4 ) {
-                            let item = cc.instantiate(this.itemArr[4]);
-                            item.position = new cc.Vec2(location.x + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].x, location.y + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].y);
-                            item.rotation = this.itemRotateArr[itemIdx < this.itemRotateArr.length ? itemIdx : 0];
-                            item.setScale(new cc.Vec2(this.itemScaleArr[itemIdx < this.itemScaleArr.length ? itemIdx : 0]));
-                            item.parent = this.constBG;
-                            itemIdx++;
-                        }
-                        break;
-                    case 9:
-                        if (this.itemArr.length > 5) {
-                            let item = cc.instantiate(this.itemArr[5]);
-                            item.position = new cc.Vec2(location.x + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].x, location.y + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].y);
-                            item.rotation = this.itemRotateArr[itemIdx < this.itemRotateArr.length ? itemIdx : 0];
-                            item.setScale(new cc.Vec2(this.itemScaleArr[itemIdx < this.itemScaleArr.length ? itemIdx : 0]));
-                            item.parent = this.constBG;
-                            itemIdx++;
-                        }
-                        break;
-                }
-            }
+           //  for (let j = 0; j < this.terrainArr[i].length; j++) {
+           //      let location = new cc.Vec2(0, 0);
+           //      itemSumX += this.directionArr[direction].x;
+           //      itemSumY += this.directionArr[direction].y;
+           //      location = new cc.Vec2(this.basePostion.x + (2 * itemSumX) * this.halfSize, this.basePostion.y + (2 * itemSumY + 1) * this.halfSize);
+           //
+           //      switch (parseInt(this.terrainArr[i].substr(j, 1))) {
+           //          case 4:
+           //              if (this.itemArr.length > 0 ) {
+           //                  let item = cc.instantiate(this.itemArr[0]);
+           //                  item.position = new cc.Vec2(location.x + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].x, location.y + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].y);
+           //                  item.rotation = this.itemRotateArr[itemIdx < this.itemRotateArr.length ? itemIdx : 0];
+           //                  item.setScale(new cc.Vec2(this.itemScaleArr[itemIdx < this.itemScaleArr.length ? itemIdx : 0]));
+           //                  item.parent = this.constBG;
+           //                  itemIdx++;
+           //              }
+           //              break;
+           //          case 5:
+           //              if (this.itemArr.length > 1 ) {
+           //                  let item = cc.instantiate(this.itemArr[1]);
+           //                  item.position = new cc.Vec2(location.x + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].x, location.y + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].y);
+           //                  item.rotation = this.itemRotateArr[itemIdx < this.itemRotateArr.length ? itemIdx : 0];
+           //                  item.setScale(new cc.Vec2(this.itemScaleArr[itemIdx < this.itemScaleArr.length ? itemIdx : 0]));
+           //                  item.parent = this.constBG;
+           //                  itemIdx++;
+           //              }
+           //              break;
+           //          case 6:
+           //              if (this.itemArr.length > 2 ) {
+           //                  let item = cc.instantiate(this.itemArr[2]);
+           //                  item.position = new cc.Vec2(location.x + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].x, location.y + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].y);
+           //                  item.rotation = this.itemRotateArr[itemIdx < this.itemRotateArr.length ? itemIdx : 0];
+           //                  item.setScale(new cc.Vec2(this.itemScaleArr[itemIdx < this.itemScaleArr.length ? itemIdx : 0]));
+           //                  item.parent = this.constBG;
+           //                  itemIdx++;
+           //              }
+           //              break;
+           //          case 7:
+           //              if (this.itemArr.length > 3 ) {
+           //                  let item = cc.instantiate(this.itemArr[3]);
+           //                  item.position = new cc.Vec2(location.x + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].x, location.y + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].y);
+           //                  item.rotation = this.itemRotateArr[itemIdx < this.itemRotateArr.length ? itemIdx : 0];
+           //                  item.setScale(new cc.Vec2(this.itemScaleArr[itemIdx < this.itemScaleArr.length ? itemIdx : 0]));
+           //                  item.parent = this.constBG;
+           //                  itemIdx++;
+           //              }
+           //              break;
+           //          case 8:
+           //              if (this.itemArr.length > 4 ) {
+           //                  let item = cc.instantiate(this.itemArr[4]);
+           //                  item.position = new cc.Vec2(location.x + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].x, location.y + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].y);
+           //                  item.rotation = this.itemRotateArr[itemIdx < this.itemRotateArr.length ? itemIdx : 0];
+           //                  item.setScale(new cc.Vec2(this.itemScaleArr[itemIdx < this.itemScaleArr.length ? itemIdx : 0]));
+           //                  item.parent = this.constBG;
+           //                  itemIdx++;
+           //              }
+           //              break;
+           //          case 9:
+           //              if (this.itemArr.length > 5) {
+           //                  let item = cc.instantiate(this.itemArr[5]);
+           //                  item.position = new cc.Vec2(location.x + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].x, location.y + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].y);
+           //                  item.rotation = this.itemRotateArr[itemIdx < this.itemRotateArr.length ? itemIdx : 0];
+           //                  item.setScale(new cc.Vec2(this.itemScaleArr[itemIdx < this.itemScaleArr.length ? itemIdx : 0]));
+           //                  item.parent = this.constBG;
+           //                  itemIdx++;
+           //              }
+           //              break;
+           //      }
+           // }
         }
 
 
@@ -279,7 +285,8 @@ cc.Class({
 
                     if(this.lineDirection === 1 || this.lineDirection === 3)
                     {
-                            if (Math.abs(this.lineSumY + this.baseLinePostion.y - this.terrainPerfectArr[this.terrainIdx]) <= this.halfSize * this.perfectArea) {
+//                        console.log(Math.abs(this.lineSumY + this.baseLinePostion.y - this.terrainPerfectArr[this.terrainIdx]));
+                            if (Math.abs(this.lineSumY + this.baseLinePostion.y - this.terrainPerfectArr[this.terrainIdx]) <= this.halfWidth * this.perfectArea) {
                                 this.ScoreMgr.addCombo();
                                 this.ScoreMgr.addScore(100 * this.ScoreMgr.getCombo());
                                 let perfectShow = cc.instantiate(this.perfectBase);
@@ -299,14 +306,15 @@ cc.Class({
                                 //this.offsetY = (this.lineSumY - this.terrainStandardSumY) * this.directionArr[this.lineDirection].y;
                                 //console.log(this.lineSumY + this.baseLinePostion.y -  this.terrainPerfectArr[this.terrainIdx]);
                                 // console.log(this.offsetY + "YYYY");
-                                if (Math.abs(this.lineSumY + this.baseLinePostion.y - this.terrainPerfectArr[this.terrainIdx]) <= this.halfSize) {
+                                if (Math.abs(this.lineSumY + this.baseLinePostion.y - this.terrainPerfectArr[this.terrainIdx]) <= this.halfWidth) {
                                     this.ScoreMgr.clearCombo();
                                 }
                             }
                     }
                     else
                     {
-                            if (Math.abs(this.lineSumX + this.baseLinePostion.x - this.terrainPerfectArr[this.terrainIdx]) <= this.halfSize * this.perfectArea) {
+//                        console.log(Math.abs(this.lineSumX + this.baseLinePostion.x - this.terrainPerfectArr[this.terrainIdx]));
+                            if (Math.abs(this.lineSumX + this.baseLinePostion.x - this.terrainPerfectArr[this.terrainIdx]) <= this.halfWidth * this.perfectArea) {
                                 this.ScoreMgr.addCombo();
                                 this.ScoreMgr.addScore(100 * this.ScoreMgr.getCombo());
                                 let perfectShow = cc.instantiate(this.perfectBase);
@@ -324,7 +332,7 @@ cc.Class({
                                 //this.offset += (this.lineSumX + this.baseLinePostion.x -  this.terrainPerfectArr[this.terrainIdx]) * this.directionArr[this.lineDirection].x;
                                 // console.log(this.lineSumX + " ---" + this.terrainStandardSumX + "____________X");
                                 //this.offsetX = (this.lineSumX - this.terrainStandardSumX) * this.directionArr[this.lineDirection].x;
-                                if(Math.abs(this.lineSumX +  this.halfSize + this.baseLinePostion.x - this.terrainPerfectArr[this.terrainIdx]) <= this.halfSize) {
+                                if(Math.abs(this.lineSumX + this.baseLinePostion.x - this.terrainPerfectArr[this.terrainIdx]) <= this.halfWidth) {
                                     // console.log( this.offsetX + "XXXX");
                                     this.ScoreMgr.clearCombo();
                                 }
@@ -367,7 +375,7 @@ cc.Class({
         //     restart.zIndex = 999;
         //     restart.parent = this.bg;
         // }
-        this.restart.active = true;
+        //this.restart.active = true;
         // for(let m = 0; m < this.terrainBGBuildArr.length; m ++)
         // {
         //     for (let n = 0; n < this.terrainBGBuildArr[0].length; n ++)
@@ -425,6 +433,8 @@ cc.Class({
             this.nowTime = curCp.time;
             this.ScoreMgr.revertData(curCp.data);
             this.DiamondMgr.setDiamondCount(curCp.diamondCount);
+            this.terrainPosX = curCp.terrainPosX;
+            this.terrainPosY = curCp.terrainPosY;
 
             //this.buildTerrainIdx = Math.max(0,this.terrainIdx - this.preBuildCount);
             //console.log(this.buildTerrainIdx);
@@ -438,7 +448,7 @@ cc.Class({
             this.lineSumX = 0;
             this.lineSumY = 0;
             this.terrainIdx = 0;
-            this.terrainSumX = ((this.terrainArr[this.terrainIdx].length - 2)* this.halfSize * 2 + this.halfSize) * this.directionArr[this.baseDirection].x;
+            this.terrainSumX = ((this.terrainArr[this.terrainIdx].length - 1)* this.halfSize * 2) * this.directionArr[this.baseDirection].x;
             this.terrainSumY = 0;
             this.lineDirection = this.baseDirection;
             this.nowDirecion = this.baseDirection;
@@ -450,6 +460,8 @@ cc.Class({
             this.nowTime = 0;
             this.ScoreMgr.revertData(null);
             this.DiamondMgr.setDiamondCount(0);
+            this.terrainPosX = -2 * this.halfSize * this.multi;
+            this.terrainPosY = 0;
 
             // this.buildTerrainIdx = 0;
             this.CheckPointMgr.clear();
@@ -496,8 +508,9 @@ cc.Class({
         if(this.baseDirection === 0 || this.baseDirection === 2) {
             //this.lineSumX = this.lineMaxSize * this.directionArr[this.baseDirection].x;
             this.lineSumX = 0;
+            //this.lineSumX = 0;
             this.lineSumY = 0;
-            this.terrainSumX = ((this.terrainArr[this.terrainIdx].length - 2)* this.halfSize * 2 + this.halfSize) * this.directionArr[this.baseDirection].x;
+            this.terrainSumX = ((this.terrainArr[this.terrainIdx].length - 1)* this.halfSize * 2) * this.directionArr[this.baseDirection].x;
             this.terrainSumY = 0;
         }
         else {
@@ -559,6 +572,7 @@ cc.Class({
 
     update (dt) {
         if (!this.bOver) {
+
             this.nowTime += dt;
             //console.log(this.offset);
             // this.lineSumX += this.directionArr[this.lineDirection].x;
@@ -592,14 +606,14 @@ cc.Class({
                 //}
                 //line.getComponent('SelfDestroy').setPool(this.linePool);
                 //console.log(this.line);
-                this.line.position = new cc.Vec2(this.baseLinePostion.x + this.lineSumX + this.lineMinSize * this.directionArr[this.lineDirection].x * dt / this.deltaTime, this.baseLinePostion.y + this.lineSumY + this.lineMaxSize* this.directionArr[this.lineDirection].y);
-                this.DiamondMgr.updateDiamond(this.line.position.x,this.line.position.y,this.lineMinSize,this.lineMaxSize,this.DiamondMgr,this.ScoreMgr);
+                this.line.position = new cc.Vec2(this.baseLinePostion.x + this.lineSumX + this.lineMinSize * this.directionArr[this.lineDirection].x * dt / this.deltaTime, this.baseLinePostion.y + this.lineSumY + this.lineMaxSize * this.directionArr[this.lineDirection].y);
+                this.DiamondMgr.updateDiamond(this.line.position.x, this.line.position.y, this.lineMinSize, this.lineMaxSize, this.DiamondMgr, this.ScoreMgr);
                 let data = {
-                    score : this.ScoreMgr.getScore(),
-                    comboCount:this.ScoreMgr.getComboCount(),
-                    maxCombo : this.ScoreMgr.getMaxCombo(),
+                    score: this.ScoreMgr.getScore(),
+                    comboCount: this.ScoreMgr.getComboCount(),
+                    maxCombo: this.ScoreMgr.getMaxCombo(),
                 };
-                this.CheckPointMgr.updateCheck(this.line.position.x,this.line.position.y,this.halfSize,this.time,data,this.DiamondMgr.getDiamondCount());
+                this.CheckPointMgr.updateCheck(this.line.position.x, this.line.position.y, this.halfSize, this.time, data, this.DiamondMgr.getDiamondCount());
                 // LineMgr.getInstance().addLine(line,this.linePool);
                 //console.log(line.position.y + "-----" + this.terrainPerfectArr[this.terrainIdx]);
                 // if(line.position.y === this.terrainPerfectArr[this.terrainIdx])
@@ -610,7 +624,7 @@ cc.Class({
                 // {
                 //     console.log("good");
                 // }
-                this.lineSumX += this.lineMinSize * this.directionArr[this.lineDirection].x *  2 * dt /this.deltaTime;
+                this.lineSumX += this.lineMinSize * this.directionArr[this.lineDirection].x * 2 * dt / this.deltaTime;
                 this.lineSumY += this.lineMaxSize * this.directionArr[this.lineDirection].y;
             }
             else {
@@ -642,14 +656,14 @@ cc.Class({
                 //}
 
                 //line.getComponent('SelfDestroy').setPool(this.linePool);
-                this.line.position = new cc.Vec2(this.baseLinePostion.x + this.lineSumX + this.lineMaxSize* this.directionArr[this.lineDirection].x, this.baseLinePostion.y + this.lineSumY + this.lineMinSize* this.directionArr[this.lineDirection].y * dt /this.deltaTime);
-                this.DiamondMgr.updateDiamond(this.line.position.x,this.line.position.y,this.lineMaxSize,this.lineMinSize,this.DiamondMgr,this.ScoreMgr);
+                this.line.position = new cc.Vec2(this.baseLinePostion.x + this.lineSumX + this.lineMaxSize * this.directionArr[this.lineDirection].x, this.baseLinePostion.y + this.lineSumY + this.lineMinSize * this.directionArr[this.lineDirection].y * dt / this.deltaTime);
+                this.DiamondMgr.updateDiamond(this.line.position.x, this.line.position.y, this.lineMaxSize, this.lineMinSize, this.DiamondMgr, this.ScoreMgr);
                 let data = {
-                    score : this.ScoreMgr.getScore(),
-                    comboCount:this.ScoreMgr.getComboCount(),
-                    maxCombo : this.ScoreMgr.getMaxCombo(),
+                    score: this.ScoreMgr.getScore(),
+                    comboCount: this.ScoreMgr.getComboCount(),
+                    maxCombo: this.ScoreMgr.getMaxCombo(),
                 };
-                this.CheckPointMgr.updateCheck(this.line.position.x,this.line.position.y,this.halfSize,this.nowTime,data,this.DiamondMgr.getDiamondCount());
+                this.CheckPointMgr.updateCheck(this.line.position.x, this.line.position.y, this.halfSize, this.nowTime, data, this.DiamondMgr.getDiamondCount());
                 //LineMgr.getInstance().addLine(this.line,this.linePool);
                 //console.log(line.position.x + " ---- " + (this.terrainSumX + this.baseLinePostion.x + this.lineMinSize));
                 //console.log(line.position.x + "-----" + this.terrainPerfectArr[this.terrainIdx]);
@@ -662,22 +676,21 @@ cc.Class({
                 //     console.log("good");
                 // }
                 this.lineSumX += this.lineMaxSize * this.directionArr[this.lineDirection].x;
-                this.lineSumY +=  this.lineMinSize * this.directionArr[this.lineDirection].y * 2 * dt /this.deltaTime;
+                this.lineSumY += this.lineMinSize * this.directionArr[this.lineDirection].y * 2 * dt / this.deltaTime;
             }
             // if (line != null) {
             //     line.parent = this.bg;
             // }
 
             if (this.nowDirecion === 0 || this.nowDirecion === 2) {
-                //console.log(this.lineSumX + "!" + this.terrainSumX);
+                console.log(this.lineSumX + "!" + this.terrainSumX);
                 if (((this.lineSumX >= this.terrainSumX + this.lineMaxSize) && (this.nowDirecion === 0)) || ((this.lineSumX <= this.terrainSumX - this.lineMaxSize) && (this.nowDirecion === 2))) {
                     this.terrainIdx++;
-                    if(this.terrainIdx >= this.terrainArr.length)
-                    {
+                    if (this.terrainIdx >= this.terrainArr.length) {
                         //alert("发出胜利的声音");
                         this.bOver = true;
                         this.bgm.stop();
-                        if(this.uiDie != null) {
+                        if (this.uiDie != null) {
                             let die = this.uiDie.getComponent('UIDie');
                             if (die != null) {
                                 let data = {
@@ -699,32 +712,31 @@ cc.Class({
                         }
                         return;
                     }
+                    console.log(this.terrainArr[this.terrainIdx] + "~~~~~~~~~~~~~~~");
                     this.nowDirecion = parseInt(this.terrainArr[this.terrainIdx].slice(0, 1));
-                    this.terrainSumY += ((this.terrainArr[this.terrainIdx].length - 1) * this.halfSize * 2 + this.halfSize) * this.directionArr[this.nowDirecion].y;
-                    this.terrainSumX += this.halfSize * this.directionArr[parseInt(this.terrainArr[this.terrainIdx - 1].slice(0, 1))].x;
+                    this.terrainSumY += ((this.terrainArr[this.terrainIdx].length) * this.halfSize * 2 - this.halfWidth) * this.directionArr[this.nowDirecion].y;
+                    this.terrainSumX += this.halfWidth * this.directionArr[parseInt(this.terrainArr[this.terrainIdx - 1].slice(0, 1))].x;
                 }
                 else {
-                    //console.log(this.lineSumY + "---" + this.terrainSumY + "----Y");
-                    if (this.lineSumY >= this.terrainSumY + this.halfSize - this.lineMaxSize || this.lineSumY <= this.terrainSumY - this.halfSize + this.lineMaxSize) {
+                    console.log(this.lineSumY + "---" + this.terrainSumY + "----Y");
+                    if (this.lineSumY > this.terrainSumY + this.halfWidth - this.lineMaxSize || this.lineSumY < this.terrainSumY - this.halfWidth + this.lineMaxSize) {
                         console.log('die1');
                         this.bOver = true;
                         this.bBack = true;
                         this.bgm.pause();
-                        if(this.uiDie != null)
-                        {
+                        if (this.uiDie != null) {
                             let die = this.uiDie.getComponent('UIDie');
-                            if(die != null)
-                            {
+                            if (die != null) {
                                 let data = {
                                     bgmName: this.bgmName,
-                                    progress: ((this.nowTime/this.fullLength) * 100).toFixed(0),
+                                    progress: ((this.nowTime / this.fullLength) * 100).toFixed(0),
                                     diamond: this.DiamondMgr.getDiamondCount(),
                                     maxCombo: this.ScoreMgr.getMaxCombo(),
-                                    sumCombo:this.ScoreMgr.getComboCount(),
-                                    point:this.ScoreMgr.getScore(),
-                                    sceneName:this.sceneName,
-                                    resumeChance : this.resumeChance,
-                                    recordIdx:this.recordIdx,
+                                    sumCombo: this.ScoreMgr.getComboCount(),
+                                    point: this.ScoreMgr.getScore(),
+                                    sceneName: this.sceneName,
+                                    resumeChance: this.resumeChance,
+                                    recordIdx: this.recordIdx,
                                 };
                                 this.resumeChance -= 1;
                                 die.setData(data);
@@ -736,15 +748,14 @@ cc.Class({
                 }
             }
             else {
-                //console.log(this.lineSumY + "!" + this.terrainSumY);
+                console.log(this.lineSumY + "!" + this.terrainSumY);
                 if (((this.lineSumY >= this.terrainSumY + this.lineMaxSize) && (this.nowDirecion === 1)) || ((this.lineSumY <= this.terrainSumY - this.lineMaxSize) && (this.nowDirecion === 3))) {
                     this.terrainIdx++;
-                    if(this.terrainIdx >= this.terrainArr.length)
-                    {
+                    if (this.terrainIdx >= this.terrainArr.length) {
                         //alert("发出胜利的声音");
                         this.bOver = true;
                         this.bgm.stop();
-                        if(this.uiDie != null) {
+                        if (this.uiDie != null) {
                             let die = this.uiDie.getComponent('UIDie');
                             if (die != null) {
                                 let data = {
@@ -766,33 +777,32 @@ cc.Class({
                         }
                         return;
                     }
+                    console.log(this.terrainArr[this.terrainIdx]  + "~~~~~~~~~~~~~~~");
                     this.nowDirecion = parseInt(this.terrainArr[this.terrainIdx].slice(0, 1));
-                    this.terrainSumX += ((this.terrainArr[this.terrainIdx].length - 1) * this.halfSize * 2 + this.halfSize)* this.directionArr[this.nowDirecion].x;
-                    this.terrainSumY += this.halfSize * this.directionArr[parseInt(this.terrainArr[this.terrainIdx - 1].slice(0, 1))].y;
+                    this.terrainSumX += ((this.terrainArr[this.terrainIdx].length) * this.halfSize * 2 - this.halfWidth) * this.directionArr[this.nowDirecion].x;
+                    this.terrainSumY += this.halfWidth * this.directionArr[parseInt(this.terrainArr[this.terrainIdx - 1].slice(0, 1))].y;
                 }
                 else {
-                    //console.log(this.lineSumX + "---" + this.terrainSumX + "----X");
-                    if (this.lineSumX >= this.terrainSumX + this.halfSize - this.lineMaxSize|| this.lineSumX <= this.terrainSumX - this.halfSize + this.lineMaxSize) {
+                    console.log(this.lineSumX + "---" + this.terrainSumX + "----X");
+                    if (this.lineSumX > this.terrainSumX + this.halfWidth - this.lineMaxSize || this.lineSumX < this.terrainSumX - this.halfWidth + this.lineMaxSize) {
                         console.log('die2');
                         this.bOver = true;
                         this.bBack = true;
                         this.bgm.pause();
-                        if(this.uiDie != null)
-                        {
+                        if (this.uiDie != null) {
                             let die = this.uiDie.getComponent('UIDie');
-                            if(die != null)
-                            {
+                            if (die != null) {
                                 let data = {
                                     bgmName: this.bgmName,
-                                    progress: ((this.nowTime/this.fullLength) * 100).toFixed(0),
+                                    progress: ((this.nowTime / this.fullLength) * 100).toFixed(0),
                                     diamond: this.DiamondMgr.getDiamondCount(),
                                     maxCombo: this.ScoreMgr.getMaxCombo(),
-                                    sumCombo:this.ScoreMgr.getComboCount(),
-                                    point:this.ScoreMgr.getScore(),
-                                    sceneName:this.sceneName,
-                                    resumeChance : this.resumeChance,
-                                    recordIdx:this.recordIdx,
-                                    finish:false,
+                                    sumCombo: this.ScoreMgr.getComboCount(),
+                                    point: this.ScoreMgr.getScore(),
+                                    sceneName: this.sceneName,
+                                    resumeChance: this.resumeChance,
+                                    recordIdx: this.recordIdx,
+                                    finish: false,
                                 };
                                 this.resumeChance -= 1;
                                 die.setData(data);
@@ -803,17 +813,9 @@ cc.Class({
                     }
                 }
             }
-
-            // let newX = -((this.line.position.x - this.baseLinePostion.x) * Math.cos(this.bg.rotation * Math.PI / 180) + (this.line.position.y - this.baseLinePostion.y) * Math.sin(this.bg.rotation * Math.PI / 180));
-            // let newY = -(-(this.line.position.y - this.baseLinePostion.y) * Math.sin(this.bg.rotation * Math.PI / 180) + (this.line.position.x - this.baseLinePostion.x) * Math.cos(this.bg.rotation * Math.PI / 180));
-            // //             // //let newX = this.bg.position.x - this.directionArr[this.nowDirecion].x * this.lineMinSize * 2;
-            // //             // //let newY = this.bg.position.y - this.directionArr[this.nowDirecion].y * this.lineMinSize * 2;
-            // this.constBG.position = new cc.Vec2(newX, newY);
-            // this.bg.position = new cc.Vec2(newX,newY);
-            // this.gp.node.position = new cc.Vec2(newX, newY);
-//            console.log(this.bg.position);
-//             console.log(new cc.Vec2(newX,newY));
         }
+
+
         if(this.stop)
         {
             this.waitTime += dt;
@@ -830,9 +832,26 @@ cc.Class({
             this.scoreLabel.string = "得分：" + this.ScoreMgr.getScore();
         }
 
-        if(this.terrainIdx >= this.buildTerrainIdx - this.preBuildCount * 1.5)
+        if(this.terrainIdx >= this.buildTerrainIdx - this.preBuildCount)
         {
             this.buildTerrain(this.buildTerrainIdx, false);
+        }
+    },
+
+    lateUpdate(){
+        if(!this.bOver && this.terrainIdx > 0) {
+            if (this.NTD) {
+                if (this.lineDirection === 1 || this.lineDirection === 3) {
+                    if (this.lineSumY > this.terrainSumY + this.lineMaxSize) {
+                        this.lineDirection = 0;
+                    }
+                }
+                else {
+                    if (this.lineSumX >= this.terrainSumX + this.lineMaxSize) {
+                        this.lineDirection = 1;
+                    }
+                }
+            }
         }
     },
 
@@ -849,17 +868,17 @@ cc.Class({
         //console.log(terrainIdx);
         //删除一半旧的
         if(!revive) {
-            if (terrainIdx > this.preBuildCount && terrainIdx < this.terrainArr.length - this.preBuildCount) {
-                for (let o = 0; o < this.preBuildCount; o++) {
-                    if (o < this.terrainBuildArr.length) {
-                        for (let p = 0; p < this.terrainBuildArr[0].length; p++) {
-                            this.terrainPool.put(this.terrainBuildArr[0][p]);
+            // if (terrainIdx > this.preBuildCount && terrainIdx < this.terrainArr.length - this.preBuildCount) {
+            //     for (let o = 0; o < this.preBuildCount; o++) {
+            //         if (o < this.terrainBuildArr.length) {
+            //             for (let p = 0; p < this.terrainBuildArr[0].length; p++) {
+            //                 this.terrainPool.put(this.terrainBuildArr[0][p]);
+            //             }
+            //             this.terrainBuildArr.shift();
+            //         }
+            //     }
+            // }
                         }
-                        this.terrainBuildArr.shift();
-                    }
-                }
-            }
-        }
 
         let baseSumX = this.sumX;
         let baseSumY = this.sumY;
@@ -868,6 +887,9 @@ cc.Class({
         let baseBuildSumY = this.buildSumY;
 
         let baseIdx = this.idx;
+
+        let nowTerrainPosX = this.terrainPosX;
+        let nowTerrainPosY = this.terrainPosY;
 
         //创建
         let count = this.preBuildCount;
@@ -878,6 +900,7 @@ cc.Class({
         {
             count = this.preBuildCount * 3;
         }
+
         for (let i = terrainIdx; i < terrainIdx + count; i++) {
             let note = this.terrainArr[i].substr(0, 1);
             let perfectShow = null;
@@ -888,7 +911,7 @@ cc.Class({
                     if(i !== 0) {
                         perfectShow = cc.instantiate(this.perfectShow);
                         if (perfectShow != null) {
-                            perfectShow.position = new cc.Vec2(this.basePostion.x + (2 * this.sumX) * this.halfSize, this.basePostion.y + (2 * this.sumY) * this.halfSize);
+                            perfectShow.position = new cc.Vec2(this.basePostion.x + (2 * this.sumX) * this.halfSize + this.halfWidth, this.basePostion.y + (2 * this.sumY) * this.halfSize);
                             perfectShow.zIndex = 996;
                             perfectShow.parent = this.bg;
                         }
@@ -896,11 +919,11 @@ cc.Class({
                     break;
                 case '1':
                     this.direction = 1;
-                    this.terrainPerfectArr.push(this.basePostion.x + (2 * this.sumX) * this.halfSize);
+                    this.terrainPerfectArr.push(this.basePostion.x + (2 * this.sumX) * this.halfSize + this.halfWidth);
                     if(i !== 0) {
                         perfectShow = cc.instantiate(this.perfectShow);
                         if (perfectShow != null) {
-                            perfectShow.position = new cc.Vec2(this.basePostion.x + (2 * this.sumX) * this.halfSize, this.basePostion.y + (2 * this.sumY) * this.halfSize);
+                            perfectShow.position = new cc.Vec2(this.basePostion.x + (2 * this.sumX) * this.halfSize + this.halfWidth, this.basePostion.y + (2 * this.sumY) * this.halfSize);
                             perfectShow.zIndex = 996;
                             perfectShow.parent = this.bg;
                         }
@@ -933,15 +956,21 @@ cc.Class({
             }
             if (i > 0) {
                 //console.log(this.terrainArr[i - 1]);
-                this.buildSumX += ((this.terrainArr[i].length - 1) * this.halfSize * 2 + this.halfSize) * this.directionArr[this.direction].x + this.halfSize * this.directionArr[parseInt(this.terrainArr[i - 1].slice(0, 1))].x;
-                this.buildSumY += ((this.terrainArr[i].length - 1) * this.halfSize * 2 + this.halfSize) * this.directionArr[this.direction].y + this.halfSize * this.directionArr[parseInt(this.terrainArr[i - 1].slice(0, 1))].y;
+                this.buildSumX += ((this.terrainArr[i].length) * this.halfSize * 2 - this.halfWidth) * this.directionArr[this.direction].x + this.halfWidth * this.directionArr[parseInt(this.terrainArr[i - 1].slice(0, 1))].x;
+                this.buildSumY += ((this.terrainArr[i].length) * this.halfSize * 2 - this.halfWidth) * this.directionArr[this.direction].y + this.halfWidth * this.directionArr[parseInt(this.terrainArr[i - 1].slice(0, 1))].y;
+                this.terrainPosY -= this.directionArr[parseInt((this.terrainArr[i - 1].slice(0,1)))].x * ( this.halfWidth - this.halfSize * this.multi );
+                this.terrainPosX -= this.directionArr[parseInt((this.terrainArr[i - 1].slice(0,1)))].y * ( this.halfWidth - this.halfSize * this.multi );
             }
             else {
-                this.buildSumX += ((this.terrainArr[i].length - 1) * this.halfSize * 2 + this.halfSize) * this.directionArr[this.direction].x;
-                this.buildSumY += ((this.terrainArr[i].length - 1) * this.halfSize * 2 + this.halfSize) * this.directionArr[this.direction].y;
+                this.buildSumX += ((this.terrainArr[i].length - 1) * this.halfSize * 2 + this.halfWidth) * this.directionArr[this.direction].x;
+                this.buildSumY += ((this.terrainArr[i].length - 1) * this.halfSize * 2 + this.halfWidth) * this.directionArr[this.direction].y;
             }
+
+            // console.log(this.buildSumX);
+            // console.log(this.buildSumY);
+
             let buildOnArr = new Array();
-            let buildOnBgArr = new Array();
+            //let buildOnBgArr = new Array();
 
             let terrain;
             // let anotherTerrain;
@@ -964,19 +993,34 @@ cc.Class({
             else {
                 terrain = cc.instantiate(this.baseterrain);
             }
-            terrain.setScale(new cc.Vec2(this.directionArr[this.direction].x === 0 ? 1 : this.terrainArr[i].length,this.directionArr[this.direction].y === 0 ? 1 : this.terrainArr[i].length));
-            terrain.position = new cc.Vec2(this.basePostion.x + (2 * this.sumX + (this.directionArr[this.direction].x === 0 ? 0 : this.terrainArr[i].length - 1)) * this.halfSize, this.basePostion.y + (2 * this.sumY + (this.directionArr[this.direction].y === 0 ? 0 : this.terrainArr[i].length - 1)) * this.halfSize);
+
+            terrain.width = this.directionArr[this.direction].x === 0 ? this.halfWidth * 2 : this.terrainArr[i].length * this.multi * this.halfSize * 2;
+            terrain.height = this.directionArr[this.direction].y === 0 ? this.halfWidth * 2 : this.terrainArr[i].length * this.multi * this.halfSize * 2;
+            //terrain.setScale(new cc.Vec2(this.directionArr[this.direction].x === 0 ? 1 : (this.terrainArr[i].length * this.multi),this.directionArr[this.direction].y === 0 ? 1 : (this.terrainArr[i].length * this.multi) ));
+            //console.log(terrain.width);
+            //console.log(terrain.height);
+            //this.terrainPosX += (this.directionArr[this.direction].x === 0 ? 0 : 1) * this.halfSize + (this.directionArr[this.direction].x === 0 ? 0 : 1) * this.halfWidth;
+            //this.terrainPosY += (this.directionArr[this.direction].y === 0 ? 0 : 1) * this.halfSize + (this.directionArr[this.direction].y === 0 ? 0 : 1) * this.halfWidth;
+            //terrain.position = new cc.Vec2(this.basePostion.x + (2 * this.sumX + (this.directionArr[this.direction].x === 0 ? 0 : this.terrainArr[i].length - 1)) * this.halfSize, this.basePostion.y + (2 * this.sumY + (this.directionArr[this.direction].y === 0 ? 0 : this.terrainArr[i].length - 1)) * this.halfSize);
+            terrain.position = new cc.Vec2(this.basePostion.x + this.terrainPosX + (this.directionArr[this.direction].x === 0 ? 0 : this.terrainArr[i].length * this.multi) * this.halfSize,this.basePostion.y + this.terrainPosY + (this.directionArr[this.direction].y === 0 ? 0 : this.terrainArr[i].length * this.multi) * this.halfSize);
+            //terrain.position = new cc.Vec2(this.basePostion.x + this.terrainPosX + (this.directionArr[this.direction].x === 0 ? 0 : this.terrainArr[i].length * this.multi) * this.halfSize,this.basePostion.y + this.terrainPosY + (this.directionArr[this.direction].y === 0 ? 0 : this.terrainArr[i].length * this.multi) * this.halfSize);
+            this.terrainPosX += ((this.directionArr[this.direction].x === 0 ? 0 : this.terrainArr[i].length * this.multi) * 2 - 1) * this.halfSize;
+            this.terrainPosY += ((this.directionArr[this.direction].y === 0 ? 0 : this.terrainArr[i].length * this.multi) * 2 - 1) * this.halfSize;
+
             terrain.zIndex = 991;
             terrain.parent = this.constBG;
             buildOnArr.push(terrain);
 
-            this.gp.moveTo(new cc.Vec2(terrain.position.x - terrain.scaleX * this.halfSize, terrain.position.y - terrain.scaleY * this.halfSize));
-            this.gp.lineTo(new cc.Vec2(terrain.position.x - terrain.scaleX * this.halfSize, terrain.position.y + terrain.scaleY * this.halfSize));
-            this.gp.lineTo(new cc.Vec2(terrain.position.x + terrain.scaleX * this.halfSize, terrain.position.y + terrain.scaleY * this.halfSize));
-            this.gp.moveTo(new cc.Vec2(terrain.position.x - terrain.scaleX * this.halfSize, terrain.position.y - terrain.scaleY * this.halfSize));
-            this.gp.lineTo(new cc.Vec2(terrain.position.x + terrain.scaleX * this.halfSize, terrain.position.y - terrain.scaleY * this.halfSize));
-            this.gp.lineTo(new cc.Vec2(terrain.position.x + terrain.scaleX * this.halfSize, terrain.position.y + terrain.scaleY * this.halfSize));
+            this.gp.moveTo(new cc.Vec2(terrain.position.x - terrain.width / 2 , terrain.position.y - terrain.height / 2));
+            this.gp.lineTo(new cc.Vec2(terrain.position.x - terrain.width / 2 , terrain.position.y + terrain.height / 2));
+            this.gp.lineTo(new cc.Vec2(terrain.position.x + terrain.width / 2 , terrain.position.y + terrain.height / 2));
+            this.gp.moveTo(new cc.Vec2(terrain.position.x - terrain.width / 2 , terrain.position.y - terrain.height / 2));
+            this.gp.lineTo(new cc.Vec2(terrain.position.x + terrain.width / 2 , terrain.position.y - terrain.height / 2));
+            this.gp.lineTo(new cc.Vec2(terrain.position.x + terrain.width / 2 , terrain.position.y + terrain.height / 2));
             this.gp.stroke();
+
+            this.terrainPosX += (this.directionArr[this.direction].x === 0 ? 0 : 1) * this.halfSize * this.multi + (this.directionArr[this.direction].x === 0 ? 0 : 1) * this.halfWidth;
+            this.terrainPosY += (this.directionArr[this.direction].y === 0 ? 0 : 1) * this.halfSize * this.multi + (this.directionArr[this.direction].y === 0 ? 0 : 1) * this.halfWidth;
 
             //anotherTerrain.position = new cc.Vec2(terrain.position.x - 5 * this.directionArr[this.direction].x, terrain.position.y - 5 * this.directionArr[this.direction].y);
 
@@ -987,9 +1031,9 @@ cc.Class({
                     terrain = cc.instantiate(this.baseCPterrain);
                     this.sumX += this.directionArr[this.direction].x;
                     this.sumY += this.directionArr[this.direction].y;
-                    terrain.position = new cc.Vec2(this.basePostion.x + (2 * this.sumX) * this.halfSize, this.basePostion.y + (2 * this.sumY) * this.halfSize);
+                    terrain.position = new cc.Vec2(this.basePostion.x + (2 * this.sumX) * this.halfSize + this.halfWidth, this.basePostion.y + (2 * this.sumY) * this.halfSize);
 
-                    this.CheckPointMgr.addCheckPoint(terrain.position.x, terrain.position.y, this.idx, this.direction, i, this.buildSumX, this.buildSumY,terrainIdx,baseSumX,baseSumY,baseBuildSumX,baseBuildSumY,baseIdx);
+                    this.CheckPointMgr.addCheckPoint(terrain.position.x, terrain.position.y, this.idx, this.direction, i, this.buildSumX, this.buildSumY,terrainIdx,baseSumX,baseSumY,baseBuildSumX,baseBuildSumY,baseIdx,nowTerrainPosX,nowTerrainPosY);
                     terrain.zIndex = 996;
                     terrain.parent = this.bg;
                     location = terrain.position;
@@ -997,16 +1041,76 @@ cc.Class({
                 else {
                     this.sumX += this.directionArr[this.direction].x;
                     this.sumY += this.directionArr[this.direction].y;
-                    location = new cc.Vec2(this.basePostion.x + (2 * this.sumX) * this.halfSize, this.basePostion.y + (2 * this.sumY) * this.halfSize);
+                    location = new cc.Vec2(this.basePostion.x + (2 * this.sumX) * this.halfSize + this.halfWidth, this.basePostion.y + (2 * this.sumY) * this.halfSize);
                 }
                 switch (parseInt(this.terrainArr[i].substr(j, 1)))
                 {
                     case 2://宝石
                         let diamond = cc.instantiate(this.diamondBase);
-                        diamond.position = new cc.Vec2(location.x + Math.random() * this.halfSize * this.diamondArea, location.y + Math.random() * this.halfSize * this.diamondArea);
+                        diamond.position = new cc.Vec2(location.x + Math.random() * this.halfWidth * this.diamondArea, location.y + Math.random() * this.halfWidth * this.diamondArea);
                         this.DiamondMgr.addDiamond(diamond);
                         diamond.zIndex = 997;
                         diamond.parent = this.bg;
+                        break;
+                    case 4:
+                        if (this.itemArr.length > 0 ) {
+                            let item = cc.instantiate(this.itemArr[0]);
+                            item.position = new cc.Vec2(location.x + this.itemPosArr[this.itemIdx < this.itemPosArr.length ? this.itemIdx : 0].x, location.y + this.itemPosArr[this.itemIdx < this.itemPosArr.length ? this.itemIdx : 0].y);
+                            item.rotation = this.itemRotateArr[this.itemIdx < this.itemRotateArr.length ? this.itemIdx : 0];
+                            item.setScale(new cc.Vec2(this.itemScaleArr[this.itemIdx < this.itemScaleArr.length ? this.itemIdx : 0]));
+                            item.parent = this.constBG;
+                            this.itemIdx++;
+                        }
+                        break;
+                    case 5:
+                        if (this.itemArr.length > 1 ) {
+                            let item = cc.instantiate(this.itemArr[1]);
+                            item.position = new cc.Vec2(location.x + this.itemPosArr[this.itemIdx < this.itemPosArr.length ? this.itemIdx : 0].x, location.y + this.itemPosArr[this.itemIdx < this.itemPosArr.length ? this.itemIdx : 0].y);
+                            item.rotation = this.itemRotateArr[this.itemIdx < this.itemRotateArr.length ? this.itemIdx : 0];
+                            item.setScale(new cc.Vec2(this.itemScaleArr[this.itemIdx < this.itemScaleArr.length ? this.itemIdx : 0]));
+                            item.parent = this.constBG;
+                            this.itemIdx++;
+                        }
+                        break;
+                    case 6:
+                        if (this.itemArr.length > 2 ) {
+                            let item = cc.instantiate(this.itemArr[2]);
+                            item.position = new cc.Vec2(location.x + this.itemPosArr[this.itemIdx < this.itemPosArr.length ? this.itemIdx : 0].x, location.y + this.itemPosArr[this.itemIdx < this.itemPosArr.length ? this.itemIdx : 0].y);
+                            item.rotation = this.itemRotateArr[this.itemIdx < this.itemRotateArr.length ? this.itemIdx : 0];
+                            item.setScale(new cc.Vec2(this.itemScaleArr[this.itemIdx < this.itemScaleArr.length ? this.itemIdx : 0]));
+                            item.parent = this.constBG;
+                            this.itemIdx++;
+                        }
+                        break;
+                    case 7:
+                        if (this.itemArr.length > 3 ) {
+                            let item = cc.instantiate(this.itemArr[3]);
+                            item.position = new cc.Vec2(location.x + this.itemPosArr[this.itemIdx < this.itemPosArr.length ? this.itemIdx : 0].x, location.y + this.itemPosArr[this.itemIdx < this.itemPosArr.length ? this.itemIdx : 0].y);
+                            item.rotation = this.itemRotateArr[this.itemIdx < this.itemRotateArr.length ? this.itemIdx : 0];
+                            item.setScale(new cc.Vec2(this.itemScaleArr[this.itemIdx < this.itemScaleArr.length ? this.itemIdx : 0]));
+                            item.parent = this.constBG;
+                            this.itemIdx++;
+                        }
+                        break;
+                    case 8:
+                        if (this.itemArr.length > 4 ) {
+                            let item = cc.instantiate(this.itemArr[4]);
+                            item.position = new cc.Vec2(location.x + this.itemPosArr[this.itemIdx < this.itemPosArr.length ? this.itemIdx : 0].x, location.y + this.itemPosArr[this.itemIdx < this.itemPosArr.length ? this.itemIdx : 0].y);
+                            item.rotation = this.itemRotateArr[this.itemIdx < this.itemRotateArr.length ? this.itemIdx : 0];
+                            item.setScale(new cc.Vec2(this.itemScaleArr[this.itemIdx < this.itemScaleArr.length ? this.itemIdx : 0]));
+                            item.parent = this.constBG;
+                            this.itemIdx++;
+                        }
+                        break;
+                    case 9:
+                        if (this.itemArr.length > 5) {
+                            let item = cc.instantiate(this.itemArr[5]);
+                            item.position = new cc.Vec2(location.x + this.itemPosArr[this.itemIdx < this.itemPosArr.length ? this.itemIdx : 0].x, location.y + this.itemPosArr[this.itemIdx < this.itemPosArr.length ? this.itemIdx : 0].y);
+                            item.rotation = this.itemRotateArr[this.itemIdx < this.itemRotateArr.length ? this.itemIdx : 0];
+                            item.setScale(new cc.Vec2(this.itemScaleArr[this.itemIdx < this.itemScaleArr.length ? this.itemIdx : 0]));
+                            item.parent = this.constBG;
+                            this.itemIdx++;
+                        }
                         break;
                 }
                 this.idx++;
@@ -1015,6 +1119,7 @@ cc.Class({
             this.terrainBuildArr.push(buildOnArr);
         }
         this.buildTerrainIdx += count;
+        console.log(this.bg.childrenCount + " ____ " + this.constBG.childrenCount);
     }
 
 });
