@@ -2932,8 +2932,8 @@
       },
       {
         "__type__": "cc.Vec2",
-        "x": 0,
-        "y": 0
+        "x": 100,
+        "y": 200
       },
       {
         "__type__": "cc.Vec2",
@@ -3402,7 +3402,8 @@
     "restart": {
       "__id__": 18
     },
-    "NTD": true
+    "NTD": true,
+    "firstBuildCount": 8
   },
   {
     "__type__": "cc.AudioSource",

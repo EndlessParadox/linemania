@@ -3149,7 +3149,8 @@
     "restart": {
       "__id__": 18
     },
-    "NTD": true
+    "NTD": true,
+    "firstBuildCount": 8
   },
   {
     "__type__": "cc.AudioSource",
