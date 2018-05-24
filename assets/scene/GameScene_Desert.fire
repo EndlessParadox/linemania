@@ -2627,6 +2627,7 @@
       "__id__": 8
     },
     "halfSize": 60,
+    "halfWidth": 60,
     "directionArr": [
       {
         "__type__": "cc.Vec2",
@@ -3278,7 +3279,7 @@
     "resumeChance": 1,
     "fullLength": 85,
     "recordIdx": 0,
-    "minBeat": 0.4,
+    "minBeat": 0.2,
     "standardBeat": 0,
     "perfectShow": {
       "__uuid__": "3b7c2f38-a5ab-4a1b-b0ee-1fbaafb283bf"
@@ -3291,7 +3292,8 @@
     },
     "restart": {
       "__id__": 18
-    }
+    },
+    "NTD": false
   },
   {
     "__type__": "cc.AudioSource",
