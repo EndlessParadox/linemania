@@ -43,8 +43,13 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
+        if(cc._renderType === cc.game.RENDER_TYPE_CANVAS){
+            cc.renderer.enableDirtyRegion(false);
+        }
+
         for(let i = 0; i < this.buttonArr.length; i ++)
         {
+            let self = this;
             this.buttonArr[i].node.on('click',function(){
                 this.uiLoad.active = true;
                 let sceneName =  this.sceneArr[i];
@@ -55,11 +60,28 @@ cc.Class({
                 }
             }.bind(this));
 
-            this.progressArr[i].string = localStorage.getItem("record" + i) == null ? "0%" : localStorage.getItem("record" + i) + "%";
+            // wx.getStorage({
+            //     key: 'record' + i,
+            //     success: function(res) {
+            //         if(isNaN(res.data))
+            //         {
+            //             self.progressArr[i].string = '0%';
+            //         }
+            //         else {
+            //             self.progressArr[i].string = res.data + '%';
+            //         }
+            //     },
+            //     fail:function(res)
+            //     {
+            //         console.log(res);
+            //     },
+            // });
+            this.progressArr[i].string = cc.sys.localStorage.getItem("record" + i) === null ? "0%" : cc.sys.localStorage.getItem("record" + i) + "%";
         }
     },
 
     start () {
+
         this.content = this.sv.content;
         // this.sv.node.on('scroll-began',function(){
         // }.bind(this));

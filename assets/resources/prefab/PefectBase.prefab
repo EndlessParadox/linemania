@@ -48,8 +48,8 @@
       "width": 0,
       "height": 0
     },
-    "_rotationX": -45,
-    "_rotationY": -45,
+    "_rotationX": 45,
+    "_rotationY": 45,
     "_scaleX": 1,
     "_scaleY": 1,
     "_position": {
@@ -130,7 +130,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "f0bb2deb-f1ef-4901-9338-6218836f7d50"
+      "__uuid__": "1da2483c-e5b2-47fc-9478-e2c67cc4887e"
     },
     "_type": 0,
     "_sizeMode": 0,

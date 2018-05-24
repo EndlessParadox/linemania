@@ -53,21 +53,50 @@ cc.Class({
         }.bind(this));
         this.btnShare.node.on('click',function()
         {
-            if(this.shareShow.active === false)
+            let self = this;
+            // wx.shareAppMessage({
+            //     title: '我要分享',
+            //     success: function (res) {
+            //         console.log('拉起分享 成功');
+            //         console.log(res);
+            //         if(self.shareShow.active === false)
+            //         {
+            //             self.shareShow.active = true;
+            //             setTimeout(function(){
+            //                 self.node.active = false;
+            //                 if(self.gameView != null)
+            //                 {
+            //                     self.shareShow.active = false;
+            //                     let build = self.gameView.getComponent('TerrianBuild');
+            //                     if(build != null)
+            //                     {
+            //                         build.resumeGame();
+            //                     }
+            //                 }
+            //             },1000);
+            //         }
+            //     },
+            //     fail: function (res) {
+            //         console.log('拉起分享 失败');
+            //         console.log(res);
+            //     }
+            // });
+
+            if(self.shareShow.active === false)
             {
-                this.shareShow.active = true;
+                self.shareShow.active = true;
                 setTimeout(function(){
-                    this.node.active = false;
-                    if(this.gameView != null)
+                    self.node.active = false;
+                    if(self.gameView != null)
                     {
-                        this.shareShow.active = false;
-                        let build = this.gameView.getComponent('TerrianBuild');
+                        self.shareShow.active = false;
+                        let build = self.gameView.getComponent('TerrianBuild');
                         if(build != null)
                         {
                             build.resumeGame();
                         }
                     }
-                }.bind(this),1000);
+                },1000);
             }
         }.bind(this));
         this.btnRestart.node.on('click',function()
@@ -104,6 +133,30 @@ cc.Class({
         {
             this.btnShare.enabled = false;
         }
+
+        let newRecord = this.record;
+        let recordIdx = this.recordIdx;
+        // wx.getStorage({
+        //     key: 'record' + recordIdx,
+        //     success: function(res) {
+        //         if(!isNaN(res.data)) {
+        //             wx.setStorage({
+        //                 key: 'record' + recordIdx,
+        //                 data: Math.max(parseInt(newRecord), parseInt(res.data)),
+        //             })
+        //         }
+        //         else {
+        //             wx.setStorage({
+        //                 key:'record' + recordIdx,
+        //                 data:parseInt(newRecord),
+        //             })
+        //         }
+        //     },
+        //     fail:function(res)
+        //     {
+        //     },
+        // });
+
 
         let record = localStorage.getItem('record' + this.recordIdx);
         if(record != null)

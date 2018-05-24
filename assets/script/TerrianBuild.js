@@ -69,6 +69,7 @@ cc.Class({
         help:cc.Node,
         restart:cc.Node,
         NTD:false,
+        firstBuildCount:8,
         // foo: {
         //     // ATTRIBUTES:
         //     default: null,        // The default value will be used only when the component attaching
@@ -129,6 +130,8 @@ cc.Class({
         for(let i = 0; i < 15; i ++)
         {
             let terrain = cc.instantiate(this.baseterrain);
+            //terrain.parent = this.constBG;
+            //terrain.opacity = 0;
             //terrain.parent = this.bg;
             //line.opacity = 0;
             //line.active = false;
@@ -138,6 +141,26 @@ cc.Class({
             // let terrainBG = cc.instantiate(this.baseBgTerrain);
             // terrainBG.parent = this.constBG;
             // this.terrainBGPool.put(terrainBG);
+        }
+
+        this.itemPoolArray = new Array();
+        this.itemUsedArray = new Array();
+        for(let m = 0; m < this.itemArr.length; m ++)
+        {
+            let itemPool = new Array();
+            let itemUsedPool = new Array();
+            for(let n = 0 ; n < 5; n ++)
+            {
+                let item = cc.instantiate(this.itemArr[m]);
+                item.parent = this.constBG;
+                //terrain.parent = this.bg;
+                item.opacity = 0;
+                //line.active = false;
+                //LineMgr.getInstance().addInPool(line);
+                itemPool.push(item);
+            }
+            this.itemPoolArray.push(itemPool);
+            this.itemUsedArray.push(itemUsedPool);
         }
 
         this.itemIdx = 0;
@@ -162,102 +185,33 @@ cc.Class({
         let itemSumX = -1;
         let itemSumY = 0;
         //load时直接生成物体
-        for (let i = 0; i < this.terrainArr.length; i++) {
-            let note = this.terrainArr[i].substr(0, 1);
-            let direction;
-            switch (note) {
-                case '0' :
-                    direction = 0;
-                    break;
-                case '1':
-                    direction = 1;
-                    break;
-                case '2':
-                    direction = 2;
-                    break;
-                case '3':
-                    direction = 3;
-                    break;
-            }
-            if (i > 0) {
-                //console.log(this.terrainArr[i - 1]);
-                itemBuildSumX += ((this.terrainArr[i].length - 1) * this.halfSize * 2 + this.halfSize) * this.directionArr[direction].x + this.halfSize * this.directionArr[parseInt(this.terrainArr[i - 1].slice(0, 1))].x;
-                itemBuildSumY += ((this.terrainArr[i].length - 1) * this.halfSize * 2 + this.halfSize) * this.directionArr[direction].y + this.halfSize * this.directionArr[parseInt(this.terrainArr[i - 1].slice(0, 1))].y;
-            }
-            else {
-                itemBuildSumX += ((this.terrainArr[i].length - 1) * this.halfSize * 2 + this.halfSize) * this.directionArr[direction].x;
-                itemBuildSumY += ((this.terrainArr[i].length - 1) * this.halfSize * 2 + this.halfSize) * this.directionArr[direction].y;
-            }
-           //  for (let j = 0; j < this.terrainArr[i].length; j++) {
-           //      let location = new cc.Vec2(0, 0);
-           //      itemSumX += this.directionArr[direction].x;
-           //      itemSumY += this.directionArr[direction].y;
-           //      location = new cc.Vec2(this.basePostion.x + (2 * itemSumX) * this.halfSize, this.basePostion.y + (2 * itemSumY + 1) * this.halfSize);
-           //
-           //      switch (parseInt(this.terrainArr[i].substr(j, 1))) {
-           //          case 4:
-           //              if (this.itemArr.length > 0 ) {
-           //                  let item = cc.instantiate(this.itemArr[0]);
-           //                  item.position = new cc.Vec2(location.x + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].x, location.y + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].y);
-           //                  item.rotation = this.itemRotateArr[itemIdx < this.itemRotateArr.length ? itemIdx : 0];
-           //                  item.setScale(new cc.Vec2(this.itemScaleArr[itemIdx < this.itemScaleArr.length ? itemIdx : 0]));
-           //                  item.parent = this.constBG;
-           //                  itemIdx++;
-           //              }
-           //              break;
-           //          case 5:
-           //              if (this.itemArr.length > 1 ) {
-           //                  let item = cc.instantiate(this.itemArr[1]);
-           //                  item.position = new cc.Vec2(location.x + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].x, location.y + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].y);
-           //                  item.rotation = this.itemRotateArr[itemIdx < this.itemRotateArr.length ? itemIdx : 0];
-           //                  item.setScale(new cc.Vec2(this.itemScaleArr[itemIdx < this.itemScaleArr.length ? itemIdx : 0]));
-           //                  item.parent = this.constBG;
-           //                  itemIdx++;
-           //              }
-           //              break;
-           //          case 6:
-           //              if (this.itemArr.length > 2 ) {
-           //                  let item = cc.instantiate(this.itemArr[2]);
-           //                  item.position = new cc.Vec2(location.x + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].x, location.y + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].y);
-           //                  item.rotation = this.itemRotateArr[itemIdx < this.itemRotateArr.length ? itemIdx : 0];
-           //                  item.setScale(new cc.Vec2(this.itemScaleArr[itemIdx < this.itemScaleArr.length ? itemIdx : 0]));
-           //                  item.parent = this.constBG;
-           //                  itemIdx++;
-           //              }
-           //              break;
-           //          case 7:
-           //              if (this.itemArr.length > 3 ) {
-           //                  let item = cc.instantiate(this.itemArr[3]);
-           //                  item.position = new cc.Vec2(location.x + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].x, location.y + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].y);
-           //                  item.rotation = this.itemRotateArr[itemIdx < this.itemRotateArr.length ? itemIdx : 0];
-           //                  item.setScale(new cc.Vec2(this.itemScaleArr[itemIdx < this.itemScaleArr.length ? itemIdx : 0]));
-           //                  item.parent = this.constBG;
-           //                  itemIdx++;
-           //              }
-           //              break;
-           //          case 8:
-           //              if (this.itemArr.length > 4 ) {
-           //                  let item = cc.instantiate(this.itemArr[4]);
-           //                  item.position = new cc.Vec2(location.x + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].x, location.y + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].y);
-           //                  item.rotation = this.itemRotateArr[itemIdx < this.itemRotateArr.length ? itemIdx : 0];
-           //                  item.setScale(new cc.Vec2(this.itemScaleArr[itemIdx < this.itemScaleArr.length ? itemIdx : 0]));
-           //                  item.parent = this.constBG;
-           //                  itemIdx++;
-           //              }
-           //              break;
-           //          case 9:
-           //              if (this.itemArr.length > 5) {
-           //                  let item = cc.instantiate(this.itemArr[5]);
-           //                  item.position = new cc.Vec2(location.x + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].x, location.y + this.itemPosArr[itemIdx < this.itemPosArr.length ? itemIdx : 0].y);
-           //                  item.rotation = this.itemRotateArr[itemIdx < this.itemRotateArr.length ? itemIdx : 0];
-           //                  item.setScale(new cc.Vec2(this.itemScaleArr[itemIdx < this.itemScaleArr.length ? itemIdx : 0]));
-           //                  item.parent = this.constBG;
-           //                  itemIdx++;
-           //              }
-           //              break;
-           //      }
-           // }
-        }
+        // for (let i = 0; i < this.terrainArr.length; i++) {
+        //     let note = this.terrainArr[i].substr(0, 1);
+        //     let direction;
+        //     switch (note) {
+        //         case '0' :
+        //             direction = 0;
+        //             break;
+        //         case '1':
+        //             direction = 1;
+        //             break;
+        //         case '2':
+        //             direction = 2;
+        //             break;
+        //         case '3':
+        //             direction = 3;
+        //             break;
+        //     }
+        //     if (i > 0) {
+        //         //console.log(this.terrainArr[i - 1]);
+        //         itemBuildSumX += ((this.terrainArr[i].length - 1) * this.halfSize * 2 + this.halfSize) * this.directionArr[direction].x + this.halfSize * this.directionArr[parseInt(this.terrainArr[i - 1].slice(0, 1))].x;
+        //         itemBuildSumY += ((this.terrainArr[i].length - 1) * this.halfSize * 2 + this.halfSize) * this.directionArr[direction].y + this.halfSize * this.directionArr[parseInt(this.terrainArr[i - 1].slice(0, 1))].y;
+        //     }
+        //     else {
+        //         itemBuildSumX += ((this.terrainArr[i].length - 1) * this.halfSize * 2 + this.halfSize) * this.directionArr[direction].x;
+        //         itemBuildSumY += ((this.terrainArr[i].length - 1) * this.halfSize * 2 + this.halfSize) * this.directionArr[direction].y;
+        //     }
+        // }
 
 
         this.lineDirection = 0;
@@ -375,7 +329,7 @@ cc.Class({
         //     restart.zIndex = 999;
         //     restart.parent = this.bg;
         // }
-        //this.restart.active = true;
+        this.restart.active = true;
         // for(let m = 0; m < this.terrainBGBuildArr.length; m ++)
         // {
         //     for (let n = 0; n < this.terrainBGBuildArr[0].length; n ++)
@@ -545,7 +499,6 @@ cc.Class({
             this.line.zIndex = 998;
             this.line.parent = this.bg;
         }
-//        this.cam.addTarget(this.line);
         let camCtrl = this.cam.getComponent("CameraControl");
         if(camCtrl != null)
         {
@@ -568,6 +521,8 @@ cc.Class({
         this.bBack = false;
 
         this.nowTime = 0;
+
+        this.score = 0;
     },
 
     update (dt) {
@@ -683,7 +638,7 @@ cc.Class({
             // }
 
             if (this.nowDirecion === 0 || this.nowDirecion === 2) {
-                console.log(this.lineSumX + "!" + this.terrainSumX);
+                //console.log(this.lineSumX + "!" + this.terrainSumX);
                 if (((this.lineSumX >= this.terrainSumX + this.lineMaxSize) && (this.nowDirecion === 0)) || ((this.lineSumX <= this.terrainSumX - this.lineMaxSize) && (this.nowDirecion === 2))) {
                     this.terrainIdx++;
                     if (this.terrainIdx >= this.terrainArr.length) {
@@ -712,13 +667,13 @@ cc.Class({
                         }
                         return;
                     }
-                    console.log(this.terrainArr[this.terrainIdx] + "~~~~~~~~~~~~~~~");
+                    //console.log(this.terrainArr[this.terrainIdx] + "~~~~~~~~~~~~~~~");
                     this.nowDirecion = parseInt(this.terrainArr[this.terrainIdx].slice(0, 1));
                     this.terrainSumY += ((this.terrainArr[this.terrainIdx].length) * this.halfSize * 2 - this.halfWidth) * this.directionArr[this.nowDirecion].y;
                     this.terrainSumX += this.halfWidth * this.directionArr[parseInt(this.terrainArr[this.terrainIdx - 1].slice(0, 1))].x;
                 }
                 else {
-                    console.log(this.lineSumY + "---" + this.terrainSumY + "----Y");
+                    //console.log(this.lineSumY + "---" + this.terrainSumY + "----Y");
                     if (this.lineSumY > this.terrainSumY + this.halfWidth - this.lineMaxSize || this.lineSumY < this.terrainSumY - this.halfWidth + this.lineMaxSize) {
                         console.log('die1');
                         this.bOver = true;
@@ -748,7 +703,7 @@ cc.Class({
                 }
             }
             else {
-                console.log(this.lineSumY + "!" + this.terrainSumY);
+                //console.log(this.lineSumY + "!" + this.terrainSumY);
                 if (((this.lineSumY >= this.terrainSumY + this.lineMaxSize) && (this.nowDirecion === 1)) || ((this.lineSumY <= this.terrainSumY - this.lineMaxSize) && (this.nowDirecion === 3))) {
                     this.terrainIdx++;
                     if (this.terrainIdx >= this.terrainArr.length) {
@@ -777,13 +732,13 @@ cc.Class({
                         }
                         return;
                     }
-                    console.log(this.terrainArr[this.terrainIdx]  + "~~~~~~~~~~~~~~~");
+                    //console.log(this.terrainArr[this.terrainIdx]  + "~~~~~~~~~~~~~~~");
                     this.nowDirecion = parseInt(this.terrainArr[this.terrainIdx].slice(0, 1));
                     this.terrainSumX += ((this.terrainArr[this.terrainIdx].length) * this.halfSize * 2 - this.halfWidth) * this.directionArr[this.nowDirecion].x;
                     this.terrainSumY += this.halfWidth * this.directionArr[parseInt(this.terrainArr[this.terrainIdx - 1].slice(0, 1))].y;
                 }
                 else {
-                    console.log(this.lineSumX + "---" + this.terrainSumX + "----X");
+                    //console.log(this.lineSumX + "---" + this.terrainSumX + "----X");
                     if (this.lineSumX > this.terrainSumX + this.halfWidth - this.lineMaxSize || this.lineSumX < this.terrainSumX - this.halfWidth + this.lineMaxSize) {
                         console.log('die2');
                         this.bOver = true;
@@ -813,6 +768,17 @@ cc.Class({
                     }
                 }
             }
+
+            // let newX = -((this.line.position.x - this.baseLinePostion.x) * Math.cos(this.bg.rotation * Math.PI / 180) + (this.line.position.y - this.baseLinePostion.y) * Math.sin(this.bg.rotation * Math.PI / 180));
+            // let newY = -(-(this.line.position.y - this.baseLinePostion.y) * Math.sin(this.bg.rotation * Math.PI / 180) + (this.line.position.x - this.baseLinePostion.x) * Math.cos(this.bg.rotation * Math.PI / 180));
+            // //             // //let newX = this.bg.position.x - this.directionArr[this.nowDirecion].x * this.lineMinSize * 2;
+            // //             // //let newY = this.bg.position.y - this.directionArr[this.nowDirecion].y * this.lineMinSize * 2;
+            // this.constBG.position = new cc.Vec2(newX, newY);
+            // this.bg.position = new cc.Vec2(newX,newY);
+            //this.gp.node.position = new cc.Vec2(newX, newY);
+//            console.log(this.bg.position);
+//             console.log(new cc.Vec2(newX,newY));
+
         }
 
 
@@ -824,18 +790,25 @@ cc.Class({
                 this.waitTime = 0;
                 this.stopTime -= 1;
             }
-            this.scoreLabel.string = "得分：" + this.ScoreMgr.getScore();
+            //this.scoreLabel.string = "得分：" + this.ScoreMgr.getScore();
         }
         else
         {
             this.stopTime = 3;
-            this.scoreLabel.string = "得分：" + this.ScoreMgr.getScore();
+            //this.scoreLabel.string = "得分：" + this.ScoreMgr.getScore();
         }
 
-        if(this.terrainIdx >= this.buildTerrainIdx - this.preBuildCount)
+        if(this.score !== this.ScoreMgr.getScore())
+        {
+            this.score = this.ScoreMgr.getScore();
+            this.scoreLabel.string = "得分：" + this.score;
+        }
+
+        if(this.terrainIdx >= this.buildTerrainIdx - 7)
         {
             this.buildTerrain(this.buildTerrainIdx, false);
         }
+        this.reviveTerrian();
     },
 
     lateUpdate(){
@@ -855,10 +828,38 @@ cc.Class({
         }
     },
 
+    reviveTerrian()
+    {
+        if (this.terrainIdx > (this.buildTerrainIdx - this.preBuildCount)) {
+            for (let o = 0; o < this.preBuildCount; o++) {
+                if (o < this.terrainBuildArr.length) {
+                    for (let p = 0; p < this.terrainBuildArr[0].length; p++) {
+                        this.terrainPool.put(this.terrainBuildArr[0][p]);
+                    }
+                    this.terrainBuildArr.shift();
+                }
+            }
+
+            for(let m = this.terrainIdx - this.buildTerrainIdx + this.preBuildCount; m < this.preBuildCount; m ++)
+            {
+                for (let n = 0; n < this.terrainArr[m].length; n++) {
+                    let idx = parseInt(this.terrainArr[i].substr(n, 1));
+                    if (idx > 3) {
+                        let item = this.itemUsedArray[idx - 4].shift();
+                        if(item != null) {
+                            item.opacity = 0;
+                            this.itemPoolArray[idx - 4].push(item);
+                        }
+                    }
+                }
+            }
+        }
+    },
+
     buildTerrain(terrainIdx, revive)
     {
         if(this.preBuildCount === 0) return;
-
+        this.preBuildCount = 1;
         // if(revive && terrainIdx > this.preBuildCount)
         // {
         //     terrainIdx -= this.preBuildCount;
@@ -867,18 +868,8 @@ cc.Class({
         // }
         //console.log(terrainIdx);
         //删除一半旧的
-        if(!revive) {
-            // if (terrainIdx > this.preBuildCount && terrainIdx < this.terrainArr.length - this.preBuildCount) {
-            //     for (let o = 0; o < this.preBuildCount; o++) {
-            //         if (o < this.terrainBuildArr.length) {
-            //             for (let p = 0; p < this.terrainBuildArr[0].length; p++) {
-            //                 this.terrainPool.put(this.terrainBuildArr[0][p]);
-            //             }
-            //             this.terrainBuildArr.shift();
-            //         }
-            //     }
-            // }
-                        }
+        // if(!revive) {
+        // }
 
         let baseSumX = this.sumX;
         let baseSumY = this.sumY;
@@ -898,7 +889,7 @@ cc.Class({
         }
         if(terrainIdx === 0 || revive)
         {
-            count = this.preBuildCount * 3;
+            count = this.preBuildCount * 8;
         }
 
         for (let i = terrainIdx; i < terrainIdx + count; i++) {
@@ -1009,6 +1000,7 @@ cc.Class({
 
             terrain.zIndex = 991;
             terrain.parent = this.constBG;
+            //terrain.opacity = 255;
             buildOnArr.push(terrain);
 
             this.gp.moveTo(new cc.Vec2(terrain.position.x - terrain.width / 2 , terrain.position.y - terrain.height / 2));
@@ -1053,8 +1045,15 @@ cc.Class({
                         diamond.parent = this.bg;
                         break;
                     case 4:
-                        if (this.itemArr.length > 0 ) {
-                            let item = cc.instantiate(this.itemArr[0]);
+                        if (this.itemArr.length > 0 && !revive) {
+                            //let item = cc.instantiate(this.itemArr[0]);
+                            let item = this.itemPoolArray[0].shift();
+                            if(item == null)
+                            {
+                                item = cc.instantiate(this.itemArr[0]);
+                            }
+                            this.itemUsedArray[0].push(item);
+                            item.opacity = 255;
                             item.position = new cc.Vec2(location.x + this.itemPosArr[this.itemIdx < this.itemPosArr.length ? this.itemIdx : 0].x, location.y + this.itemPosArr[this.itemIdx < this.itemPosArr.length ? this.itemIdx : 0].y);
                             item.rotation = this.itemRotateArr[this.itemIdx < this.itemRotateArr.length ? this.itemIdx : 0];
                             item.setScale(new cc.Vec2(this.itemScaleArr[this.itemIdx < this.itemScaleArr.length ? this.itemIdx : 0]));
@@ -1063,8 +1062,15 @@ cc.Class({
                         }
                         break;
                     case 5:
-                        if (this.itemArr.length > 1 ) {
-                            let item = cc.instantiate(this.itemArr[1]);
+                        if (this.itemArr.length > 1 && !revive) {
+                            //let item = cc.instantiate(this.itemArr[1]);
+                            let item = this.itemPoolArray[1].shift();
+                            if(item == null)
+                            {
+                                item = cc.instantiate(this.itemArr[1])
+                            }
+                            this.itemUsedArray[1].push(item);
+                            item.opacity = 255;
                             item.position = new cc.Vec2(location.x + this.itemPosArr[this.itemIdx < this.itemPosArr.length ? this.itemIdx : 0].x, location.y + this.itemPosArr[this.itemIdx < this.itemPosArr.length ? this.itemIdx : 0].y);
                             item.rotation = this.itemRotateArr[this.itemIdx < this.itemRotateArr.length ? this.itemIdx : 0];
                             item.setScale(new cc.Vec2(this.itemScaleArr[this.itemIdx < this.itemScaleArr.length ? this.itemIdx : 0]));
@@ -1073,8 +1079,15 @@ cc.Class({
                         }
                         break;
                     case 6:
-                        if (this.itemArr.length > 2 ) {
-                            let item = cc.instantiate(this.itemArr[2]);
+                        if (this.itemArr.length > 2 && !revive) {
+                            //let item = cc.instantiate(this.itemArr[2]);
+                            let item = this.itemPoolArray[2].shift();
+                            if(item == null)
+                            {
+                                item = cc.instantiate(this.itemArr[2])
+                            }
+                            this.itemUsedArray[2].push(item);
+                            item.opacity = 255;
                             item.position = new cc.Vec2(location.x + this.itemPosArr[this.itemIdx < this.itemPosArr.length ? this.itemIdx : 0].x, location.y + this.itemPosArr[this.itemIdx < this.itemPosArr.length ? this.itemIdx : 0].y);
                             item.rotation = this.itemRotateArr[this.itemIdx < this.itemRotateArr.length ? this.itemIdx : 0];
                             item.setScale(new cc.Vec2(this.itemScaleArr[this.itemIdx < this.itemScaleArr.length ? this.itemIdx : 0]));
@@ -1083,8 +1096,15 @@ cc.Class({
                         }
                         break;
                     case 7:
-                        if (this.itemArr.length > 3 ) {
-                            let item = cc.instantiate(this.itemArr[3]);
+                        if (this.itemArr.length > 3 && !revive) {
+                            //let item = cc.instantiate(this.itemArr[3]);
+                            let item = this.itemPoolArray[3].shift();
+                            if(item == null)
+                            {
+                                item = cc.instantiate(this.itemArr[3])
+                            }
+                            this.itemUsedArray[3].push(item);
+                            item.opacity = 255;
                             item.position = new cc.Vec2(location.x + this.itemPosArr[this.itemIdx < this.itemPosArr.length ? this.itemIdx : 0].x, location.y + this.itemPosArr[this.itemIdx < this.itemPosArr.length ? this.itemIdx : 0].y);
                             item.rotation = this.itemRotateArr[this.itemIdx < this.itemRotateArr.length ? this.itemIdx : 0];
                             item.setScale(new cc.Vec2(this.itemScaleArr[this.itemIdx < this.itemScaleArr.length ? this.itemIdx : 0]));
@@ -1093,8 +1113,15 @@ cc.Class({
                         }
                         break;
                     case 8:
-                        if (this.itemArr.length > 4 ) {
-                            let item = cc.instantiate(this.itemArr[4]);
+                        if (this.itemArr.length > 4 && !revive) {
+                            //let item = cc.instantiate(this.itemArr[4]);
+                            let item = this.itemPoolArray[4].shift();
+                            if(item == null)
+                            {
+                                item = cc.instantiate(this.itemArr[4])
+                            }
+                            this.itemUsedArray[4].push(item);
+                            item.opacity = 255;
                             item.position = new cc.Vec2(location.x + this.itemPosArr[this.itemIdx < this.itemPosArr.length ? this.itemIdx : 0].x, location.y + this.itemPosArr[this.itemIdx < this.itemPosArr.length ? this.itemIdx : 0].y);
                             item.rotation = this.itemRotateArr[this.itemIdx < this.itemRotateArr.length ? this.itemIdx : 0];
                             item.setScale(new cc.Vec2(this.itemScaleArr[this.itemIdx < this.itemScaleArr.length ? this.itemIdx : 0]));
@@ -1103,8 +1130,15 @@ cc.Class({
                         }
                         break;
                     case 9:
-                        if (this.itemArr.length > 5) {
-                            let item = cc.instantiate(this.itemArr[5]);
+                        if (this.itemArr.length > 5 && !revive) {
+                            //let item = cc.instantiate(this.itemArr[5]);
+                            let item = this.itemPoolArray[5].shift();
+                            if(item == null)
+                            {
+                                item = cc.instantiate(this.itemArr[5])
+                            }
+                            this.itemUsedArray[5].push(item);
+                            item.opacity = 255;
                             item.position = new cc.Vec2(location.x + this.itemPosArr[this.itemIdx < this.itemPosArr.length ? this.itemIdx : 0].x, location.y + this.itemPosArr[this.itemIdx < this.itemPosArr.length ? this.itemIdx : 0].y);
                             item.rotation = this.itemRotateArr[this.itemIdx < this.itemRotateArr.length ? this.itemIdx : 0];
                             item.setScale(new cc.Vec2(this.itemScaleArr[this.itemIdx < this.itemScaleArr.length ? this.itemIdx : 0]));
@@ -1119,7 +1153,7 @@ cc.Class({
             this.terrainBuildArr.push(buildOnArr);
         }
         this.buildTerrainIdx += count;
-        console.log(this.bg.childrenCount + " ____ " + this.constBG.childrenCount);
+        //console.log(this.bg.childrenCount + " ____ " + this.constBG.childrenCount);
     }
 
 });

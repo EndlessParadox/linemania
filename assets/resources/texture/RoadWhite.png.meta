@@ -5,7 +5,7 @@
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "subMetas": {
-    "道路白": {
+    "RoadWhite": {
       "ver": "1.0.3",
       "uuid": "fe0fc1a4-4e62-45d3-a221-c57cf6a342c0",
       "rawTextureUuid": "537a1aa3-4763-489d-9442-827b61af9d29",
