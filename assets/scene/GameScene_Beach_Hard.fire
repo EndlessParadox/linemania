@@ -420,8 +420,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 170.31,
-      "height": 39.06
+      "width": 178,
+      "height": 50
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -452,9 +452,7 @@
     "_fontSize": 50,
     "_lineHeight": 50,
     "_enableWrapText": true,
-    "_N$file": {
-      "__uuid__": "54350540-2765-4854-9c90-408abf13f9a4"
-    },
+    "_N$file": null,
     "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "得分：0",
@@ -928,9 +926,7 @@
     "_fontSize": 70,
     "_lineHeight": 70,
     "_enableWrapText": true,
-    "_N$file": {
-      "__uuid__": "54350540-2765-4854-9c90-408abf13f9a4"
-    },
+    "_N$file": null,
     "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "夏至",
@@ -1017,9 +1013,7 @@
     "_fontSize": 60,
     "_lineHeight": 60,
     "_enableWrapText": true,
-    "_N$file": {
-      "__uuid__": "54350540-2765-4854-9c90-408abf13f9a4"
-    },
+    "_N$file": null,
     "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "18%",
@@ -1106,9 +1100,7 @@
     "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,
-    "_N$file": {
-      "__uuid__": "54350540-2765-4854-9c90-408abf13f9a4"
-    },
+    "_N$file": null,
     "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "宝石",
@@ -1195,9 +1187,7 @@
     "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,
-    "_N$file": {
-      "__uuid__": "54350540-2765-4854-9c90-408abf13f9a4"
-    },
+    "_N$file": null,
     "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "最大连击数",
@@ -1284,9 +1274,7 @@
     "_fontSize": 50,
     "_lineHeight": 50,
     "_enableWrapText": true,
-    "_N$file": {
-      "__uuid__": "54350540-2765-4854-9c90-408abf13f9a4"
-    },
+    "_N$file": null,
     "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "总得分",
@@ -1433,9 +1421,7 @@
     "_fontSize": 50,
     "_lineHeight": 50,
     "_enableWrapText": true,
-    "_N$file": {
-      "__uuid__": "54350540-2765-4854-9c90-408abf13f9a4"
-    },
+    "_N$file": null,
     "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "0",
@@ -1522,9 +1508,7 @@
     "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,
-    "_N$file": {
-      "__uuid__": "54350540-2765-4854-9c90-408abf13f9a4"
-    },
+    "_N$file": null,
     "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "0",
@@ -1611,9 +1595,7 @@
     "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,
-    "_N$file": {
-      "__uuid__": "54350540-2765-4854-9c90-408abf13f9a4"
-    },
+    "_N$file": null,
     "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "0",
@@ -2448,9 +2430,7 @@
     "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,
-    "_N$file": {
-      "__uuid__": "54350540-2765-4854-9c90-408abf13f9a4"
-    },
+    "_N$file": null,
     "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "分享成功，可继续挑战",
@@ -2556,6 +2536,7 @@
     "maxCombo": {
       "__id__": 43
     },
+    "sumCombo": null,
     "point": {
       "__id__": 40
     },
@@ -3164,7 +3145,7 @@
       "__id__": 22
     },
     "bgmName": "沙滩",
-    "sceneName": "GameScene_Beach",
+    "sceneName": "GameScene_Beach_Hard",
     "resumeChance": 1,
     "fullLength": 85,
     "recordIdx": 0,
@@ -3183,7 +3164,11 @@
       "__id__": 18
     },
     "NTD": false,
-    "firstBuildCount": 8
+    "firstBuildCount": 8,
+    "paw": {
+      "__uuid__": "2d3e724b-a3e1-410c-a3cd-63c3c6b9b328"
+    },
+    "pawPadding": 10
   },
   {
     "__type__": "cc.AudioSource",
