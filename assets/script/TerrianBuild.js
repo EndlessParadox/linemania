@@ -69,7 +69,9 @@ cc.Class({
         help:cc.Node,
         restart:cc.Node,
         NTD:false,
-        firstBuildCount:8,
+        firstBuildCount:10,
+        paw:cc.Prefab,
+        pawPadding:10,
         // foo: {
         //     // ATTRIBUTES:
         //     default: null,        // The default value will be used only when the component attaching
@@ -179,6 +181,20 @@ cc.Class({
             //LineMgr.getInstance().addInPool(line);
             this.linePool.put(line);
         }
+
+        this.pawArr = new Array();
+        for(let a = 0 ; a < 6; a ++)
+        {
+            let paw = cc.instantiate(this.paw);
+            if(paw != null)
+            {
+                paw.parent = this.constBG;
+                paw.zIndex = 997;
+                paw.opacity = 0;
+                this.pawArr.push(paw);
+            }
+        }
+        this.pawDir = -1;
 
         let itemBuildSumX = -this.halfSize * 2;
         let itemBuildSumY = 0;
@@ -523,12 +539,16 @@ cc.Class({
         this.nowTime = 0;
 
         this.score = 0;
+
+        this.showPawDelta = 0;
     },
 
     update (dt) {
         if (!this.bOver) {
 
             this.nowTime += dt;
+
+            this.showPawDelta += dt;
             //console.log(this.offset);
             // this.lineSumX += this.directionArr[this.lineDirection].x;
             // this.lineSumY += this.directionArr[this.lineDirection].y;
@@ -581,6 +601,11 @@ cc.Class({
                 // }
                 this.lineSumX += this.lineMinSize * this.directionArr[this.lineDirection].x * 2 * dt / this.deltaTime;
                 this.lineSumY += this.lineMaxSize * this.directionArr[this.lineDirection].y;
+
+                if(this.showPawDelta > 0.1) {
+                    this.showPaw(true, this.line.position.x, this.line.position.y);
+                    this.showPawDelta = 0;
+                }
             }
             else {
                 this.line.rotation = 90;
@@ -632,6 +657,11 @@ cc.Class({
                 // }
                 this.lineSumX += this.lineMaxSize * this.directionArr[this.lineDirection].x;
                 this.lineSumY += this.lineMinSize * this.directionArr[this.lineDirection].y * 2 * dt / this.deltaTime;
+
+                if(this.showPawDelta > 0.1) {
+                    this.showPaw(false, this.line.position.x, this.line.position.y);
+                    this.showPawDelta = 0;
+                }
             }
             // if (line != null) {
             //     line.parent = this.bg;
@@ -809,6 +839,29 @@ cc.Class({
             this.buildTerrain(this.buildTerrainIdx, false);
         }
         this.reviveTerrian();
+    },
+
+    showPaw(isX,x,y)
+    {
+        let paw = this.pawArr.shift();
+        if(paw != null)
+        {
+            if(isX) {
+                paw.position = new cc.Vec2(x, y + this.pawPadding * this.pawDir);
+                paw.rotation = 90;
+            }
+            else
+            {
+                paw.position = new cc.Vec2(x + this.pawPadding * this.pawDir, y);
+                paw.rotation = 0;
+            }
+            this.pawDir *= -1;
+            if(paw.opacity === 0)
+            {
+                paw.opacity = 255;
+            }
+            this.pawArr.push(paw);
+        }
     },
 
     lateUpdate(){

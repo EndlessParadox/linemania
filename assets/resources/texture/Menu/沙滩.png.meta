@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "4bd02dbb-2b74-4d3b-9044-357d152358ed",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "沙滩": {
+      "ver": "1.0.3",
+      "uuid": "cb137cb2-4291-4eeb-8fbd-e5d629be0a21",
+      "rawTextureUuid": "4bd02dbb-2b74-4d3b-9044-357d152358ed",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 2.5,
+      "trimX": 3,
+      "trimY": 2,
+      "width": 688,
+      "height": 393,
+      "rawWidth": 694,
+      "rawHeight": 402,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "638745ac-5842-4625-b8e6-955fe80a7f4e",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "沙漠_new": {
+      "ver": "1.0.3",
+      "uuid": "4c2a3964-be24-46f1-b16b-9defb03db4c0",
+      "rawTextureUuid": "638745ac-5842-4625-b8e6-955fe80a7f4e",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 2.5,
+      "trimX": 3,
+      "trimY": 2,
+      "width": 688,
+      "height": 393,
+      "rawWidth": 694,
+      "rawHeight": 402,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

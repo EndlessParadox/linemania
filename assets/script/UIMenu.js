@@ -60,23 +60,25 @@ cc.Class({
                 }
             }.bind(this));
 
-            // wx.getStorage({
-            //     key: 'record' + i,
-            //     success: function(res) {
-            //         if(isNaN(res.data))
-            //         {
-            //             self.progressArr[i].string = '0%';
-            //         }
-            //         else {
-            //             self.progressArr[i].string = res.data + '%';
-            //         }
-            //     },
-            //     fail:function(res)
-            //     {
-            //         console.log(res);
-            //     },
-            // });
-            this.progressArr[i].string = cc.sys.localStorage.getItem("record" + i) === null ? "0%" : cc.sys.localStorage.getItem("record" + i) + "%";
+            if(window.wx != null) {
+                wx.getStorage({
+                    key: 'record' + i,
+                    success: function (res) {
+                        if (isNaN(res.data)) {
+                            self.progressArr[i].string = '0%';
+                        }
+                        else {
+                            self.progressArr[i].string = res.data + '%';
+                        }
+                    },
+                    fail: function (res) {
+                        console.log(res);
+                    },
+                });
+            }
+            else {
+                this.progressArr[i].string = cc.sys.localStorage.getItem("record" + i) === null ? "0%" : cc.sys.localStorage.getItem("record" + i) + "%";
+            }
         }
     },
 

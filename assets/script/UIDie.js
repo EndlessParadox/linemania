@@ -17,7 +17,7 @@ cc.Class({
         progressBar:cc.ProgressBar,
         diamond:cc.Label,
         maxCombo:cc.Label,
-        //sumCombo:cc.Label,
+        sumCombo:cc.Label,
         point:cc.Label,
         btnBack:cc.Button,
         btnShare:cc.Button,
@@ -54,49 +54,45 @@ cc.Class({
         this.btnShare.node.on('click',function()
         {
             let self = this;
-            // wx.shareAppMessage({
-            //     title: '我要分享',
-            //     success: function (res) {
-            //         console.log('拉起分享 成功');
-            //         console.log(res);
-            //         if(self.shareShow.active === false)
-            //         {
-            //             self.shareShow.active = true;
-            //             setTimeout(function(){
-            //                 self.node.active = false;
-            //                 if(self.gameView != null)
-            //                 {
-            //                     self.shareShow.active = false;
-            //                     let build = self.gameView.getComponent('TerrianBuild');
-            //                     if(build != null)
-            //                     {
-            //                         build.resumeGame();
-            //                     }
-            //                 }
-            //             },1000);
-            //         }
-            //     },
-            //     fail: function (res) {
-            //         console.log('拉起分享 失败');
-            //         console.log(res);
-            //     }
-            // });
-
-            if(self.shareShow.active === false)
-            {
-                self.shareShow.active = true;
-                setTimeout(function(){
-                    self.node.active = false;
-                    if(self.gameView != null)
-                    {
-                        self.shareShow.active = false;
-                        let build = self.gameView.getComponent('TerrianBuild');
-                        if(build != null)
-                        {
-                            build.resumeGame();
+            if(window.wx != null) {
+                wx.shareAppMessage({
+                    title: '我要分享',
+                    success: function (res) {
+                        console.log('拉起分享 成功');
+                        console.log(res);
+                        if (self.shareShow.active === false) {
+                            self.shareShow.active = true;
+                            setTimeout(function () {
+                                self.node.active = false;
+                                if (self.gameView != null) {
+                                    self.shareShow.active = false;
+                                    let build = self.gameView.getComponent('TerrianBuild');
+                                    if (build != null) {
+                                        build.resumeGame();
+                                    }
+                                }
+                            }, 1000);
                         }
+                    },
+                    fail: function (res) {
+                        console.log('拉起分享 失败');
+                        console.log(res);
                     }
-                },1000);
+                });
+            }else {
+                if (self.shareShow.active === false) {
+                    self.shareShow.active = true;
+                    setTimeout(function () {
+                        self.node.active = false;
+                        if (self.gameView != null) {
+                            self.shareShow.active = false;
+                            let build = self.gameView.getComponent('TerrianBuild');
+                            if (build != null) {
+                                build.resumeGame();
+                            }
+                        }
+                    }, 1000);
+                }
             }
         }.bind(this));
         this.btnRestart.node.on('click',function()
