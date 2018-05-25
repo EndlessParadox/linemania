@@ -21,7 +21,7 @@
     "_active": true,
     "_components": [],
     "_prefab": null,
-    "_id": "7db49192-95b1-4a19-961f-78b58ee92df5",
+    "_id": "f68f590c-d533-4186-ad0b-8031cbe3b50a",
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
@@ -894,8 +894,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 140,
-      "height": 70
+      "width": 0,
+      "height": 144.12
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -1129,8 +1129,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 120,
-      "height": 60
+      "width": 104.12,
+      "height": 105.88
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -1233,8 +1233,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 80,
-      "height": 40
+      "width": 87.06,
+      "height": 47.06
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -1287,8 +1287,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 22,
-      "height": 40
+      "width": 48.24,
+      "height": 47.06
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -1415,8 +1415,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 200,
-      "height": 40
+      "width": 88.24,
+      "height": 47.06
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -1469,8 +1469,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 22,
-      "height": 40
+      "width": 28.24,
+      "height": 47.06
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -1775,8 +1775,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 28,
-      "height": 50
+      "width": 202.35,
+      "height": 105.88
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -2741,7 +2741,9 @@
     "maxCombo": {
       "__id__": 42
     },
-    "sumCombo": null,
+    "sumCombo": {
+      "__id__": 48
+    },
     "point": {
       "__id__": 53
     },
@@ -3526,7 +3528,7 @@
       "__id__": 22
     },
     "bgmName": "沙滩",
-    "sceneName": "GameScene_Desert_Normal",
+    "sceneName": "GameScene_Desert_Normal ",
     "resumeChance": 1,
     "fullLength": 85,
     "recordIdx": 0,
@@ -3544,7 +3546,7 @@
     "restart": {
       "__id__": 18
     },
-    "NTD": true,
+    "NTD": false,
     "firstBuildCount": 10,
     "paw": null,
     "pawPadding": 10

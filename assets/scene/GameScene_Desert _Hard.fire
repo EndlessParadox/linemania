@@ -21,7 +21,7 @@
     "_active": true,
     "_components": [],
     "_prefab": null,
-    "_id": "649addc7-a175-466c-b150-79445b92b407",
+    "_id": "a4ae2b04-5b9a-4de7-8e1a-5178929fd25d",
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
@@ -2741,7 +2741,9 @@
     "maxCombo": {
       "__id__": 42
     },
-    "sumCombo": null,
+    "sumCombo": {
+      "__id__": 48
+    },
     "point": {
       "__id__": 53
     },
@@ -3592,7 +3594,7 @@
       "__id__": 22
     },
     "bgmName": "沙滩",
-    "sceneName": "GameScene_Desert _Hard",
+    "sceneName": "GameScene_Desert _Hard ",
     "resumeChance": 1,
     "fullLength": 85,
     "recordIdx": 0,
@@ -3610,7 +3612,7 @@
     "restart": {
       "__id__": 18
     },
-    "NTD": true,
+    "NTD": false,
     "firstBuildCount": 10,
     "paw": {
       "__uuid__": "915f80c6-a2ca-4806-a8c4-6a7d0ccfc883"
