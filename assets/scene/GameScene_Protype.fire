@@ -2234,6 +2234,7 @@
     "maxCombo": {
       "__id__": 26
     },
+    "sumCombo": null,
     "point": {
       "__id__": 34
     },

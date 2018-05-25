@@ -43,6 +43,7 @@ cc.Class({
 
     setLoadData(sceneName)
     {
+        this.node.active = true;
         let self = this;
         cc.loader.onProgress = function(completedCount,totalCount,item){
             if(totalCount !== 0) {

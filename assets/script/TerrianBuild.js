@@ -61,6 +61,7 @@ cc.Class({
         resumeChance:1,
         fullLength:0,
         recordIdx:0,
+        recordLevelIdx:0,
         minBeat:0,
         standardBeat:0,
         perfectShow:cc.Prefab,
@@ -688,6 +689,7 @@ cc.Class({
                                     sceneName: this.sceneName,
                                     resumeChance: this.resumeChance,
                                     recordIdx: this.recordIdx,
+                                    recordLevelIdx:this.recordLevelIdx,
                                     finish: true,
                                 };
                                 this.resumeChance -= 1;
@@ -721,6 +723,7 @@ cc.Class({
                                     point: this.ScoreMgr.getScore(),
                                     sceneName: this.sceneName,
                                     resumeChance: this.resumeChance,
+                                    recordLevelIdx:this.recordLevelIdx,
                                     recordIdx: this.recordIdx,
                                 };
                                 this.resumeChance -= 1;
@@ -753,6 +756,7 @@ cc.Class({
                                     sceneName: this.sceneName,
                                     resumeChance: this.resumeChance,
                                     recordIdx: this.recordIdx,
+                                    recordLevelIdx:this.recordLevelIdx,
                                     finish: true,
                                 };
                                 this.resumeChance -= 1;
@@ -787,6 +791,7 @@ cc.Class({
                                     sceneName: this.sceneName,
                                     resumeChance: this.resumeChance,
                                     recordIdx: this.recordIdx,
+                                    recordLevelIdx:this.recordLevelIdx,
                                     finish: false,
                                 };
                                 this.resumeChance -= 1;
@@ -831,7 +836,7 @@ cc.Class({
         if(this.score !== this.ScoreMgr.getScore())
         {
             this.score = this.ScoreMgr.getScore();
-            this.scoreLabel.string = "得分：" + this.score;
+            this.scoreLabel.string = "" + this.score;
         }
 
         if(this.terrainIdx >= this.buildTerrainIdx - 7)

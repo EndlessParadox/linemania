@@ -420,8 +420,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 178,
-      "height": 50
+      "width": 32.22,
+      "height": 55.56
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -429,8 +429,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 180,
-      "y": 560
+      "x": -250,
+      "y": 600
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -452,10 +452,12 @@
     "_fontSize": 50,
     "_lineHeight": 50,
     "_enableWrapText": true,
-    "_N$file": null,
+    "_N$file": {
+      "__uuid__": "7f6f0389-2a2d-476b-abaa-cf7ed666d250"
+    },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
-    "_N$string": "得分：0",
+    "_N$string": "0",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -894,8 +896,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 0,
-      "height": 144.12
+      "width": 200.89,
+      "height": 108.89
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -930,8 +932,8 @@
       "__uuid__": "7f6f0389-2a2d-476b-abaa-cf7ed666d250"
     },
     "_isSystemFontUsed": false,
-    "_spacingX": 0,
-    "_N$string": "夏至",
+    "_spacingX": 50,
+    "_N$string": "沙滩",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -1040,8 +1042,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 0,
-      "height": 94.12
+      "width": 90.53,
+      "height": 78.4
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -1049,8 +1051,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -50,
-      "y": 229
+      "x": -100,
+      "y": 234
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -1068,16 +1070,16 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 40,
-    "_fontSize": 40,
-    "_lineHeight": 40,
+    "_actualFontSize": 42,
+    "_fontSize": 42,
+    "_lineHeight": 42,
     "_enableWrapText": true,
     "_N$file": {
       "__uuid__": "7f6f0389-2a2d-476b-abaa-cf7ed666d250"
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
-    "_N$string": "简单普通困难\n",
+    "_N$string": "简单",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -1129,8 +1131,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 104.12,
-      "height": 105.88
+      "width": 105.33,
+      "height": 80
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -1138,7 +1140,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 50,
+      "x": 100,
       "y": 229
     },
     "_skewX": 0,
@@ -1165,7 +1167,7 @@
       "__uuid__": "7f6f0389-2a2d-476b-abaa-cf7ed666d250"
     },
     "_isSystemFontUsed": false,
-    "_spacingX": 0,
+    "_spacingX": 2,
     "_N$string": "18%",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -1233,8 +1235,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 87.06,
-      "height": 47.06
+      "width": 85.33,
+      "height": 35.56
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -1287,8 +1289,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 48.24,
-      "height": 47.06
+      "width": 46.22,
+      "height": 35.56
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -1415,8 +1417,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 88.24,
-      "height": 47.06
+      "width": 87.11,
+      "height": 35.56
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -1469,8 +1471,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 28.24,
-      "height": 47.06
+      "width": 25.78,
+      "height": 35.56
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -1597,8 +1599,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 88.24,
-      "height": 47.06
+      "width": 86.22,
+      "height": 35.56
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -1651,8 +1653,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 28.24,
-      "height": 47.06
+      "width": 25.78,
+      "height": 35.56
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -1775,8 +1777,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 202.35,
-      "height": 105.88
+      "width": 201.33,
+      "height": 80
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -2729,6 +2731,9 @@
     "bgmName": {
       "__id__": 24
     },
+    "level": {
+      "__id__": 28
+    },
     "progress": {
       "__id__": 31
     },
@@ -3593,11 +3598,12 @@
     "uiDie": {
       "__id__": 22
     },
-    "bgmName": "沙滩",
-    "sceneName": "GameScene_Desert _Hard ",
+    "bgmName": "沙漠",
+    "sceneName": "GameScene_Desert_Hard",
     "resumeChance": 1,
-    "fullLength": 85,
-    "recordIdx": 0,
+    "fullLength": 97,
+    "recordIdx": 2,
+    "recordLevelIdx": 2,
     "minBeat": 0.2,
     "standardBeat": 0,
     "perfectShow": {

@@ -13,6 +13,7 @@ cc.Class({
 
     properties: {
         bgmName:cc.Label,
+        level:cc.Label,
         progress:cc.Label,
         progressBar:cc.ProgressBar,
         diamond:cc.Label,
@@ -115,10 +116,11 @@ cc.Class({
         this.progressBar.progress = data.progress / 100;
         this.diamond.string = data.diamond;
         this.maxCombo.string = data.maxCombo;
-        //this.sumCombo.string = data.sumCombo;
+        this.sumCombo.string = data.sumCombo;
         this.point.string = data.point;
         this.sceneName = data.sceneName;
         this.recordIdx = data.recordIdx;
+        this.recordLevelIdx = data.recordLevelIdx;
         this.record = data.progress;
         this.finish = data.finish;
         if(data.resumeChance === 0 )
@@ -129,7 +131,19 @@ cc.Class({
         {
             this.btnShare.enabled = false;
         }
-
+        
+        switch (data.recordLevelIdx)
+        {
+            case 0:
+                this.level.string = "简单";
+                break;
+            case 1:
+                this.level.string = "普通";
+                break;
+            case 2:
+                this.level.string = "困难";
+                break;
+        }
         let newRecord = this.record;
         let recordIdx = this.recordIdx;
         // wx.getStorage({
@@ -157,11 +171,11 @@ cc.Class({
         let record = localStorage.getItem('record' + this.recordIdx);
         if(record != null)
         {
-            localStorage.setItem('record' + this.recordIdx,Math.max(parseInt(record),parseInt(this.record)));
+            localStorage.setItem('record' + this.recordIdx + "_" + this.recordLevelIdx,Math.max(parseInt(record),parseInt(this.record)));
         }
         else
         {
-            localStorage.setItem('record' + this.recordIdx,parseInt(this.record));
+            localStorage.setItem('record' + this.recordIdx + "_" + this.recordLevelIdx,parseInt(this.record));
         }
     }
 

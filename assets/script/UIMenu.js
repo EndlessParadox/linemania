@@ -23,6 +23,8 @@ cc.Class({
         btnRank:cc.Button,
         btnExit:cc.Button,
         uiLoad:cc.Node,
+        uiStars:[cc.Node],
+        uiLevel:cc.Node,
         // foo: {
         //     // ATTRIBUTES:
         //     default: null,        // The default value will be used only when the component attaching
@@ -47,38 +49,83 @@ cc.Class({
             cc.renderer.enableDirtyRegion(false);
         }
 
+        this.recordArr = new Array();
+
         for(let i = 0; i < this.buttonArr.length; i ++)
         {
             let self = this;
-            this.buttonArr[i].node.on('click',function(){
-                this.uiLoad.active = true;
-                let sceneName =  this.sceneArr[i];
-                let load = this.uiLoad.getComponent('UILoading');
-                if(load != null)
-                {
-                    load.setLoadData(sceneName);
-                }
-            }.bind(this));
 
             if(window.wx != null) {
-                wx.getStorage({
-                    key: 'record' + i,
-                    success: function (res) {
-                        if (isNaN(res.data)) {
-                            self.progressArr[i].string = '0%';
-                        }
-                        else {
-                            self.progressArr[i].string = res.data + '%';
-                        }
-                    },
-                    fail: function (res) {
-                        console.log(res);
-                    },
-                });
+                for(let i = 0; i < this.uiStars.length; i ++) {
+                    let levelRecord = new Array();
+                    let count = 0;
+                    for (let m = 0; m < 3; m++) {
+                        wx.getStorage({
+                            key: 'record' + i + "_" + m,
+                            success: function (res) {
+                                if (isNaN(res.data)) {
+                                    count += 0;
+                                    levelRecord.push(0);
+                                }
+                                else {
+                                    levelRecord.push(res.data);
+                                    count += parseInt(res.data) === 100 ? 1 : 0;
+                                }
+                            },
+                            fail: function (res) {
+                                console.log(res);
+                            },
+                        });
+                    }
+                    let children = this.uiStars[i].children;
+                    for (let n = 0; n < children.length; n++) {
+                        children[n].active = n < count;
+                    }
+                    this.recordArr.push(levelRecord);
+                }
             }
             else {
-                this.progressArr[i].string = cc.sys.localStorage.getItem("record" + i) === null ? "0%" : cc.sys.localStorage.getItem("record" + i) + "%";
+                for(let i = 0; i < this.uiStars.length; i ++)
+                {
+                    let levelRecord = new Array();
+                    let count = 0;
+                    for(let m = 0; m < 3 ; m ++)
+                    {
+                        let record = cc.sys.localStorage.getItem("record" + i + "_" + m);
+                        levelRecord.push(record === null ? 0 : parseInt(record));
+                        count += record === null ? 0 : (parseInt(record) === 100 ? 1 : 0);
+                    }
+
+                    let children = this.uiStars[i].children;
+                    for(let n = 0; n < children.length; n ++)
+                    {
+                        children[n].active = n < count;
+                    }
+                    this.recordArr.push(levelRecord);
+                }
+                //this.progressArr[i].string = cc.sys.localStorage.getItem("record" + i) === null ? "0%" : cc.sys.localStorage.getItem("record" + i) + "%";
             }
+
+            this.buttonArr[i].node.on('click',function(){
+                // this.uiLoad.active = true;
+                // let sceneName =  this.sceneArr[i];
+                // let load = this.uiLoad.getComponent('UILoading');
+                // if(load != null)
+                // {
+                //     load.setLoadData(sceneName);
+                // }
+                let data = {
+                    level:i,
+                    recordArr:this.recordArr[i],
+                    sceneName:this.sceneArr[i],
+                };
+                let level = this.uiLevel.getComponent('UILevel');
+                if(level != null)
+                {
+                    level.setData(data);
+                }
+                this.uiLevel.active = true;
+            }.bind(this));
         }
     },
 
