@@ -73,6 +73,8 @@ cc.Class({
         firstBuildCount:10,
         paw:cc.Prefab,
         pawPadding:10,
+        beatDividend:0,
+        beatDivisor:0,
         // foo: {
         //     // ATTRIBUTES:
         //     default: null,        // The default value will be used only when the component attaching
@@ -95,6 +97,10 @@ cc.Class({
     onLoad () {
         this.gp.node.zIndex = 990;
         this.multi = 1;
+        if(this.minBeat === 0 &&  this.beatDivisor !== 0)
+        {
+            this.minBeat = this.beatDividend / this.beatDivisor;
+        }
         this.halfSize = this.lineMinSize * this.minBeat / this.deltaTime;
         this.DiamondMgr = new DiamondMgr();
         this.CheckPointMgr = new CheckPointMgr();
