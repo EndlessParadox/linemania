@@ -2740,7 +2740,8 @@
     },
     "gameView": {
       "__id__": 2
-    }
+    },
+    "rankingScrollView": null
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -2884,7 +2885,7 @@
     "itemPosArr": [
       {
         "__type__": "cc.Vec2",
-        "x": 150,
+        "x": 150.1,
         "y": 300
       },
       {

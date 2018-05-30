@@ -2740,7 +2740,8 @@
     },
     "gameView": {
       "__id__": 2
-    }
+    },
+    "rankingScrollView": null
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -3204,7 +3205,7 @@
       }
     ],
     "itemRotateArr": [
-      45,
+      45.1,
       145,
       45,
       150,
