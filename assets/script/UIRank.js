@@ -18,6 +18,7 @@ cc.Class({
         upArrow:cc.Node,
         downArrow:cc.Node,
         btnExit:cc.Node,
+        rankingScrollView:cc.Sprite,
         // foo: {
         //     // ATTRIBUTES:
         //     default: null,        // The default value will be used only when the component attaching
@@ -38,14 +39,31 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        for(let i = 0; i < this.progressArr.length; i ++)
-        {
+        // for(let i = 0; i < this.progressArr.length; i ++)
+        // {
+        //
+        //     this.progressArr[i].string = localStorage.getItem("record" + i) == null ? "完成度0%" : "完成度" +localStorage.getItem("record" + i) + "%";
+        // }
 
-            this.progressArr[i].string = localStorage.getItem("record" + i) == null ? "完成度0%" : "完成度" +localStorage.getItem("record" + i) + "%";
+        if (window.wx != undefined) {
+            let self = this;
+            window.wx.showShareMenu({withShareTicket: true});//设置分享按钮，方便获取群id展示群排行榜
+            this.tex = new cc.Texture2D();
+            window.sharedCanvas.width = 720;
+            window.sharedCanvas.height = 1280;
+            window.wx.postMessage({
+                messageType: 1,
+                MAIN_MENU_NUM: "0",
+            });
         }
     },
 
     start () {
+        this.pullData = false;
+        this.sv.node.on('scroll-began',function(){
+            this.pullData = true;
+        }.bind(this));
+
         this.sv.node.on('scroll-ended',function(){
             let realOffset = Math.abs(this.sv.getScrollOffset().x)/this.sv.getMaxScrollOffset().x;
             let autoIdx = Math.round(realOffset / (1 / (this.spriteArr.length - 1)));
@@ -64,6 +82,19 @@ cc.Class({
             this.upArrow.active = autoIdx !== 0;
             this.downArrow.active = autoIdx !== this.spriteArr.length - 1;
             this.sv.scrollToPercentHorizontal(autoOffset,1);
+
+            if(this.pullData) {
+                this.pullData = false;
+                if (window.wx != undefined) {
+                    // 发消息给子域
+                    window.wx.postMessage({
+                        messageType: 1,
+                        MAIN_MENU_NUM: autoIdx + "",
+                    });
+                } else {
+                    cc.log("获取好友排行榜数据。x1");
+                }
+            }
         }.bind(this));
 
         this.btnExit.on('click',function(){
@@ -71,5 +102,15 @@ cc.Class({
         }.bind(this));
     },
 
-    // update (dt) {},
+    // 刷新子域的纹理
+    _updateSubDomainCanvas() {
+        if (window.sharedCanvas != undefined) {
+            this.tex.initWithElement(window.sharedCanvas);
+            this.tex.handleLoadedTexture();
+            this.rankingScrollView.spriteFrame = new cc.SpriteFrame(this.tex);
+        }
+    },
+    update() {
+        this._updateSubDomainCanvas();
+    },
 });
