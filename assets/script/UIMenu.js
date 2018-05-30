@@ -63,6 +63,7 @@ cc.Class({
                         wx.getStorage({
                             key: 'record' + i + "_" + m,
                             success: function (res) {
+                                console.log(res);
                                 if (isNaN(res.data)) {
                                     count += 0;
                                     levelRecord.push(0);
@@ -73,6 +74,8 @@ cc.Class({
                                 }
                             },
                             fail: function (res) {
+                                count += 0;
+                                levelRecord.push(0);
                                 console.log(res);
                             },
                         });

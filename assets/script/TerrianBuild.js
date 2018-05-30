@@ -422,7 +422,7 @@ cc.Class({
             // this.bgm.setCurrentTime(0);
             // this.bgm.play();
             this.idx = 0;
-            this.lineSumX = 0;
+            this.lineSumX = this.halfWidth;
             this.lineSumY = 0;
             this.terrainIdx = 0;
             this.terrainSumX = ((this.terrainArr[this.terrainIdx].length - 1)* this.halfSize * 2) * this.directionArr[this.baseDirection].x;
@@ -484,7 +484,7 @@ cc.Class({
         this.time = 0;
         if(this.baseDirection === 0 || this.baseDirection === 2) {
             //this.lineSumX = this.lineMaxSize * this.directionArr[this.baseDirection].x;
-            this.lineSumX = 0;
+            this.lineSumX = this.halfWidth;
             //this.lineSumX = 0;
             this.lineSumY = 0;
             this.terrainSumX = ((this.terrainArr[this.terrainIdx].length - 1)* this.halfSize * 2) * this.directionArr[this.baseDirection].x;
@@ -516,7 +516,7 @@ cc.Class({
         }
         //LineMgr.getInstance().addLine(this.line,this.linePool);
         //line.getComponent('SelfDestroy').setPool(this.linePool);
-        this.line.position = new cc.Vec2(this.baseLinePostion.x, this.baseLinePostion.y);
+        this.line.position = new cc.Vec2(this.baseLinePostion.x + this.halfWidth, this.baseLinePostion.y);
         //this.line.active = true;
         if (this.line != null) {
             this.line.zIndex = 998;
@@ -714,6 +714,7 @@ cc.Class({
                     //console.log(this.lineSumY + "---" + this.terrainSumY + "----Y");
                     if (this.lineSumY > this.terrainSumY + this.halfWidth - this.lineMaxSize || this.lineSumY < this.terrainSumY - this.halfWidth + this.lineMaxSize) {
                         console.log('die1');
+                        console.log(this.bgm.getCurrentTime());
                         this.bOver = true;
                         this.bBack = true;
                         this.bgm.pause();
@@ -781,6 +782,7 @@ cc.Class({
                     //console.log(this.lineSumX + "---" + this.terrainSumX + "----X");
                     if (this.lineSumX > this.terrainSumX + this.halfWidth - this.lineMaxSize || this.lineSumX < this.terrainSumX - this.halfWidth + this.lineMaxSize) {
                         console.log('die2');
+                        console.log(this.bgm.getCurrentTime());
                         this.bOver = true;
                         this.bBack = true;
                         this.bgm.pause();

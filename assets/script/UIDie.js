@@ -25,6 +25,7 @@ cc.Class({
         btnRestart:cc.Button,
         shareShow:cc.Node,
         gameView:cc.Node,
+        rankingScrollView: cc.Sprite,//显示排行榜
         // foo: {
         //     // ATTRIBUTES:
         //     default: null,        // The default value will be used only when the component attaching
@@ -44,9 +45,21 @@ cc.Class({
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
+    // onLoad () {
+    // },
 
     start () {
+        if (window.wx != undefined) {
+            let self = this;
+            window.wx.showShareMenu({withShareTicket: true});//设置分享按钮，方便获取群id展示群排行榜
+            this.tex = new cc.Texture2D();
+            window.sharedCanvas.width = 720;
+            window.sharedCanvas.height = 1280;
+            window.wx.postMessage({
+                messageType: 4,
+                MAIN_MENU_NUM: self.recordIdx + "_" + self.recordLevelIdx,
+            });
+        }
 
         this.btnBack.node.on('click',function()
         {
@@ -144,40 +157,68 @@ cc.Class({
                 this.level.string = "困难";
                 break;
         }
-        let newRecord = this.record;
         let recordIdx = this.recordIdx;
-        // wx.getStorage({
-        //     key: 'record' + recordIdx,
-        //     success: function(res) {
-        //         if(!isNaN(res.data)) {
-        //             wx.setStorage({
-        //                 key: 'record' + recordIdx,
-        //                 data: Math.max(parseInt(newRecord), parseInt(res.data)),
-        //             })
-        //         }
-        //         else {
-        //             wx.setStorage({
-        //                 key:'record' + recordIdx,
-        //                 data:parseInt(newRecord),
-        //             })
-        //         }
-        //     },
-        //     fail:function(res)
-        //     {
-        //     },
-        // });
+        let recordLevelIdx = this.recordLevelIdx;
+        let newRecord = this.record;
 
+        let point = data.point;
 
-        let record = localStorage.getItem('record' + this.recordIdx);
-        if(record != null)
-        {
-            localStorage.setItem('record' + this.recordIdx + "_" + this.recordLevelIdx,Math.max(parseInt(record),parseInt(this.record)));
+        if (window.wx != undefined) {
+            window.wx.postMessage({
+                messageType: 3,
+                record: recordIdx,
+                level:recordLevelIdx,
+                score: point,
+            });
+
+            window.wx.getStorage({
+                key: 'record' + recordIdx + "_" + recordLevelIdx,
+                success: function(res) {
+                    console.log("suc " + res);
+                    if(!isNaN(res.data)) {
+                        window.wx.setStorage({
+                            key: 'record' + recordIdx + "_" + recordLevelIdx,
+                            data: Math.max(parseInt(newRecord), parseInt(res.data)),
+                        });
+                    }
+                    else {
+                        window.wx.setStorage({
+                            key:'record' + recordIdx + "_" + recordLevelIdx,
+                            data:parseInt(newRecord),
+                        });
+                    }
+                },
+                fail:function(res)
+                {
+                    console.log(res);
+                    window.wx.setStorage({
+                        key:'record' + recordIdx + "_" + recordLevelIdx,
+                        data:parseInt(newRecord),
+                    });
+                },
+            });
+
+        } else {
+            //cc.log("提交得分: x1 : " + score);
+            let record = localStorage.getItem('record' + this.recordIdx);
+            if (record != null) {
+                localStorage.setItem('record' + this.recordIdx + "_" + this.recordLevelIdx, Math.max(parseInt(record), parseInt(this.record)));
+            }
+            else {
+                localStorage.setItem('record' + this.recordIdx + "_" + this.recordLevelIdx, parseInt(this.record));
+            }
         }
-        else
-        {
-            localStorage.setItem('record' + this.recordIdx + "_" + this.recordLevelIdx,parseInt(this.record));
-        }
-    }
+    },
 
-    // update (dt) {},
+    // 刷新子域的纹理
+    _updateSubDomainCanvas() {
+        if (window.sharedCanvas != undefined) {
+            this.tex.initWithElement(window.sharedCanvas);
+            this.tex.handleLoadedTexture();
+            this.rankingScrollView.spriteFrame = new cc.SpriteFrame(this.tex);
+        }
+    },
+    update() {
+        this._updateSubDomainCanvas();
+    },
 });

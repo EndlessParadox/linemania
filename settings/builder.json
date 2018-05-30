@@ -2,14 +2,17 @@
   "appKey": "",
   "appSecret": "",
   "encryptJs": true,
-  "excludeScenes": [],
+  "excludeScenes": [
+    "765e7aaa-893c-4b33-97cd-bef9e2e64fd8",
+    "ef917e6a-62ba-46aa-89cc-fec7b494fb6d"
+  ],
   "fb-instant-games": {},
   "includeAnySDK": false,
   "includeSDKBox": false,
   "inlineSpriteFrames": true,
   "inlineSpriteFrames_native": true,
   "jailbreakPlatform": false,
-  "md5Cache": false,
+  "md5Cache": true,
   "mergeStartScene": false,
   "oauthLoginServer": "",
   "optimizeHotUpdate": false,
@@ -29,8 +32,11 @@
   "title": "LineMania",
   "webOrientation": "portrait",
   "wechatgame": {
-    "appid": "wx6ac3f5090a6b99c5",
-    "orientation": "portrait"
+    "REMOTE_SERVER_ROOT": "http://120.24.79.31/linemania-res/",
+    "appid": "wxc1c58913f3c2f4b0",
+    "isSubdomain": false,
+    "orientation": "portrait",
+    "subContext": "SubGame"
   },
   "xxteaKey": "94a1afbe-3740-45",
   "zipCompressJs": true

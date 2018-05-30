@@ -2615,8 +2615,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 40,
-      "height": 36
+      "width": 720,
+      "height": 1280
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -3173,7 +3173,9 @@
     "paw": {
       "__uuid__": "2d3e724b-a3e1-410c-a3cd-63c3c6b9b328"
     },
-    "pawPadding": 10
+    "pawPadding": 10,
+    "beatDividend": 0,
+    "beatDivisor": 0
   },
   {
     "__type__": "cc.AudioSource",
