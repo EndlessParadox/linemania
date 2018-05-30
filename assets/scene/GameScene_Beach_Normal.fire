@@ -2922,7 +2922,7 @@
     "lineSumY": 0,
     "lineDirection": 0,
     "lineMaxSize": 20,
-    "lineMinSize": 4.8,
+    "lineMinSize": 3.6,
     "baseLinePostion": {
       "__type__": "cc.Vec2",
       "x": 0,
