@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "debdc311-b250-4f18-956b-f69161538071",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "太空背景宽屏": {
+      "ver": "1.0.3",
+      "uuid": "c3930e99-8397-4f54-80ff-0b689a18b3a2",
+      "rawTextureUuid": "debdc311-b250-4f18-956b-f69161538071",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 913,
+      "height": 1280,
+      "rawWidth": 913,
+      "rawHeight": 1280,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

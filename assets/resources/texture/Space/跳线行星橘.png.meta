@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "943bb8dd-2e20-4193-9a39-d4aa197206af",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "跳线行星橘": {
+      "ver": "1.0.3",
+      "uuid": "002feecd-2904-4106-ad0d-f6f56e732636",
+      "rawTextureUuid": "943bb8dd-2e20-4193-9a39-d4aa197206af",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 1,
+      "trimX": 134,
+      "trimY": 133,
+      "width": 132,
+      "height": 132,
+      "rawWidth": 400,
+      "rawHeight": 400,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
