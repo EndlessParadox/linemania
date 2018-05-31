@@ -2795,7 +2795,7 @@
       "__id__": 8
     },
     "halfSize": 60,
-    "halfWidth": 70,
+    "halfWidth": 60,
     "directionArr": [
       {
         "__type__": "cc.Vec2",
@@ -2828,7 +2828,7 @@
     "lineSumY": 0,
     "lineDirection": 0,
     "lineMaxSize": 20,
-    "lineMinSize": 4.48,
+    "lineMinSize": 3.36,
     "baseLinePostion": {
       "__type__": "cc.Vec2",
       "x": 0,
@@ -3110,7 +3110,7 @@
       },
       {
         "__type__": "cc.Vec2",
-        "x": -200,
+        "x": -50,
         "y": -150
       },
       {
@@ -3282,8 +3282,8 @@
       },
       {
         "__type__": "cc.Vec2",
-        "x": 2,
-        "y": 2
+        "x": 1.5,
+        "y": 1.5
       },
       {
         "__type__": "cc.Vec2",
@@ -3322,8 +3322,8 @@
       },
       {
         "__type__": "cc.Vec2",
-        "x": 3,
-        "y": 2.5
+        "x": 2,
+        "y": 2
       },
       {
         "__type__": "cc.Vec2",
@@ -3604,7 +3604,7 @@
     "restart": {
       "__id__": 17
     },
-    "NTD": false,
+    "NTD": true,
     "firstBuildCount": 8,
     "paw": {
       "__uuid__": "2d3e724b-a3e1-410c-a3cd-63c3c6b9b328"
