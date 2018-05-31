@@ -5,7 +5,7 @@ let CheckPointMgr = cc.Class({
         this.cpPosArr = new Array();
     },
 
-    addCheckPoint:function(x,y,idx,direction,terrainIdx,buildSumX,buildSumY,buildTerrainIdx,baseSumX,baseSumY,baseBuildSumX,baseBuildSumY,baseIdx,terrainPosX,terrainPosY){
+    addCheckPoint:function(x,y,idx,direction,terrainIdx,buildSumX,buildSumY,buildTerrainIdx,baseSumX,baseSumY,baseBuildSumX,baseBuildSumY,baseIdx,terrainPosX,terrainPosY,baseItemIdx){
         let pos = {
             x:x,
             y:y,
@@ -22,6 +22,7 @@ let CheckPointMgr = cc.Class({
             baseIdx:baseIdx,
             terrainPosX:terrainPosX,
             terrainPosY:terrainPosY,
+            baseItemIdx:baseItemIdx,
         };
         console.log(pos);
         this.cpPosArr.push(pos);

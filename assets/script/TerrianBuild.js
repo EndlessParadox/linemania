@@ -412,6 +412,7 @@ cc.Class({
             this.DiamondMgr.setDiamondCount(curCp.diamondCount);
             this.terrainPosX = curCp.terrainPosX;
             this.terrainPosY = curCp.terrainPosY;
+            this.itemIdx = curCp.baseItemIdx;
 
             //this.buildTerrainIdx = Math.max(0,this.terrainIdx - this.preBuildCount);
             //console.log(this.buildTerrainIdx);
@@ -439,6 +440,7 @@ cc.Class({
             this.DiamondMgr.setDiamondCount(0);
             this.terrainPosX = -2 * this.halfSize * this.multi;
             this.terrainPosY = 0;
+            this.itemIdx = 0;
 
             // this.buildTerrainIdx = 0;
             this.CheckPointMgr.clear();
@@ -945,6 +947,8 @@ cc.Class({
         let nowTerrainPosX = this.terrainPosX;
         let nowTerrainPosY = this.terrainPosY;
 
+        let baseItemIdx = this.itemIdx;
+
         //创建
         let count = this.preBuildCount;
         if(terrainIdx + count > this.terrainArr.length) {
@@ -1088,7 +1092,7 @@ cc.Class({
                     this.sumY += this.directionArr[this.direction].y;
                     terrain.position = new cc.Vec2(this.basePostion.x + (2 * this.sumX) * this.halfSize + this.halfWidth, this.basePostion.y + (2 * this.sumY) * this.halfSize);
 
-                    this.CheckPointMgr.addCheckPoint(terrain.position.x, terrain.position.y, this.idx, this.direction, i, this.buildSumX, this.buildSumY,terrainIdx,baseSumX,baseSumY,baseBuildSumX,baseBuildSumY,baseIdx,nowTerrainPosX,nowTerrainPosY);
+                    this.CheckPointMgr.addCheckPoint(terrain.position.x, terrain.position.y, this.idx, this.direction, i, this.buildSumX, this.buildSumY,terrainIdx,baseSumX,baseSumY,baseBuildSumX,baseBuildSumY,baseIdx,nowTerrainPosX,nowTerrainPosY,baseItemIdx);
                     terrain.zIndex = 996;
                     terrain.parent = this.bg;
                     location = terrain.position;
@@ -1108,7 +1112,7 @@ cc.Class({
                         diamond.parent = this.bg;
                         break;
                     case 4:
-                        if (this.itemArr.length > 0 && !revive) {
+                        if (this.itemArr.length > 0) {
                             //let item = cc.instantiate(this.itemArr[0]);
                             let item = this.itemPoolArray[0].shift();
                             if(item == null)
@@ -1125,7 +1129,7 @@ cc.Class({
                         }
                         break;
                     case 5:
-                        if (this.itemArr.length > 1 && !revive) {
+                        if (this.itemArr.length > 1) {
                             //let item = cc.instantiate(this.itemArr[1]);
                             let item = this.itemPoolArray[1].shift();
                             if(item == null)
@@ -1142,7 +1146,7 @@ cc.Class({
                         }
                         break;
                     case 6:
-                        if (this.itemArr.length > 2 && !revive) {
+                        if (this.itemArr.length > 2) {
                             //let item = cc.instantiate(this.itemArr[2]);
                             let item = this.itemPoolArray[2].shift();
                             if(item == null)
@@ -1159,7 +1163,7 @@ cc.Class({
                         }
                         break;
                     case 7:
-                        if (this.itemArr.length > 3 && !revive) {
+                        if (this.itemArr.length > 3) {
                             //let item = cc.instantiate(this.itemArr[3]);
                             let item = this.itemPoolArray[3].shift();
                             if(item == null)
@@ -1176,7 +1180,7 @@ cc.Class({
                         }
                         break;
                     case 8:
-                        if (this.itemArr.length > 4 && !revive) {
+                        if (this.itemArr.length > 4) {
                             //let item = cc.instantiate(this.itemArr[4]);
                             let item = this.itemPoolArray[4].shift();
                             if(item == null)
@@ -1193,7 +1197,7 @@ cc.Class({
                         }
                         break;
                     case 9:
-                        if (this.itemArr.length > 5 && !revive) {
+                        if (this.itemArr.length > 5) {
                             //let item = cc.instantiate(this.itemArr[5]);
                             let item = this.itemPoolArray[5].shift();
                             if(item == null)
