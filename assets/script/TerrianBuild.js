@@ -125,7 +125,7 @@ cc.Class({
 
         this.idx = 0;
 
-        this.buildSumX = - this.halfSize * 2 + this.halfWidth;
+        this.buildSumX = - this.halfSize * 2;
         this.buildSumY = 0;
 
         this.terrainPerfectArr = new Array();
@@ -382,6 +382,7 @@ cc.Class({
         }
 
 
+
         let curCp = this.CheckPointMgr.getCurCp();
         if(curCp != null) {
             // this.bgm.setCurrentTime(curCp.idx * 0.4);
@@ -423,7 +424,7 @@ cc.Class({
             // this.bgm.setCurrentTime(0);
             // this.bgm.play();
             this.idx = 0;
-            this.lineSumX = this.halfWidth;
+            this.lineSumX = this.halfSize;
             this.lineSumY = 0;
             this.terrainIdx = 0;
             this.terrainSumX = ((this.terrainArr[this.terrainIdx].length - 1)* this.halfSize * 2) * this.directionArr[this.baseDirection].x;
@@ -491,7 +492,7 @@ cc.Class({
         this.time = 0;
         if(this.baseDirection === 0 || this.baseDirection === 2) {
             //this.lineSumX = this.lineMaxSize * this.directionArr[this.baseDirection].x;
-            this.lineSumX = this.halfWidth;
+            this.lineSumX = this.halfSize;
             //this.lineSumX = 0;
             this.lineSumY = 0;
             this.terrainSumX = ((this.terrainArr[this.terrainIdx].length - 1)* this.halfSize * 2) * this.directionArr[this.baseDirection].x;
@@ -523,7 +524,7 @@ cc.Class({
         }
         //LineMgr.getInstance().addLine(this.line,this.linePool);
         //line.getComponent('SelfDestroy').setPool(this.linePool);
-        this.line.position = new cc.Vec2(this.baseLinePostion.x + this.halfWidth, this.baseLinePostion.y);
+        this.line.position = new cc.Vec2(this.baseLinePostion.x + this.lineSumX, this.baseLinePostion.y + this.lineSumY);
         //this.line.active = true;
         if (this.line != null) {
             this.line.zIndex = 998;
