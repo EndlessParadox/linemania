@@ -65,6 +65,7 @@ cc.Class({
                         sceneName = self.sceneName + "_Hard";
                         break;
                 }
+
                 let load = self.uiLoad.getComponent('UILoading');
                 if(load != null)
                 {

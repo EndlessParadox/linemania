@@ -165,6 +165,39 @@ cc.Class({
         }.bind(this));
     },
 
+    setIdx(idx)
+    {
+        let autoOffset = idx * (1 / (this.spriteArr.length - 1));
+        for(let i = 0; i < this.spriteArr.length; i ++)
+        {
+            if(i !== idx)
+            {
+                this.spriteArr[i].setScale(0.6);
+                this.spriteArr[i].opacity = 153;
+            }
+            else {
+                this.spriteArr[i].setScale(1);
+                this.spriteArr[i].opacity = 255;
+                // this.spriteArr[i].Size = new cc.Vec2(800,404);
+            }
+        }
+        this.upArrow.active = idx !== 0;
+        this.downArrow.active = idx !== this.spriteArr.length - 1;
+        this.sv.scrollToPercentVertical(1 - autoOffset,0);
+
+        let data = {
+            level:idx,
+            recordArr:this.recordArr[idx],
+            sceneName:this.sceneArr[idx],
+        };
+        let level = this.uiLevel.getComponent('UILevel');
+        if(level != null)
+        {
+            level.setData(data);
+        }
+        this.uiLevel.active = true;
+    },
+
     update (dt) {
     },
 });

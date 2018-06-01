@@ -2218,7 +2218,7 @@
     "_scaleY": 0.8,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 0,
+      "x": 240,
       "y": -331
     },
     "_skewX": 0,
@@ -2376,7 +2376,7 @@
     "_scaleY": 0.8,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 240,
+      "x": 0,
       "y": -331
     },
     "_skewX": 0,
@@ -3617,7 +3617,7 @@
     },
     "_enabled": true,
     "_clip": {
-      "__uuid__": "a2d3ab5d-779f-4e03-a42a-1096e6b826bb"
+      "__uuid__": "d595767a-c38a-4716-8d18-2b5bf889579b"
     },
     "_volume": 1,
     "_mute": false,

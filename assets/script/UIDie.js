@@ -63,8 +63,19 @@ cc.Class({
 
         this.btnBack.node.on('click',function()
         {
-            cc.director.loadScene("MenuScene");
+            //cc.director.loadScene("MenuScene");
+            let menuCtrl = cc.find("MenuControl");
+            if(menuCtrl != null)
+            {
+                let ctl = menuCtrl.getComponent("MenuControl");
+                if(ctl != null)
+                {
+                    ctl.setSceneIdx(this.recordIdx);
+                }
+            }
         }.bind(this));
+
+
         this.btnShare.node.on('click',function()
         {
             let self = this;
