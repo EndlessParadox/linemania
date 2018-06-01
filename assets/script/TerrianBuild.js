@@ -602,7 +602,7 @@ cc.Class({
                     comboCount: this.ScoreMgr.getComboCount(),
                     maxCombo: this.ScoreMgr.getMaxCombo(),
                 };
-                this.CheckPointMgr.updateCheck(this.line.position.x, this.line.position.y, this.halfSize, this.time, data, this.DiamondMgr.getDiamondCount());
+                this.CheckPointMgr.updateCheck(this.line.position.x, this.line.position.y, this.halfSize, this.nowTime, data, this.DiamondMgr.getDiamondCount());
                 // LineMgr.getInstance().addLine(line,this.linePool);
                 //console.log(line.position.y + "-----" + this.terrainPerfectArr[this.terrainIdx]);
                 // if(line.position.y === this.terrainPerfectArr[this.terrainIdx])
