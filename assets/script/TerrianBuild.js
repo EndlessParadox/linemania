@@ -447,6 +447,12 @@ cc.Class({
             this.buildTerrain(this.buildTerrainIdx,true);
         }
 
+        for ( let i = 0; i < this.pawArr.length; i ++)
+        {
+            if(this.pawArr[i] != null) {
+                this.pawArr[i].opacity = 0;
+            }
+        }
         // let line;
         // if(LineMgr.getInstance().getLineSize() > 0)
         // {
@@ -674,6 +680,15 @@ cc.Class({
             // if (line != null) {
             //     line.parent = this.bg;
             // }
+
+            if(this.nowTime > this.fullLength)
+            {
+                let camCtrl = this.cam.getComponent("CameraControl");
+                if(camCtrl != null)
+                {
+                    camCtrl.target = null;
+                }
+            }
 
             if (this.nowDirecion === 0 || this.nowDirecion === 2) {
                 //console.log(this.lineSumX + "!" + this.terrainSumX);
