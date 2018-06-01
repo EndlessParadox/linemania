@@ -421,7 +421,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 0,
-      "height": 50
+      "height": 55.56
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -429,8 +429,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 180,
-      "y": 560
+      "x": -250,
+      "y": 600
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -452,7 +452,9 @@
     "_fontSize": 50,
     "_lineHeight": 50,
     "_enableWrapText": true,
-    "_N$file": null,
+    "_N$file": {
+      "__uuid__": "7f6f0389-2a2d-476b-abaa-cf7ed666d250"
+    },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "",
@@ -830,9 +832,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 61,
-      "g": 66,
-      "b": 112,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -2793,7 +2795,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "a23235d1-15db-4b95-8439-a2e005bfff91"
+      "__uuid__": "93f35da3-52f9-4bb4-bb94-f656099c7505"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -3769,10 +3771,10 @@
       "__id__": 22
     },
     "bgmName": "黄昏",
-    "sceneName": "GameScene_Dawn _Normal",
+    "sceneName": "GameScene_Dawn_Normal",
     "resumeChance": 1,
     "fullLength": 120,
-    "recordIdx": 1,
+    "recordIdx": 3,
     "recordLevelIdx": 1,
     "minBeat": 0.25,
     "standardBeat": 0,
