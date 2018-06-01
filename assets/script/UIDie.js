@@ -200,7 +200,7 @@ cc.Class({
 
         } else {
             //cc.log("提交得分: x1 : " + score);
-            let record = localStorage.getItem('record' + this.recordIdx);
+            let record = localStorage.getItem('record' + this.recordIdx + "_" + this.recordLevelIdx);
             if (record != null) {
                 localStorage.setItem('record' + this.recordIdx + "_" + this.recordLevelIdx, Math.max(parseInt(record), parseInt(this.record)));
             }
