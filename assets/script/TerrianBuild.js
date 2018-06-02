@@ -1018,12 +1018,12 @@ cc.Class({
                     }
                     break;
                 case '3':
-                    this.direction = 3;
-                    this.terrainPerfectArr.push(this.basePostion.x + (2 * this.sumX) * this.halfSize);
-                    if( i !== 0) {
+                    this.direction = 1;
+                    this.terrainPerfectArr.push(this.basePostion.x + (2 * this.sumX) * this.halfSize + this.halfWidth);
+                    if(i !== 0) {
                         perfectShow = cc.instantiate(this.perfectShow);
                         if (perfectShow != null) {
-                            perfectShow.position = new cc.Vec2(this.basePostion.x + (2 * this.sumX) * this.halfSize, this.basePostion.y + (2 * this.sumY) * this.halfSize);
+                            perfectShow.position = new cc.Vec2(this.basePostion.x + (2 * this.sumX) * this.halfSize + this.halfWidth, this.basePostion.y + (2 * this.sumY) * this.halfSize);
                             perfectShow.zIndex = 996;
                             perfectShow.parent = this.bg;
                         }
@@ -1119,7 +1119,7 @@ cc.Class({
                     terrain.position = new cc.Vec2(this.basePostion.x + (2 * this.sumX) * this.halfSize + this.halfWidth, this.basePostion.y + (2 * this.sumY) * this.halfSize);
 
                     this.CheckPointMgr.addCheckPoint(terrain.position.x, terrain.position.y, this.idx, this.direction, i, this.buildSumX, this.buildSumY,terrainIdx,baseSumX,baseSumY,baseBuildSumX,baseBuildSumY,baseIdx,nowTerrainPosX,nowTerrainPosY,baseItemIdx);
-                    terrain.zIndex = 996;
+                    terrain.zIndex = 995;
                     terrain.parent = this.bg;
                     location = terrain.position;
                 }
