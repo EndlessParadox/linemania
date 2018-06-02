@@ -96,6 +96,11 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
+        if(this.directionArr.length > 3)
+        {
+            this.directionArr[3] = new cc.Vec2(0,1);
+        }
+
         this.gp.node.zIndex = 990;
         this.gpSec.node.zIndex = 989;
         this.multi = 1;
@@ -762,7 +767,7 @@ cc.Class({
             }
             else {
                 //console.log(this.lineSumY + "!" + this.terrainSumY);
-                if (((this.lineSumY >= this.terrainSumY + this.lineMaxSize) && (this.nowDirecion === 1)) || ((this.lineSumY <= this.terrainSumY - this.lineMaxSize) && (this.nowDirecion === 3))) {
+                if (((this.lineSumY >= this.terrainSumY + this.lineMaxSize))) {
                     this.terrainIdx++;
                     if (this.terrainIdx >= this.terrainArr.length) {
                         //alert("发出胜利的声音");
