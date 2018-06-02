@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "e1f8b97c-5a7c-4ae8-af31-2c76fa5f1cdb",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "普通难度": {
+      "ver": "1.0.3",
+      "uuid": "52790a42-542f-4220-81ab-4e17092d7e3e",
+      "rawTextureUuid": "e1f8b97c-5a7c-4ae8-af31-2c76fa5f1cdb",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 2.5,
+      "offsetY": 1,
+      "trimX": 11,
+      "trimY": 7,
+      "width": 197,
+      "height": 199,
+      "rawWidth": 214,
+      "rawHeight": 215,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

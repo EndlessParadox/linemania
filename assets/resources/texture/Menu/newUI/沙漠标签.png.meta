@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "8a104233-17d1-400e-bf7e-0ce461545e08",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "沙漠标签": {
+      "ver": "1.0.3",
+      "uuid": "cb28ce14-cc6b-446b-b3f7-cfba3e80e84a",
+      "rawTextureUuid": "8a104233-17d1-400e-bf7e-0ce461545e08",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 1.5,
+      "offsetY": 0.5,
+      "trimX": 3,
+      "trimY": 0,
+      "width": 431,
+      "height": 554,
+      "rawWidth": 434,
+      "rawHeight": 555,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

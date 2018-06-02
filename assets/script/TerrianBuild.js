@@ -102,7 +102,9 @@ cc.Class({
         }
 
         this.gp.node.zIndex = 990;
-        this.gpSec.node.zIndex = 989;
+        if(this.gpSec != null) {
+            this.gpSec.node.zIndex = 989;
+        }
         this.multi = 1;
         if(this.minBeat === 0 &&  this.beatDivisor !== 0)
         {
@@ -802,7 +804,7 @@ cc.Class({
                     this.terrainSumY += this.halfWidth * this.directionArr[parseInt(this.terrainArr[this.terrainIdx - 1].slice(0, 1))].y;
                 }
                 else {
-                    //console.log(this.lineSumX + "!" + this.terrainSumX);
+                    console.log(this.lineSumX + "!" + this.terrainSumX);
                     if (this.lineSumX > this.terrainSumX + this.halfWidth - this.lineMaxSize || this.lineSumX < this.terrainSumX - this.halfWidth + this.lineMaxSize) {
                         console.log('die2');
                         this.bOver = true;
@@ -1043,8 +1045,8 @@ cc.Class({
                 this.terrainPosX -= this.directionArr[parseInt((this.terrainArr[i - 1].slice(0,1)))].y * ( this.halfWidth - this.halfSize * this.multi );
             }
             else {
-                this.buildSumX += ((this.terrainArr[i].length - 1) * this.halfSize * 2 + this.halfWidth) * this.directionArr[this.direction].x;
-                this.buildSumY += ((this.terrainArr[i].length - 1) * this.halfSize * 2 + this.halfWidth) * this.directionArr[this.direction].y;
+                this.buildSumX += ((this.terrainArr[i].length) * this.halfSize * 2 ) * this.directionArr[this.direction].x;
+                this.buildSumY += ((this.terrainArr[i].length) * this.halfSize * 2 ) * this.directionArr[this.direction].y;
             }
 
             // console.log(this.buildSumX);
@@ -1101,13 +1103,15 @@ cc.Class({
             this.gp.lineTo(new cc.Vec2(terrain.position.x + terrain.width / 2 , terrain.position.y + terrain.height / 2));
             this.gp.stroke();
 
-            this.gpSec.moveTo(new cc.Vec2(terrain.position.x - terrain.width / 2 , terrain.position.y - terrain.height / 2));
-            this.gpSec.lineTo(new cc.Vec2(terrain.position.x - terrain.width / 2 , terrain.position.y + terrain.height / 2));
-            this.gpSec.lineTo(new cc.Vec2(terrain.position.x + terrain.width / 2 , terrain.position.y + terrain.height / 2));
-            this.gpSec.moveTo(new cc.Vec2(terrain.position.x - terrain.width / 2 , terrain.position.y - terrain.height / 2));
-            this.gpSec.lineTo(new cc.Vec2(terrain.position.x + terrain.width / 2 , terrain.position.y - terrain.height / 2));
-            this.gpSec.lineTo(new cc.Vec2(terrain.position.x + terrain.width / 2 , terrain.position.y + terrain.height / 2));
-            this.gpSec.stroke();
+            if(this.gpSec != null) {
+                this.gpSec.moveTo(new cc.Vec2(terrain.position.x - terrain.width / 2, terrain.position.y - terrain.height / 2));
+                this.gpSec.lineTo(new cc.Vec2(terrain.position.x - terrain.width / 2, terrain.position.y + terrain.height / 2));
+                this.gpSec.lineTo(new cc.Vec2(terrain.position.x + terrain.width / 2, terrain.position.y + terrain.height / 2));
+                this.gpSec.moveTo(new cc.Vec2(terrain.position.x - terrain.width / 2, terrain.position.y - terrain.height / 2));
+                this.gpSec.lineTo(new cc.Vec2(terrain.position.x + terrain.width / 2, terrain.position.y - terrain.height / 2));
+                this.gpSec.lineTo(new cc.Vec2(terrain.position.x + terrain.width / 2, terrain.position.y + terrain.height / 2));
+                this.gpSec.stroke();
+            }
 
             this.terrainPosX += (this.directionArr[this.direction].x === 0 ? 0 : 1) * this.halfSize * this.multi + (this.directionArr[this.direction].x === 0 ? 0 : 1) * this.halfWidth;
             this.terrainPosY += (this.directionArr[this.direction].y === 0 ? 0 : 1) * this.halfSize * this.multi + (this.directionArr[this.direction].y === 0 ? 0 : 1) * this.halfWidth;

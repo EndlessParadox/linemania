@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "8b83d298-cf73-4a89-ba12-2c54c17c0503",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "新纪录": {
+      "ver": "1.0.3",
+      "uuid": "128bb6b9-ca05-416e-9b34-5619fcb1e393",
+      "rawTextureUuid": "8b83d298-cf73-4a89-ba12-2c54c17c0503",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 6,
+      "offsetY": -8.5,
+      "trimX": 20,
+      "trimY": 18,
+      "width": 96,
+      "height": 110,
+      "rawWidth": 124,
+      "rawHeight": 129,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
