@@ -802,7 +802,7 @@ cc.Class({
                     this.terrainSumY += this.halfWidth * this.directionArr[parseInt(this.terrainArr[this.terrainIdx - 1].slice(0, 1))].y;
                 }
                 else {
-                    console.log(this.lineSumX + "!" + this.terrainSumX);
+                    //console.log(this.lineSumX + "!" + this.terrainSumX);
                     if (this.lineSumX > this.terrainSumX + this.halfWidth - this.lineMaxSize || this.lineSumX < this.terrainSumX - this.halfWidth + this.lineMaxSize) {
                         console.log('die2');
                         this.bOver = true;
@@ -959,6 +959,19 @@ cc.Class({
         // if(!revive) {
         // }
 
+        let baseSumX = this.sumX;
+        let baseSumY = this.sumY;
+
+        let baseBuildSumX = this.buildSumX;
+        let baseBuildSumY = this.buildSumY;
+
+        let baseIdx = this.idx;
+
+        let nowTerrainPosX = this.terrainPosX;
+        let nowTerrainPosY = this.terrainPosY;
+
+        let baseItemIdx = this.itemIdx;
+
         //创建
         let count = this.preBuildCount;
         if(terrainIdx + count > this.terrainArr.length) {
@@ -1030,23 +1043,9 @@ cc.Class({
                 this.terrainPosX -= this.directionArr[parseInt((this.terrainArr[i - 1].slice(0,1)))].y * ( this.halfWidth - this.halfSize * this.multi );
             }
             else {
-                this.buildSumX += ((this.terrainArr[i].length - 1) * this.halfSize * 2 + this.halfSize + this.halfWidth) * this.directionArr[this.direction].x;
-                this.buildSumY += ((this.terrainArr[i].length - 1) * this.halfSize * 2 + this.halfSize + this.halfWidth) * this.directionArr[this.direction].y;
+                this.buildSumX += ((this.terrainArr[i].length - 1) * this.halfSize * 2 + this.halfWidth) * this.directionArr[this.direction].x;
+                this.buildSumY += ((this.terrainArr[i].length - 1) * this.halfSize * 2 + this.halfWidth) * this.directionArr[this.direction].y;
             }
-
-
-            let baseSumX = this.sumX;
-            let baseSumY = this.sumY;
-
-            let baseBuildSumX = this.buildSumX;
-            let baseBuildSumY = this.buildSumY;
-
-            let baseIdx = this.idx;
-
-            let nowTerrainPosX = this.terrainPosX;
-            let nowTerrainPosY = this.terrainPosY;
-
-            let baseItemIdx = this.itemIdx;
 
             // console.log(this.buildSumX);
             // console.log(this.buildSumY);
@@ -1125,7 +1124,7 @@ cc.Class({
                     terrain.position = new cc.Vec2(this.basePostion.x + (2 * this.sumX) * this.halfSize + this.halfWidth, this.basePostion.y + (2 * this.sumY) * this.halfSize);
 
                     this.CheckPointMgr.addCheckPoint(terrain.position.x, terrain.position.y, this.idx, this.direction, i, this.buildSumX, this.buildSumY,terrainIdx,baseSumX,baseSumY,baseBuildSumX,baseBuildSumY,baseIdx,nowTerrainPosX,nowTerrainPosY,baseItemIdx);
-                    terrain.zIndex = 999;
+                    terrain.zIndex = 995;
                     terrain.parent = this.bg;
                     location = terrain.position;
                 }
