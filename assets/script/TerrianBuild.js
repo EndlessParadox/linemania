@@ -67,6 +67,7 @@ cc.Class({
         perfectShow:cc.Prefab,
         // baseBgTerrain:cc.Prefab,
         gp:cc.Graphics,
+        gpSec:cc.Graphics,
         help:cc.Node,
         restart:cc.Node,
         NTD:false,
@@ -96,6 +97,7 @@ cc.Class({
 
     onLoad () {
         this.gp.node.zIndex = 990;
+        this.gpSec.node.zIndex = 989;
         this.multi = 1;
         if(this.minBeat === 0 &&  this.beatDivisor !== 0)
         {
@@ -1093,6 +1095,14 @@ cc.Class({
             this.gp.lineTo(new cc.Vec2(terrain.position.x + terrain.width / 2 , terrain.position.y - terrain.height / 2));
             this.gp.lineTo(new cc.Vec2(terrain.position.x + terrain.width / 2 , terrain.position.y + terrain.height / 2));
             this.gp.stroke();
+
+            this.gpSec.moveTo(new cc.Vec2(terrain.position.x - terrain.width / 2 , terrain.position.y - terrain.height / 2));
+            this.gpSec.lineTo(new cc.Vec2(terrain.position.x - terrain.width / 2 , terrain.position.y + terrain.height / 2));
+            this.gpSec.lineTo(new cc.Vec2(terrain.position.x + terrain.width / 2 , terrain.position.y + terrain.height / 2));
+            this.gpSec.moveTo(new cc.Vec2(terrain.position.x - terrain.width / 2 , terrain.position.y - terrain.height / 2));
+            this.gpSec.lineTo(new cc.Vec2(terrain.position.x + terrain.width / 2 , terrain.position.y - terrain.height / 2));
+            this.gpSec.lineTo(new cc.Vec2(terrain.position.x + terrain.width / 2 , terrain.position.y + terrain.height / 2));
+            this.gpSec.stroke();
 
             this.terrainPosX += (this.directionArr[this.direction].x === 0 ? 0 : 1) * this.halfSize * this.multi + (this.directionArr[this.direction].x === 0 ? 0 : 1) * this.halfWidth;
             this.terrainPosY += (this.directionArr[this.direction].y === 0 ? 0 : 1) * this.halfSize * this.multi + (this.directionArr[this.direction].y === 0 ? 0 : 1) * this.halfWidth;

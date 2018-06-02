@@ -10,7 +10,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Dust_Item5",
+    "_name": "TerrainBase",
     "_objFlags": 0,
     "_parent": null,
     "_children": [],
@@ -29,8 +29,8 @@
     "_color": {
       "__type__": "cc.Color",
       "r": 255,
-      "g": 255,
-      "b": 255,
+      "g": 213,
+      "b": 123,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -41,11 +41,11 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 369,
-      "height": 382
+      "width": 40,
+      "height": 40
     },
-    "_rotationX": 45,
-    "_rotationY": 45,
+    "_rotationX": 0,
+    "_rotationY": 0,
     "_scaleX": 1,
     "_scaleY": 1,
     "_position": {
@@ -69,10 +69,10 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "0d2672f4-bd0d-4b3e-b063-95f19b4d5c97"
+      "__uuid__": "fe0fc1a4-4e62-45d3-a221-c57cf6a342c0"
     },
     "_type": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillType": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
@@ -92,9 +92,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "8fe22e57-ca00-4657-ab01-bdc11a18912e"
+      "__uuid__": "54187d54-ed5c-4af0-858d-5889f9eabea2"
     },
-    "fileId": "cafDa2GAJPrYzquEwkNy9X",
+    "fileId": "9ekTwazfZJcZxHu9YGUsyM",
     "sync": false
   }
 ]

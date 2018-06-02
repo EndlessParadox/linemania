@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "5d98c54e-b1b4-4e1e-b95e-b432f560336b",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "金字塔01": {
+      "ver": "1.0.3",
+      "uuid": "f90cde86-a78e-450e-9d41-2adcf17f60c9",
+      "rawTextureUuid": "5d98c54e-b1b4-4e1e-b95e-b432f560336b",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -4.5,
+      "offsetY": -14.5,
+      "trimX": 47,
+      "trimY": 87,
+      "width": 520,
+      "height": 474,
+      "rawWidth": 623,
+      "rawHeight": 619,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
